@@ -6,5 +6,5 @@ git branch
 git checkout develop
 
 git branch
-* develop
+* develop  
 master

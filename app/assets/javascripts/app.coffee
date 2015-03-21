@@ -1,2 +1,2 @@
-receta = angular.module('receta',[
+Whaler-ui = angular.module('Whaler-ui',[
 ])

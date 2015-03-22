@@ -1,2 +1,2 @@
-Whaler-ui = angular.module('Whaler-ui',[
+whalerUi = angular.module('whalerUi',[
 ])

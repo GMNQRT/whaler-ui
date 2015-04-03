@@ -1,2 +1,0 @@
-whalerUi = angular.module('layer',[
-])

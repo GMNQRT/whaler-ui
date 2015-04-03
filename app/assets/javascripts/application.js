@@ -13,4 +13,13 @@
 //= require jquery
 //= require jquery_ujs
 //= require angular/angular
-//= require_tree .
+//= require angular-route/angular-route
+//= require angular-resource/angular-resource
+//= require angular-cookies/angular-cookies
+//= require angular-rails-templates
+//= require ./app
+//= require_tree ./filters
+//= require_tree ./services
+//= require_tree ./directives
+//= require_tree ./controllers
+//= require_tree ./factories

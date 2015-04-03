@@ -51,7 +51,11 @@ module WhalerUi
     
     # Raises error for missing translations
     # config.action_view.raise_on_missing_translations = true
-    
+
+    config.angular_templates.module_name    = 'templates'
+    config.angular_templates.ignore_prefix  = %w(templates/)
+    # config.angular_templates.markups        = %w(erb str haml slim md)
+    config.angular_templates.htmlcompressor = false
 
 
     config.active_record.raise_in_transactional_callbacks = true

@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   def index
   end
 
-  def toto
+  def home
     render layout: false
   end
 end

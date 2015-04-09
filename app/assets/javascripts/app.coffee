@@ -17,15 +17,18 @@ angular.module('whaler', [
   '$httpProvider'
   ($routeProvider, $locationProvider, $resourceProvider, $httpProvider) ->
     $routeProvider.when '/',
-      templateUrl: '/toto'
+      templateUrl: '/home'
       controller: 'HomeController'
+    $routeProvider.when '/images',
+      templateUrl: '/images'
+      controller: 'ImageController'
     $routeProvider.when '/container',
       templateUrl: '/container'
       controller: 'ContainerController'
     $routeProvider.otherwise '/'
 
     $resourceProvider.defaults.stripTrailingSlashes = true
-    $locationProvider.html5Mode(true).hashPrefix('!')
+    $locationProvider.html5Mode(false).hashPrefix('!')
     return
 ])
 .run(['$rootScope', '$route', '$location', ($rootScope, $route, $location) ->

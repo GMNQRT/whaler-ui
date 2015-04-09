@@ -4,9 +4,7 @@ SimpleNavigation::Configuration.run do |navigation|
   navigation.items do |primary|
     primary.dom_class = 'nav navbar-nav'
     primary.item :home, 'Home', prefix
-    primary.item :container, 'Contener', prefix + "container"
-    # primary.item :menu_about_us, 'About Us', about_us_path
-    # primary.item :menu_blog, 'Blog', posts_path
-    # primary.item :menu_contact_us, 'Contact Us', contact_us_path
+    primary.item :container, 'Conteners', prefix + "container"
+    primary.item :image, 'Images', prefix + "images"
   end
-end 
+end

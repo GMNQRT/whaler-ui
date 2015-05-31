@@ -4,18 +4,19 @@ angular.module('whaler', [
   'ngCookies'
   'templates'
   'whaler.filters'
+  'whaler.provider'
   'whaler.services'
   'whaler.factories'
   'whaler.directives'
   'whaler.controllers'
 ])
-.value('version', '1.0')
 .config([
   '$routeProvider'
   '$locationProvider'
   '$resourceProvider'
   '$httpProvider'
-  ($routeProvider, $locationProvider, $resourceProvider, $httpProvider) ->
+  'APIProvider'
+  ($routeProvider, $locationProvider, $resourceProvider, $httpProvider, APIProvider) ->
     $routeProvider.when '/',
       templateUrl: '/home'
       controller: 'HomeController'
@@ -27,6 +28,7 @@ angular.module('whaler', [
       controller: 'ContainerController'
     $routeProvider.otherwise '/'
 
+    APIProvider.scheme('http').url('localhost').port('3000')
     $resourceProvider.defaults.stripTrailingSlashes = true
     $locationProvider.html5Mode(false).hashPrefix('!')
     return
@@ -46,3 +48,4 @@ angular.module 'whaler.services', []
 angular.module 'whaler.directives', []
 angular.module 'whaler.controllers', []
 angular.module 'whaler.factories', []
+angular.module 'whaler.provider', []

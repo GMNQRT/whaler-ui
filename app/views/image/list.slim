@@ -1,43 +1,23 @@
 .row
-  .col-xs-12.col-sm-12.col-md-12.col-lg-12
-    p listImage.slim
-.row ng-repeat="image in values"
-  .col-xs-12.col-sm-12.col-md-12.col-lg-12
-    p Id: #{'{{ image.id }}'}
-    table.table.table-bordered
-      tr
-        th.text-center colspan="2" Informations
-      tr
-        th Created
-        td #{'{{ image.info.Created }}'}
-      tr
-        th ParentId
-        td #{'{{ image.info.ParentId }}'}
-      tr
-        th RepoTags
-        td #{'{{ image.info.RepoTags }}'}
-      tr
-        th Size
-        td #{'{{ image.info.Size }}'}
-      tr
-        th VirtualSize
-        td #{'{{ image.info.VirtualSize }}'}
-    table.table.table-bordered
-      tr
-        th.text-center colspan="2" Connection
-      tr
-        th url
-        td #{'{{ image.connection.url }}'}
-      tr
-        th client_cert
-        td #{'{{ image.connection.options.client_cert }}'}
-      tr
-        th client_key
-        td #{'{{ image.connection.options.client_key }}'}
-      tr
-        th ssl_ca_file
-        td #{'{{ image.connection.options.ssl_ca_file }}'}
-      tr
-        th scheme
-        td #{'{{ image.connection.options.scheme }}'}
-    hr
+  = bootstrap_form_tag  url: '/subscribe' do |f|
+    = f.text_field :term, placeholder: 'Enter search term...', help: 'Examples: Rails, redis, MGINX ...', skip_label: true, wrapper_class: 'col-xs-10', data: { 'ng-model' => 'term', 'ng-model-options' => '{ debounce: 250 }'}
+    = f.form_group class: 'col-xs-2' do
+      button.btn.btn-primary
+        i.glyphicon.glyphicon-search'
+        | Search
+
+
+.row.image-info ng-repeat="image in images"
+  .col-xs-2.no-padding.thumb ng-class="{ 'official': image.info.is_official }" {{ getThumbText(image) }}
+  .col-xs-7
+    h3 {{ image.info.name }}
+    p {{ image.info.description }}
+  .col-xs-1.rating
+    span.badge
+      | {{ image.info.star_count }}
+      =< glyph :star, class: 'pull-right'
+
+  .col-xs-2.actions
+    a.btn.btn-primary
+      | Run Image
+      = glyph :play, class: 'pull-right'

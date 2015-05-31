@@ -3,6 +3,5 @@ angular.module('whaler.factories').service 'ImageFactory', ['$resource', 'API', 
     id: '@id'
     format: 'json'
   ,
-    # last: { url: '"$$ baseAPI() $$"/articles/last', method:'GET', isArray: true }
-    # related: { url: '"$$ baseAPI() $$"/articles/:slug/related', method:'GET', isArray: true }
+    search: { url: API.generateResourceUrl('image/search'), method:'GET', isArray: true }
 ]

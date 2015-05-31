@@ -3,6 +3,31 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
-& {
-  background-color: red !important;
+.row.image-info
+{
+  height: 150px;
+  margin-bottom: 20px;
+  border: 1px solid $gray-lighter;
+
+  .thumb {
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    line-height: 149px;
+    background-color: $gray-light;
+  }
+  .thumb.official {
+    background-color: $yellow-3;
+  }
+
+  .btn
+  {
+    font-weight: bold;
+
+    i {
+      font-size: 0.8em;
+      vertical-align: text-top;
+      margin-left: 20px;
+    }
+  }
 }

@@ -1,15 +1,20 @@
 angular.module('whaler.controllers').controller 'ImageController', [
   '$scope',
   '$http',
+  '$timeout',
   'ImageFactory',
-  ($scope, $http, ImageFactory) ->
-    console.log 'ImageController'
+  ($scope, $http, $timeout, ImageFactory) ->
+    $scope.term = ''
+    $scope.images = []
+    $scope.$watch 'term', (val) ->
+      return unless val || val.length > 0
 
-    console.log ImageFactory
-    $factories = ImageFactory.query () ->
-    # $http.get('http://localhost:3000/images.json').success((data, status, headers, config) ->
-    #   $scope.values = data
-    #   console.log data
-    # ).error (data, status, headers, config) ->
-    #   console.log data
+      ImageFactory.search { term: val }, (images) ->
+        $scope.images = images
+
+    $scope.getThumbText = (image) ->
+      switch
+        when image.info.is_official then 'Official'
+        when image.info.is_trusted then 'Trusted'
+        else 'Unknow'
 ]

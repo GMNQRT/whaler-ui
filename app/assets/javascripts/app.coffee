@@ -26,6 +26,12 @@ angular.module('whaler', [
     $routeProvider.when '/container',
       templateUrl: '/container'
       controller: 'ContainerController'
+    $routeProvider.when '/users/sign_in',
+      templateUrl: '/users/sign_in'
+      controller: 'SessionsController'
+    $routeProvider.when '/users/sign_up',
+      templateUrl: '/users/sign_up'
+      controller: 'RegistrationsController'
     $routeProvider.otherwise '/'
 
     APIProvider.scheme('http').url('localhost').port('3000')

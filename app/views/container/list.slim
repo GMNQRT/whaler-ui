@@ -1,9 +1,9 @@
+br
 .row
-  .col-xs-12.col-sm-12.col-md-12.col-lg-12
-    p listContener.slim
-.row ng-repeat="container in values"
-  .col-xs-12.col-sm-12.col-md-12.col-lg-12
-    p Name: #{'{{ container.info.Names }}'}
-    p Crée le #{'{{ container.info.Created }}'}
-    p Image: #{'{{ container.info.Image }}'}
-    hr
+  .col-xs-12.col-sm-6.col-md-4.col-lg-4 ng-repeat="container in values"
+    .thumbnail
+      .caption
+        h3 {{ container.info.Names[0] }}
+        p Create at {{ container.info.Created | date:'yyyy-MM-dd HH:mm:ss' }}
+        p Image : {{ container.info.Image }}
+        a href="#" More info

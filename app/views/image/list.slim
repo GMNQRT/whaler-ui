@@ -1,14 +1,19 @@
-.row
-  = bootstrap_form_tag  url: '/subscribe' do |f|
-    = f.text_field :term, placeholder: 'Enter search term...', help: 'Examples: Rails, redis, NGINX ...', skip_label: true, wrapper_class: 'col-xs-10', data: { 'ng-model' => 'term', 'ng-model-options' => '{ debounce: 250 }'}
-    = f.form_group class: 'col-xs-2' do
-      button.btn.btn-primary
-        i.glyphicon.glyphicon-search'
-        | Search
+#searchForm.row
+  = bootstrap_form_tag url: '' do |f|
+      = f.text_field :term,
+        placeholder: 'Enter search term...',
+        help: 'Examples: Rails, redis, NGINX ...',
+        skip_label: true,
+        wrapper_class: 'col-xs-10',
+        data: { 'ng-model' => 'term', 'ng-model-options' => '{ debounce: 250 }', 'ng-change' => 'ctrl.searchImage(term)' }
 
+      = f.form_group class: 'col-xs-2 no-padding' do
+        button.btn.btn-primary.btn-block type="submit" ng-click="ctrl.searchImage(term)"
+          i.glyphicon.glyphicon-search>
+          | Search
 
-.row.image-info ng-repeat="image in images"
-  .col-xs-2.no-padding.thumb ng-class="{ 'official': image.info.is_official }" {{ getThumbText(image) }}
+.row.image-info ng-repeat="image in ctrl.images"
+  .col-xs-2.no-padding.thumb ng-class="{ 'official': image.info.is_official }" {{ ctrl.getThumbText(image) }}
   .col-xs-7
     h3 {{ image.info.name }}
     p {{ image.info.description }}

@@ -2,6 +2,13 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+#searchForm {
+  margin-top: $padding-base-horizontal;
+
+  .form-group.col-xs-10 {
+    padding-left: 0;
+  }
+}
 
 .row.image-info
 {

@@ -1,5 +1,5 @@
 #searchForm.row
-  = bootstrap_form_tag url: '' do |f|
+  = bootstrap_form_tag url: '', data: { 'ng-submit' => 'ctrl.searchImage(term, $event)' } do |f|
       = f.text_field :term,
         placeholder: 'Enter search term...',
         help: 'Examples: Rails, redis, NGINX ...',
@@ -8,7 +8,7 @@
         data: { 'ng-model' => 'term', 'ng-model-options' => '{ debounce: 250 }', 'ng-change' => 'ctrl.searchImage(term)' }
 
       = f.form_group class: 'col-xs-2 no-padding' do
-        button.btn.btn-primary.btn-block type="submit" ng-click="ctrl.searchImage(term)"
+        button.btn.btn-primary.btn-block type="submit"
           i.glyphicon.glyphicon-search>
           | Search
 
@@ -23,6 +23,6 @@
       =< glyph :star, class: 'pull-right'
 
   .col-xs-2.actions
-    a.btn.btn-primary
+    a.btn.btn-primary ng-click="ctrl.runImage(image)"
       | Run Image
       = glyph :play, class: 'pull-right'

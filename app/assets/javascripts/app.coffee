@@ -45,6 +45,7 @@ angular.module('whaler', [
     $routeProvider.otherwise '/'
 
     APIProvider.scheme('http').url('localhost').port('3000')
+    $httpProvider.defaults.headers.common['X-CSRF-TOKEN'] = $('meta[name=csrf-token]').attr('content')
     $resourceProvider.defaults.stripTrailingSlashes = true
     $locationProvider.html5Mode(false).hashPrefix('!')
     return

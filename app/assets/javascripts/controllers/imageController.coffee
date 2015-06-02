@@ -7,8 +7,9 @@ angular.module('whaler.controllers').controller 'ImageController', [
     return
 ]
 
-ImageController::searchImage = (val) ->
-  return unless val || val.length > 0
+ImageController::searchImage = (val, $event) ->
+  $event?.preventDefault()
+  return if !val || val.length == 0
 
   @ImageFactory.search { term: val }, (images) =>
     @images = images
@@ -18,3 +19,9 @@ ImageController::getThumbText = (image) ->
     when image.info.is_official then 'Official'
     when image.info.is_trusted then 'Trusted'
     else 'Unknow'
+
+ImageController::runImage = (image) ->
+  console.log image
+
+  @ImageFactory.save { fromImage: image.id }, (images) =>
+    console.log images

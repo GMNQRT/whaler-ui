@@ -17,9 +17,12 @@ angular.module('whaler.provider').provider 'API', [() ->
     config.port = port
     return @
 
-  @$get = [ () ->
-    baseUrl: () ->
-      "#{config.scheme}://#{config.url}:#{config.port}/"
+  @baseUrl = () ->
+    "#{config.scheme}://#{config.url}:#{config.port}/"
+
+  @$get = [ () =>
+    baseUrl: () =>
+      @baseUrl
 
     generateResourceUrl: (path) ->
       "#{config.scheme}://#{config.url}:#{config.port}/#{path}.:format"

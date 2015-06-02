@@ -3,5 +3,4 @@ angular.module('whaler.factories').service 'ContainerFactory', ['$resource', 'AP
     id: '@id'
     format: 'json'
   ,
-    search: { url: API.generateResourceUrl('image/search'), method:'GET', isArray: true }
 ]

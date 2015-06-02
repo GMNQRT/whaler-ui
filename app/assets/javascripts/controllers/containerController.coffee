@@ -1,11 +1,11 @@
 angular.module('whaler.controllers').controller 'ContainerController', [
-  '$scope',
-  '$http',
-  ($scope, $http) ->
-    $http.get('http://localhost:3000/container.json').success((data, status, headers, config) ->
-      $scope.values = data
-      console.log data
-    ).error (data, status, headers, config) ->
-      console.log data
-
+  'ContainerFactory',
+  '$routeParams',
+  ContainerController = (@ContainerFactory, @$routeParams) ->
+    @containers = @ContainerFactory.query()
+    @show(@$routeParams['id'])
+    return
 ]
+
+ContainerController::show = (id) ->
+  @container = @ContainerFactory.get({id: id})

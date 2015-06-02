@@ -43,8 +43,8 @@ angular.module('whaler', [
       controller: 'SessionsController'
       controllerAs: 'ctrl'
 
-    $routeProvider.when '/users/sign_up',
-      templateUrl: '/users/sign_up'
+    $routeProvider.when '/users/sign_out',
+      templateUrl: '/users/sign_out'
       controller: 'RegistrationsController'
       controllerAs: 'ctrl'
 

@@ -5,7 +5,12 @@
     "angular-route": "latest",
     "angular-resource": "latest",
     "angular-cookies": "latest",
+<<<<<<< HEAD
+    "bootstrap-sass-official": "latest",
+    "angular-devise": "latest"
+=======
     "angular-devise": "latest",
     "bootstrap-sass-official": "latest"
+>>>>>>> 20e6386bc11d5c5c028efea24506f4c4c43ae6eb
   }
 }

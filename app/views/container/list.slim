@@ -6,4 +6,4 @@ br
         h3 {{ container.info.Names[0] }}
         p Create at {{ container.info.Created | date:'yyyy-MM-dd HH:mm:ss' }}
         p Image : {{ container.info.Image }}
-        a.btn.btn-info ng-href="http://localhost:3001/#!/container/{{ container.id }}" More info
+        a.btn.btn-info ng-href="/#!/container/{{ container.id }}" More info

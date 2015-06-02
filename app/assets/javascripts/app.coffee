@@ -26,6 +26,7 @@ angular.module('whaler', [
       templateUrl: '/images'
       controller: 'ImageController'
       controllerAs: 'ctrl'
+      action: 'helloWorld'
 
     $routeProvider.when '/container',
       templateUrl: '/container'
@@ -63,6 +64,12 @@ angular.module('whaler', [
   $rootScope.$on '$routeChangeSuccess', (ev, data) ->
     $rootScope.controller = data.controller.toLowerCase().replace(/controller/, 'Ctrl') if data.controller?
 
+  $rootScope.$on '$viewContentLoaded', (event) ->
+    if $route.current.controllerAs and $route.current.action
+      if $route.current.scope[$route.current.controllerAs][$route.current.action]
+        $route.current.scope[$route.current.controllerAs][$route.current.action]()
+      else
+        throw "Undefined action '#{$route.current.action}'' on controller '#{$route.current.controllerAs}'"
 ])
 
 angular.module 'whaler.filters', []

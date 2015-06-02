@@ -25,3 +25,7 @@ ImageController::runImage = (image) ->
 
   @ImageFactory.save { fromImage: image.id }, (images) =>
     console.log images
+
+
+ImageController::helloWorld = () ->
+  console.log "Hello world"

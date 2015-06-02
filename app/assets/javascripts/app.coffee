@@ -32,6 +32,11 @@ angular.module('whaler', [
       controller: 'ContainerController'
       controllerAs: 'ctrl'
 
+    $routeProvider.when '/container/:id',
+      templateUrl: '/container/:id'
+      controller: 'ContainerController'
+      controllerAs: 'ctrl'
+
     $routeProvider.when '/users/sign_in',
       templateUrl: '/users/sign_in'
       controller: 'SessionsController'

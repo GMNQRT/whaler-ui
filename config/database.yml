@@ -14,7 +14,7 @@ development:
   <<: *default
   database: whaler
   username: root
-  password: root
+  password: immo8802
   host: localhost
   port: 3306
   # socket: /Applications/MAMP/tmp/mysql/mysql.sock

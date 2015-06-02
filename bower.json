@@ -3,4 +3,5 @@ asset 'angular-route'
 asset 'angular-resource'
 asset 'angular-cookies'
 asset 'bootstrap-sass-official'
+asset 'angular-devise'
 # vim: ft=ruby

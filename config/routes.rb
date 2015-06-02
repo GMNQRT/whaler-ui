@@ -5,5 +5,5 @@ Rails.application.routes.draw do
   get '/images' => 'image#list'
   get '/container' => 'container#list', as: :container
   get '/users/sign_in' => 'sessions#new'
-  get '/users/sign_up' => 'registrations#new'
+  get '/users/sign_out' => 'registrations#new'
 end

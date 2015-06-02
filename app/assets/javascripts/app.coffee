@@ -26,9 +26,15 @@ angular.module('whaler', [
       templateUrl: '/images'
       controller: 'ImageController'
       controllerAs: 'ctrl'
+      action: 'helloWorld'
 
     $routeProvider.when '/container',
       templateUrl: '/container'
+      controller: 'ContainerController'
+      controllerAs: 'ctrl'
+
+    $routeProvider.when '/container/:id',
+      templateUrl: '/container/:id'
       controller: 'ContainerController'
       controllerAs: 'ctrl'
 
@@ -45,6 +51,7 @@ angular.module('whaler', [
     $routeProvider.otherwise '/'
 
     APIProvider.scheme('http').url('localhost').port('3000')
+    $httpProvider.defaults.headers.common['X-CSRF-TOKEN'] = $('meta[name=csrf-token]').attr('content')
     $resourceProvider.defaults.stripTrailingSlashes = true
     $locationProvider.html5Mode(false).hashPrefix('!')
     return
@@ -57,6 +64,12 @@ angular.module('whaler', [
   $rootScope.$on '$routeChangeSuccess', (ev, data) ->
     $rootScope.controller = data.controller.toLowerCase().replace(/controller/, 'Ctrl') if data.controller?
 
+  $rootScope.$on '$viewContentLoaded', (event) ->
+    if $route.current.controllerAs and $route.current.action
+      if $route.current.scope[$route.current.controllerAs][$route.current.action]
+        $route.current.scope[$route.current.controllerAs][$route.current.action]()
+      else
+        throw "Undefined action '#{$route.current.action}'' on controller '#{$route.current.controllerAs}'"
 ])
 
 angular.module 'whaler.filters', []

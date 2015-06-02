@@ -39,6 +39,9 @@ gem "twitter-bootstrap-rails"
 gem 'bootstrap_form'
 
 
+# CSRF token with AngularJs. Read more: https://github.com/jsanders/angular_rails_csrf
+gem 'angular_rails_csrf'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

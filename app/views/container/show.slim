@@ -1,0 +1,138 @@
+.row
+  .col-xs-6.col-sm-6.col-md-6.col-lg-6
+    h1 {{ctrl.container.info.Name}}
+  .col-xs-6.col-sm-6.col-md-6.col-lg-6
+    p.text-right Create at : {{ ctrl.container.info.Created | date:'yyyy-MM-dd HH:mm:ss' }}
+hr
+.row
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    h2 State
+    .row
+      .col-xs-6.col-sm-6.col-md-6.col-lg-6
+        p.text-left Started At {{ ctrl.container.info.State.StartedAt | date:'yyyy-MM-dd HH:mm:ss' }}
+      .col-xs-6.col-sm-6.col-md-6.col-lg-6
+        p.text-left Finished At {{ ctrl.container.info.State.FinishedAt | date:'yyyy-MM-dd HH:mm:ss' }}
+    .row
+      .col-xs-12.col-sm-12.col-md-12.col-lg-12
+        table.table.table-bordered
+          tr
+            th Dead
+            th OOMKilled
+            th Paused
+            th Restarting
+            th Running
+          tr
+            td {{ ctrl.container.info.State.Dead }}
+            td {{ ctrl.container.info.State.OOMKilled }}
+            td {{ ctrl.container.info.State.Paused }}
+            td {{ ctrl.container.info.State.Restarting }}
+            td {{ ctrl.container.info.State.Running }}
+    .row
+      .col-xs-4.col-sm-4.col-md-4.col-lg-4
+        p.text-left Pid : {{ ctrl.container.info.State.Pid }}
+      .col-xs-4.col-sm-4.col-md-4.col-lg-4
+        p.text-left Exit Code : {{ ctrl.container.info.State.ExitCode }}
+      .col-xs-4.col-sm-4.col-md-4.col-lg-4
+        p.text-left Exit Code : {{ ctrl.container.info.State.ExitCode }}
+.row
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    h2 Container configuration
+    .row
+      .col-xs-3.col-sm-3.col-md-3.col-lg-3
+        p CpuShares : {{ ctrl.container.info.Config.CpuShares }}
+        p Cpuset : {{ ctrl.container.info.Config.Cpuset }}
+        p Domainname : {{ ctrl.container.info.Config.Domainname }}
+        p Entrypoint : {{ ctrl.container.info.Config.Entrypoint }}
+        p ExposedPorts : {{ ctrl.container.info.Config.ExposedPorts }}
+        p Hostname : {{ ctrl.container.info.Config.Hostname }}
+        p Image : {{ ctrl.container.info.Config.Image }}
+        p User : {{ ctrl.container.info.Config.User }}
+      .col-xs-3.col-sm-3.col-md-3.col-lg-3
+        p Labels : {{ ctrl.container.info.Config.Labels }}
+        p MacAddress : {{ ctrl.container.info.Config.MacAddress }}
+        p Memory : {{ ctrl.container.info.Config.Memory }}
+        p MemorySwap : {{ ctrl.container.info.Config.MemorySwap }}
+        p OnBuild : {{ ctrl.container.info.Config.OnBuild }}
+        p PortSpecs : {{ ctrl.container.info.Config.PortSpecs }}
+        p Volumes : {{ ctrl.container.info.Config.Volumes }}
+        p WorkingDir : {{ ctrl.container.info.Config.WorkingDir }}
+      .col-xs-3.col-sm-3.col-md-3.col-lg-3
+        table.table.table-bordered
+          caption Booleen
+          tr
+            th NetworkDisabled
+            td {{ ctrl.container.info.Config.NetworkDisabled }}
+          tr
+            th StdinOnce
+            td {{ ctrl.container.info.Config.StdinOnce }}
+          tr
+            th OpenStdin
+            td {{ ctrl.container.info.Config.OpenStdin }}
+          tr
+            th Tty
+            td {{ ctrl.container.info.Config.Tty }}
+      .col-xs-3.col-sm-3.col-md-3.col-lg-3
+        table.table.table-bordered
+          caption Attachement
+          tr
+            th Stderr
+            td {{ ctrl.container.info.Config.AttachStderr }}
+          tr
+            th Stdin
+            td {{ ctrl.container.info.Config.AttachStdin }}
+          tr
+            th Stdout
+            td {{ ctrl.container.info.Config.AttachStdout }}
+.row
+  .col-xs-4.col-sm-4.col-md-4.col-lg-4
+    h2 Network settings
+    p Bridge : {{ctrl.container.info.NetworkSettings.Bridge}}
+    p Gateway : {{ctrl.container.info.NetworkSettings.Gateway}}
+    p GlobalIPv6Address : {{ctrl.container.info.NetworkSettings.GlobalIPv6Address}}
+    p GlobalIPv6PrefixLen : {{ctrl.container.info.NetworkSettings.GlobalIPv6PrefixLen}}
+    p IPAddress : {{ctrl.container.info.NetworkSettings.IPAddress}}
+    p IPPrefixLen : {{ctrl.container.info.NetworkSettings.IPPrefixLen}}
+    p IPv6Gateway : {{ctrl.container.info.NetworkSettings.IPv6Gateway}}
+    p LinkLocalIPv6Address : {{ctrl.container.info.NetworkSettings.LinkLocalIPv6Address}}
+    p LinkLocalIPv6PrefixLen : {{ctrl.container.info.NetworkSettings.LinkLocalIPv6PrefixLen}}
+    p MacAddress : {{ctrl.container.info.NetworkSettings.MacAddress}}
+    p PortMapping : {{ctrl.container.info.NetworkSettings.PortMapping}}
+    p Ports : {{ctrl.container.info.NetworkSettings.Ports}}
+  .col-xs-8.col-sm-8.col-md-8.col-lg-8
+    h2 Host configuration
+    .row
+      .col-xs-6.col-sm-6.col-md-6.col-lg-6
+        p Binds : {{ctrl.container.info.HostConfig.Binds}}
+        p CapAdd : {{ctrl.container.info.HostConfig.CapAdd}}
+        p CapDrop : {{ctrl.container.info.HostConfig.CapDrop}}
+        p CgroupParent : {{ctrl.container.info.HostConfig.CgroupParent}}
+        p ContainerIDFile : {{ctrl.container.info.HostConfig.ContainerIDFile}}
+        p CpuShares : {{ctrl.container.info.HostConfig.CpuShares}}
+        p CpusetCpus : {{ctrl.container.info.HostConfig.CpusetCpus}}
+        p Devices : {{ctrl.container.info.HostConfig.Devices}}
+        p Dns : {{ctrl.container.info.HostConfig.Dns}}
+        p DnsSearch : {{ctrl.container.info.HostConfig.DnsSearch}}
+        p ExtraHosts : {{ctrl.container.info.HostConfig.ExtraHosts}}
+        p IpcMode : {{ctrl.container.info.HostConfig.IpcMode}}
+      .col-xs-6.col-sm-6.col-md-6.col-lg-6
+        p Links : {{ctrl.container.info.HostConfig.Links}}
+        p LxcConf : {{ctrl.container.info.HostConfig.LxcConf}}
+        p Memory : {{ctrl.container.info.HostConfig.Memory}}
+        p MemorySwap : {{ctrl.container.info.HostConfig.MemorySwap}}
+        p NetworkMode : {{ctrl.container.info.HostConfig.NetworkMode}}
+        p PidMode : {{ctrl.container.info.HostConfig.PidMode}}
+        p PortBindings : {{ctrl.container.info.HostConfig.PortBindings}}
+        p Privileged : {{ctrl.container.info.HostConfig.Privileged}}
+        p PublishAllPorts : {{ctrl.container.info.HostConfig.PublishAllPorts}}
+        p ReadonlyRootfs : {{ctrl.container.info.HostConfig.ReadonlyRootfs}}
+        p SecurityOpt : {{ctrl.container.info.HostConfig.SecurityOpt}}
+        p Ulimits : {{ctrl.container.info.HostConfig.Ulimits}}
+        p VolumesFrom : {{ctrl.container.info.HostConfig.VolumesFrom}}
+.row
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    h2 Environement variable
+.row
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    .well
+      div ng-repeat="env in ctrl.container.info.Config.Env"
+        p {{ env }}

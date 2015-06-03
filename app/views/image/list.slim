@@ -9,10 +9,10 @@
 
       = f.form_group class: 'col-xs-2 no-padding' do
         button.btn.btn-primary.btn-block type="submit"
-          i.glyphicon.glyphicon-search>
+          => fa_icon :search
           | Search
 
-.row.image-info ng-repeat="image in ctrl.images"
+.row.box.image-info ng-repeat="image in ctrl.images"
   .col-xs-2.no-padding.thumb ng-class="{ 'official': image.info.is_official }" {{ ctrl.getThumbText(image) }}
   .col-xs-7
     h3 {{ image.info.name }}
@@ -20,9 +20,9 @@
   .col-xs-1.rating
     span.badge
       | {{ image.info.star_count }}
-      =< glyph :star, class: 'pull-right'
+      =< fa_icon :star, class: 'pull-right'
 
   .col-xs-2.actions
     a.btn.btn-primary ng-click="ctrl.runImage(image)"
       | Run Image
-      = glyph :play, class: 'pull-right'
+      = fa_icon :play, class: 'pull-right'

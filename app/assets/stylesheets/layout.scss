@@ -1,23 +1,70 @@
-header
-{
-  height: 100px;
-  background-color: $blue-light-2;
-}
-.logo
-{
-  height: 100px;
-}
-#menu
-{
-  background-color: $yellow-4;
-    height: 52px;
-}
-footer
-{
-  color:#fff;
-  background-color: $blue-light-2;
-}
-
 .no-padding {
   padding: 0;
 }
+.gray-bg {
+  background-color: $soft-gray;
+}
+
+.box {
+  clear: both;
+  margin-bottom: 25px;
+  margin-top: 0;
+  background-color: #FFF;
+  color: inherit;
+  padding: 15px 20px 20px 20px;
+  border-color: #E7EAEC;
+  border-style: solid solid none;
+  border-width: 1px 0px;
+  background-color: white
+}
+
+
+@media (min-width: 768px) {
+  .navbar-static-side {
+    z-index: 2001;
+    position: absolute;
+    width: $left-menu-width;
+  }
+}
+
+
+#page-wrapper {
+  padding: 0 15px;
+  min-height: 100vh;
+  position: relative !important;
+
+  @media (min-width: 768px) {
+    position: inherit;
+    margin: 0 0 0 $left-menu-width;
+  }
+}
+
+#main-nav {
+  .nav > li > a {
+    color: #948B96;
+    font-weight: 600;
+    padding: 14px 20px 14px 25px;
+
+    &:hover {
+      color: white;
+    }
+
+    i {
+      margin-right: 6px;
+    }
+  }
+
+  .brand {
+    height: 156px;
+    background-color: $yellow;
+    background-repeat: no-repeat;
+    background-image:  image-url("header-profile.png");
+
+    img {
+      position: relative;
+      top: 25px;
+    }
+  }
+}
+
+

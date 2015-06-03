@@ -39,6 +39,7 @@ angular.module('whaler', [
       templateUrl: '/container/:id'
       controller: 'ContainerController'
       controllerAs: 'ctrl'
+      action: 'show'
 
     $routeProvider.when '/login',
       templateUrl: '/users/sign_in'

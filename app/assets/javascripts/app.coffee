@@ -19,35 +19,34 @@ angular.module('whaler', [
   'APIProvider'
   ($routeProvider, $locationProvider, $resourceProvider, $httpProvider, APIProvider) ->
     $routeProvider.when '/',
-      templateUrl: '/home'
+      templateUrl: '/partials/home'
       controller: 'HomeController'
       controllerAs: 'ctrl'
       action: 'getInfo'
 
     $routeProvider.when '/images',
-      templateUrl: '/images'
+      templateUrl: '/partials/images'
       controller: 'ImageController'
       controllerAs: 'ctrl'
-      action: 'helloWorld'
 
     $routeProvider.when '/container',
-      templateUrl: '/container'
+      templateUrl: '/partials/container'
       controller: 'ContainerController'
       controllerAs: 'ctrl'
 
     $routeProvider.when '/container/:id',
-      templateUrl: '/container/:id'
+      templateUrl: '/partials/container/:id'
       controller: 'ContainerController'
       controllerAs: 'ctrl'
       action: 'show'
 
     $routeProvider.when '/login',
-      templateUrl: '/users/sign_in'
+      templateUrl: '/partials/users/sign_in'
       controller: 'SessionsController'
       controllerAs: 'ctrl'
 
     $routeProvider.when '/signout',
-      templateUrl: '/users/sign_in'
+      templateUrl: '/partials/users/sign_in'
       controller: 'SessionsController'
       controllerAs: 'ctrl'
       action: 'signout'
@@ -57,7 +56,7 @@ angular.module('whaler', [
 
     APIProvider.scheme('http').url('localhost').port('3000')
     $resourceProvider.defaults.stripTrailingSlashes = true
-    $locationProvider.html5Mode(false).hashPrefix('!')
+    $locationProvider.html5Mode(true).hashPrefix('!')
     return
 ])
 .run(['$rootScope', '$route', '$location', ($rootScope, $route, $location) ->

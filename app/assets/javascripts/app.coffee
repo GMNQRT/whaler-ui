@@ -30,12 +30,12 @@ angular.module('whaler', [
       controllerAs: 'ctrl'
 
     $routeProvider.when '/container',
-      templateUrl: '/partials/container'
+      templateUrl: '/partials/containers'
       controller: 'ContainerController'
       controllerAs: 'ctrl'
 
     $routeProvider.when '/container/:id',
-      templateUrl: '/partials/container/:id'
+      templateUrl: '/partials/containers/show'
       controller: 'ContainerController'
       controllerAs: 'ctrl'
       action: 'show'

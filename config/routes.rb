@@ -4,12 +4,12 @@ Rails.application.routes.draw do
 
   scope :partials do
     get '/home' => 'home#home'
-    get '/images' => 'image#list'
-    get '/container' => 'container#list'
+    resources :images
+    resources :containers
     get '/users/sign_in' => 'sessions#new'
     get '/users/sign_out' => 'registrations#new'
     get '/users/sign_up' => 'registrations#new'
   end
 
-  get '*path' => redirect('/')
+  get '*path' => 'home#index'
 end

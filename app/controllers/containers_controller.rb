@@ -1,5 +1,5 @@
-class ContainerController < ApplicationController
-  def list
+class ContainersController < ApplicationController
+  def index
     render layout: false
   end
   def show

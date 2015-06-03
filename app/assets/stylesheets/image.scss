@@ -13,18 +13,19 @@
 .row.image-info
 {
   height: 150px;
-  margin-bottom: 20px;
-  border: 1px solid $gray-lighter;
 
   .thumb {
     color: white;
     font-weight: bold;
     text-align: center;
     line-height: 149px;
-    background-color: $gray-light;
+    background-color: $purple;
+    position: relative;
+    top: -15px;
+    left: -20px;
   }
   .thumb.official {
-    background-color: $yellow-3;
+    background-color: $yellow;
   }
 
   .btn

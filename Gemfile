@@ -35,9 +35,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'sass-rails', '~> 5.0'
 
 # Only for helpers in views, assets are provided by bower
-gem "twitter-bootstrap-rails"
+gem 'font-awesome-rails'
 gem 'bootstrap_form'
-
+gem 'simple-navigation-bootstrap'
 
 # CSRF token with AngularJs. Read more: https://github.com/jsanders/angular_rails_csrf
 gem 'angular_rails_csrf'

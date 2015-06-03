@@ -6,5 +6,6 @@ SimpleNavigation::Configuration.run do |navigation|
     primary.item :home, 'Home', prefix
     primary.item :container, 'Conteners', prefix + "container"
     primary.item :image, 'Images', prefix + "images"
+    primary.item :logout, 'Sign out', prefix + "signout"
   end
 end

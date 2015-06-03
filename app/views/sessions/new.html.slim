@@ -1,2 +1,13 @@
-h1 Sessions#new
-p Find me in app/views/sessions/new.html.slim
+#loginForm.row
+  = bootstrap_form_tag url: '', data: { 'ng-submit' => 'ctrl.login(credentials, $event)' } do |f|
+    = f.text_field :email,
+      placeholder: 'Email ...',
+      skip_label: true,
+      data: { 'ng-model' => 'ctrl.credentials.email' }
+    = f.password_field :password,
+      placeholder: 'Password ...',
+      skip_label: true,
+      data: { 'ng-model' => 'ctrl.credentials.password' }
+
+    = f.form_group class: 'col-xs-2 no-padding' do
+      a.btn.btn-primary.btn-block ng-click="ctrl.login(ctrl.credentials, $event)" Sign in

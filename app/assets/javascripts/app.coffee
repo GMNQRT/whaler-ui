@@ -9,6 +9,7 @@ angular.module('whaler', [
   'whaler.factories'
   'whaler.directives'
   'whaler.controllers'
+  'whaler.interceptors'
 ])
 .config([
   '$routeProvider'
@@ -21,6 +22,7 @@ angular.module('whaler', [
       templateUrl: '/home'
       controller: 'HomeController'
       controllerAs: 'ctrl'
+      action: 'getInfo'
 
     $routeProvider.when '/images',
       templateUrl: '/images'
@@ -38,20 +40,21 @@ angular.module('whaler', [
       controller: 'ContainerController'
       controllerAs: 'ctrl'
 
-    $routeProvider.when '/users/sign_in',
+    $routeProvider.when '/login',
       templateUrl: '/users/sign_in'
       controller: 'SessionsController'
       controllerAs: 'ctrl'
 
-    $routeProvider.when '/users/sign_out',
-      templateUrl: '/users/sign_out'
-      controller: 'RegistrationsController'
+    $routeProvider.when '/signout',
+      templateUrl: '/users/sign_in'
+      controller: 'SessionsController'
       controllerAs: 'ctrl'
+      action: 'signout'
 
     $routeProvider.otherwise '/'
 
+
     APIProvider.scheme('http').url('localhost').port('3000')
-    $httpProvider.defaults.headers.common['X-CSRF-TOKEN'] = $('meta[name=csrf-token]').attr('content')
     $resourceProvider.defaults.stripTrailingSlashes = true
     $locationProvider.html5Mode(false).hashPrefix('!')
     return
@@ -78,3 +81,4 @@ angular.module 'whaler.directives', []
 angular.module 'whaler.controllers', []
 angular.module 'whaler.factories', []
 angular.module 'whaler.provider', []
+angular.module 'whaler.interceptors', []

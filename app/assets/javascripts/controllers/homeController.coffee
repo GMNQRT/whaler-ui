@@ -1,10 +1,14 @@
 angular.module('whaler.controllers').controller 'HomeController', [
-  '$scope',
   '$http',
-  ($scope, $http) ->
-    $http.get('http://localhost:3000/home/index.json').success((data, status, headers, config) ->
-      $scope.values = data
-      console.log data
-    ).error (data, status, headers, config) ->
-      console.log data
+  'API',
+  HomeController = (@$http, API) ->
+    @values = []
+
+    return
 ]
+
+
+HomeController::getInfo = () ->
+  console.log "getInfo"
+  @$http.get('http://localhost:3000/home/index.json').success (data, status, headers, config) =>
+    @values = data

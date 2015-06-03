@@ -43,7 +43,9 @@ hr
         p Cpuset : {{ ctrl.container.info.Config.Cpuset }}
         p Domainname : {{ ctrl.container.info.Config.Domainname }}
         p Entrypoint : {{ ctrl.container.info.Config.Entrypoint }}
-        p ExposedPorts : {{ ctrl.container.info.Config.ExposedPorts }}
+        p ExposedPorts :
+        ul ng-repeat="(protocol,liens) in ctrl.container.info.Config.ExposedPorts"
+          li {{ protocol }}
         p Hostname : {{ ctrl.container.info.Config.Hostname }}
         p Image : {{ ctrl.container.info.Config.Image }}
         p User : {{ ctrl.container.info.Config.User }}
@@ -97,7 +99,10 @@ hr
     p LinkLocalIPv6PrefixLen : {{ctrl.container.info.NetworkSettings.LinkLocalIPv6PrefixLen}}
     p MacAddress : {{ctrl.container.info.NetworkSettings.MacAddress}}
     p PortMapping : {{ctrl.container.info.NetworkSettings.PortMapping}}
-    p Ports : {{ctrl.container.info.NetworkSettings.Ports}}
+    p Ports :
+    div ng-repeat="(protocol,liens) in ctrl.container.info.NetworkSettings.Ports"
+      ul ng-repeat="port in liens"
+        li {{ port.HostIp }}:{{ port.HostPort }} -> {{ protocol }}
   .col-xs-8.col-sm-8.col-md-8.col-lg-8
     h2 Host configuration
     .row

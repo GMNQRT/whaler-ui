@@ -1,7 +1,14 @@
 br
 .row
   .box.col-xs-12.col-sm-6.col-md-4.col-lg-4 ng-repeat="container in ctrl.containers"
-    h3 {{ container.info.Names[0] }}
+    .row
+      .col-xs-6.col-sm-6.col-md-6.col-lg-6
+        h3 {{ container.info.Names[0] }}
+      .col-xs-6.col-sm-6.col-md-6.col-lg-6
+        div ng-if="container.info.Ports.length != 0"
+          span.glyphicon.glyphicon-heart aria-hidden="true"
+        div ng-if="container.info.Ports.length == 0"
+          span.glyphicon.glyphicon-heart-empty aria-hidden="true"
     p Create at {{ container.info.Created | date:'yyyy-MM-dd HH:mm:ss' }}
     p Image : {{ container.info.Image }}
     a.btn.btn-primary.pull-right ng-href="/#!/container/{{ container.id }}" More info

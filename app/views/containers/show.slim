@@ -6,7 +6,7 @@ br
         .row
           .col-xs-6.col-sm-6.col-md-6.col-lg-6
             h1 {{ctrl.container.info.Name}}
-            small image : {{ ctrl.container.info.Config.Image }}
+            small Name : {{ ctrl.container.info.Config.Hostname }} | image : {{ ctrl.container.info.Config.Image }}
           .col-xs-6.col-sm-6.col-md-6.col-lg-6
             .text-center.pull-right Create at : {{ ctrl.container.info.Created | date:'yyyy-MM-dd HH:mm:ss' }}
             .text-center.pull-right Started at : {{ ctrl.container.info.State.StartedAt  | date:'yyyy-MM-dd HH:mm:ss' }}
@@ -32,56 +32,64 @@ br
   .col-xs-12.col-sm-12.col-md-12.col-lg-12
     .panel.panel-default
       .panel-heading
-        h2 Configuration
+        h2 Settings
       .panel-body
         .row
-          .col-xs-3.col-sm-3.col-md-3.col-lg-3
-            p Pid : {{ ctrl.container.info.State.Pid }}
-            p CpuShares : {{ ctrl.container.info.Config.CpuShares }}
-            p Cpuset : {{ ctrl.container.info.Config.Cpuset }}
-            p Domainname : {{ ctrl.container.info.Config.Domainname }}
-            p Entrypoint : {{ ctrl.container.info.Config.Entrypoint }}
+          .col-xs-6.col-sm-6.col-md-6.col-lg-6
+            h4 CPU
+            p Cpu setting : {{ ctrl.container.info.Config.Cpuset }}
+            p Cpu Shares : {{ ctrl.container.info.Config.CpuShares }}
+          .col-xs-6.col-sm-6.col-md-6.col-lg-6
+            h4 Ports
             p ExposedPorts :
             ul ng-repeat="(protocol,liens) in ctrl.container.info.Config.ExposedPorts"
               li {{ protocol }}
-            p Hostname : {{ ctrl.container.info.Config.Hostname }}
-            p User : {{ ctrl.container.info.Config.User }}
+            p PortSpecs : {{ ctrl.container.info.Config.PortSpecs }}
+        hr
+        .row
           .col-xs-3.col-sm-3.col-md-3.col-lg-3
+            p Pid : {{ ctrl.container.info.State.Pid }}
+            p Domainname : {{ ctrl.container.info.Config.Domainname }}
+            p Entrypoint : {{ ctrl.container.info.Config.Entrypoint }}
+          .col-xs-3.col-sm-3.col-md-3.col-lg-3
+            p User : {{ ctrl.container.info.Config.User }}
             p Labels : {{ ctrl.container.info.Config.Labels }}
             p MacAddress : {{ ctrl.container.info.Config.MacAddress }}
+          .col-xs-3.col-sm-3.col-md-3.col-lg-3
             p Memory : {{ ctrl.container.info.Config.Memory }}
             p MemorySwap : {{ ctrl.container.info.Config.MemorySwap }}
             p OnBuild : {{ ctrl.container.info.Config.OnBuild }}
-            p PortSpecs : {{ ctrl.container.info.Config.PortSpecs }}
+          .col-xs-3.col-sm-3.col-md-3.col-lg-3
             p Volumes : {{ ctrl.container.info.Config.Volumes }}
             p WorkingDir : {{ ctrl.container.info.Config.WorkingDir }}
-          .col-xs-3.col-sm-3.col-md-3.col-lg-3
-            table.table.table-bordered
-              caption Booleen
-              tr
-                th NetworkDisabled
-                td {{ ctrl.container.info.Config.NetworkDisabled }}
-              tr
-                th StdinOnce
-                td {{ ctrl.container.info.Config.StdinOnce }}
-              tr
-                th OpenStdin
-                td {{ ctrl.container.info.Config.OpenStdin }}
-              tr
-                th Tty
-                td {{ ctrl.container.info.Config.Tty }}
-          .col-xs-3.col-sm-3.col-md-3.col-lg-3
-            table.table.table-bordered
-              caption Attachement
-              tr
-                th Stderr
-                td {{ ctrl.container.info.Config.AttachStderr }}
-              tr
-                th Stdin
-                td {{ ctrl.container.info.Config.AttachStdin }}
-              tr
-                th Stdout
-                td {{ ctrl.container.info.Config.AttachStdout }}
+        .row
+          .col-xs-6.col-sm-6.col-md-6.col-lg-6
+            h4 Booleen
+            ul.list-group
+              li.list-group-item
+                span.badge {{ ctrl.container.info.Config.NetworkDisabled }}
+                | Network Disabled
+              li.list-group-item
+                span.badge {{ ctrl.container.info.Config.StdinOnce }}
+                | Stdin Once
+              li.list-group-item
+                span.badge {{ ctrl.container.info.Config.OpenStdin }}
+                | Open Stdin
+              li.list-group-item
+                span.badge {{ ctrl.container.info.Config.Tty }}
+                | Tty
+          .col-xs-6.col-sm-6.col-md-6.col-lg-6
+            h4 Attachement
+            ul.list-group
+              li.list-group-item
+                span.badge {{ ctrl.container.info.Config.AttachStderr }}
+                | Stderr
+              li.list-group-item
+                span.badge {{ ctrl.container.info.Config.AttachStdin }}
+                | Stdin
+              li.list-group-item
+                span.badge {{ ctrl.container.info.Config.AttachStdout }}
+                | Stdout
 .row
   .col-xs-12.col-sm-12.col-md-12.col-lg-12
     .panel.panel-default

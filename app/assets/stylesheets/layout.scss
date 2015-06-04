@@ -55,11 +55,17 @@ body.layouted {
 
     &:hover {
       color: white;
+      background-color: $purple-dark;
     }
 
     i {
       margin-right: 6px;
     }
+  }
+
+  .nav > li.active > a {
+    color: white;
+    background-color: $purple-dark;
   }
 
   .brand {

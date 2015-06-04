@@ -64,6 +64,12 @@ angular.module('whaler', [
       controllerAs: 'ctrl'
       action: 'unpause'
 
+    $routeProvider.when '/container/:id/restart',
+      templateUrl: '/partials/containers'
+      controller: 'ContainerController'
+      controllerAs: 'ctrl'
+      action: 'restart'
+
     $routeProvider.when '/login',
       templateUrl: '/partials/users/sign_in'
       controller: 'SessionsController'

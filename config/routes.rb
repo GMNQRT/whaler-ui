@@ -12,6 +12,9 @@ Rails.application.routes.draw do
       member do
         get 'stop'
       end
+      member do
+        get 'restart'
+      end
     end
     get '/users/sign_in' => 'sessions#new'
     get '/users/sign_out' => 'registrations#new'

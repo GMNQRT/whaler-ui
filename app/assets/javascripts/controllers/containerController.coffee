@@ -21,3 +21,6 @@ ContainerController::pause = (id) ->
 
 ContainerController::unpause = (id) ->
   @container = @ContainerFactory.unpause({ id: @$routeParams['id'] })
+
+ContainerController::restart = (id) ->
+  @container = @ContainerFactory.restart({ id: @$routeParams['id'] })

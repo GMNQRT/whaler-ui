@@ -8,5 +8,6 @@ angular.module('whaler.factories').service 'ContainerFactory', ['$resource', 'AP
     stop: { url: API.generateResourceUrl('container/:id/stop'), params: {id: '@id'}, method:'GET'}
     pause: { url: API.generateResourceUrl('container/:id/pause'), params: {id: '@id'}, method:'GET'}
     unpause: { url: API.generateResourceUrl('container/:id/unpause'), params: {id: '@id'}, method:'GET'}
+    restart: { url: API.generateResourceUrl('container/:id/restart'), params: {id: '@id'}, method:'GET'}
 
 ]

@@ -70,6 +70,12 @@ angular.module('whaler', [
       controllerAs: 'ctrl'
       action: 'restart'
 
+    $routeProvider.when '/container/:id/delete',
+      templateUrl: '/partials/containers'
+      controller: 'ContainerController'
+      controllerAs: 'ctrl'
+      action: 'delete'
+
     $routeProvider.when '/login',
       templateUrl: '/partials/users/sign_in'
       controller: 'SessionsController'

@@ -1,0 +1,26 @@
+.panel {
+  clear: both;
+  margin-bottom: 25px;
+  margin-top: 0;
+  color: inherit;
+  border-color: #E7EAEC;
+  border-style: solid none none;
+  border-width: 1px 0px;
+
+  .panel-heading {
+    border-color: #E7EAEC;
+    border-image: none;
+    border-style: solid solid none;
+    border-width: 4px 0px 0;
+    color: inherit;
+    margin-bottom: 0;
+  }
+
+  .panel-body {
+    color: inherit;
+    border-color: #E7EAEC;
+    border-image: none;
+    border-style: solid solid none;
+    border-width: 1px 0px;
+  }
+}

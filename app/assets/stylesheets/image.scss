@@ -10,19 +10,21 @@
   }
 }
 
-.row.image-info
+.image-info.panel
 {
-  height: 150px;
+  .panel-body {
+    height: 150px;
+  }
 
   .thumb {
     color: white;
     font-weight: bold;
     text-align: center;
-    line-height: 149px;
+    line-height: 150px;
     background-color: $purple;
     position: relative;
-    top: -15px;
-    left: -20px;
+    top: -$panel-body-padding;
+    left: -$panel-body-padding;
   }
   .thumb.official {
     background-color: $yellow;

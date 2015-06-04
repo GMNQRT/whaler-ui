@@ -1,0 +1,12 @@
+// Overrides
+@import "overrides/colors";
+@import "overrides/variables";
+@import "font-awesome";
+
+
+// Default bootstrap
+@import "bootstrap-sass-official/assets/stylesheets/bootstrap-sprockets";
+@import "bootstrap-sass-official/assets/stylesheets/bootstrap";
+
+// Theme
+@import "overrides/theme";

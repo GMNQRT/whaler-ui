@@ -27,7 +27,7 @@
   padding: 0 15px;
   min-height: 100vh;
   position: relative;
-  margin: 0 0 0 0;
+  margin: 0 0 -27px 0;
 }
 
 
@@ -40,7 +40,7 @@ body.layouted {
 
   @media (min-width: 768px) {
     #page-wrapper {
-      margin: 0 0 0 $left-menu-width;
+      margin: 0 0 -27px $left-menu-width;
     }
   }
 }
@@ -81,4 +81,8 @@ body.layouted {
   }
 }
 
+
+#footer {
+  height: 27px;
+}
 

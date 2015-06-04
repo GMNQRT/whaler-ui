@@ -5,12 +5,23 @@
   background-color: $soft-gray;
 }
 
+.m-t {
+  margin-top: $line-height-computed;
+}
 
-@media (min-width: 768px) {
-  .navbar-static-side {
-    z-index: 2001;
-    position: absolute;
-    width: $left-menu-width;
+.m-b {
+  margin-bottom: $line-height-computed;
+}
+
+.navbar-static-side {
+  z-index: 2001;
+  position: absolute;
+  width: $left-menu-width;
+  top: 0;
+  left: -$left-menu-width;
+
+  @media (min-width: 768px) {
+    left: 0;
   }
 }
 

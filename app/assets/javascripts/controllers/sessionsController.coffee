@@ -8,6 +8,9 @@ angular.module('whaler.controllers').controller 'SessionsController', [
 ]
 
 
+SessionsController::showForm = () ->
+  @$location.path '/' if @API.isAuthenticated()
+
 SessionsController::login = (credentials, $event) ->
   $event.preventDefault()
   @API.login(credentials).then () =>

@@ -7,23 +7,29 @@ angular.module('whaler.controllers').controller 'ContainerController', [
     return
 ]
 
-ContainerController::show = (id) ->
-  @container = @ContainerFactory.get({ id: @$routeParams['id'] })
+ContainerController::show = () ->
+  @container = @ContainerFactory.get { id:  @$routeParams['id'] }
 
-ContainerController::start = (id) ->
-  @container = @ContainerFactory.start({ id: @$routeParams['id'] })
+ContainerController::start = (container) ->
+  @ContainerFactory.start { id: container.id }, (res) ->
+    angular.extend container, res
 
-ContainerController::stop = (id) ->
-  @container = @ContainerFactory.stop({ id: @$routeParams['id'] })
+ContainerController::stop = (container) ->
+  @ContainerFactory.stop { id: container.id }, (res) ->
+    angular.extend container, res
 
-ContainerController::pause = (id) ->
-  @container = @ContainerFactory.pause({ id: @$routeParams['id'] })
+ContainerController::pause = (container) ->
+  @ContainerFactory.pause { id: container.id }, (res) ->
+    angular.extend container, res
 
-ContainerController::unpause = (id) ->
-  @container = @ContainerFactory.unpause({ id: @$routeParams['id'] })
+ContainerController::unpause = (container) ->
+  @ContainerFactory.unpause { id: container.id }, (res) ->
+    angular.extend container, res
 
-ContainerController::restart = (id) ->
-  @container = @ContainerFactory.restart({ id: @$routeParams['id'] })
+ContainerController::restart = (container) ->
+  @ContainerFactory.restart { id: container.id }, (res) ->
+    angular.extend container, res
 
-ContainerController::delete = (id) ->
-  @container = @ContainerFactory.delete({ id: @$routeParams['id'] })
+ContainerController::delete = (container) ->
+  @ContainerFactory.delete { id: container.id }, (res) ->
+    angular.extend container, res

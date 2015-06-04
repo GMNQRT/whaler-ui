@@ -10,22 +10,21 @@ br
       .panel-body
         p Create at {{ container.info.Created | date:'yyyy-MM-dd HH:mm:ss' }}
         p Image : {{ container.info.Image }}
-        .btn-group aria-label="..." role="group" 
-          a.btn.btn-success ng-href="/container/{{ container.id }}/start" ng-if="container.info.State.stateNumber == 2"
-            span.glyphicon.glyphicon-play aria-hidden="true" 
-          a.btn.btn-default ng-href="/container/{{ container.id }}/start" ng-if="container.info.State.stateNumber != 2"
-            span.glyphicon.glyphicon-play aria-hidden="true" 
-          a.btn.btn-warning ng-href="/container/{{ container.id }}/unpause" ng-if="container.info.State.stateNumber == 3"
-            span.glyphicon.glyphicon-pause aria-hidden="true" 
-          a.btn.btn-default ng-href="/container/{{ container.id }}/pause" ng-if="container.info.State.stateNumber != 3"
-            span.glyphicon.glyphicon-pause aria-hidden="true" 
-          a.btn.btn-danger ng-href="/container/{{ container.id }}/stop" ng-if="container.info.State.stateNumber == 0"
-            span.glyphicon.glyphicon-stop aria-hidden="true" 
-          a.btn.btn-default ng-href="/container/{{ container.id }}/stop" ng-if="container.info.State.stateNumber != 0"
-            span.glyphicon.glyphicon-stop aria-hidden="true" 
-          a.btn.btn-default ng-href="/container/{{ container.id }}/restart"
-            span.glyphicon.glyphicon-repeat aria-hidden="true" 
-          button.btn.btn-danger type="submit" ng-if="container.info.State.stateNumber == -1"
-            span.glyphicon.glyphicon-alert aria-hidden="true" 
+        .btn-group aria-label="..." role="group"
+          a.btn ng-click="ctrl.start(container)" ng-class="{ true: 'btn-success', false: 'btn-default' }[container.info.State.Running && !container.info.State.Paused]"
+            = fa_icon :play
+
+          a.btn ng-click="ctrl.pause(container)" ng-class="{ true: 'btn-warning', false: 'btn-default' }[container.info.State.Paused]"
+            = fa_icon :pause
+
+          a.btn ng-click="ctrl.stop(container)" ng-class="{ true: 'btn-danger', false: 'btn-default' }[!container.info.State.Running]"
+            = fa_icon :stop
+
+          a.btn.btn-default  ng-click="ctrl.restart(container)"
+            = fa_icon :repeat
+
+          button.btn.btn-danger type="submit" ng-if="container.info.State.Error != ''"
+            = fa_icon 'exclamation-triangle'
+
           a.btn.btn-default ng-href="/container/{{ container.id }}"
-            span.glyphicon.glyphicon-eye-open aria-hidden="true" 
+            = fa_icon :eye

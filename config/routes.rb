@@ -5,7 +5,14 @@ Rails.application.routes.draw do
   scope :partials do
     get '/home' => 'home#home'
     resources :images
-    resources :containers
+    resources :containers do
+      member do
+        get 'start'
+      end
+      member do
+        get 'stop'
+      end
+    end
     get '/users/sign_in' => 'sessions#new'
     get '/users/sign_out' => 'registrations#new'
     get '/users/sign_up' => 'registrations#new'

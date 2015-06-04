@@ -40,6 +40,30 @@ angular.module('whaler', [
       controllerAs: 'ctrl'
       action: 'show'
 
+    $routeProvider.when '/container/:id/start',
+      templateUrl: '/partials/containers'
+      controller: 'ContainerController'
+      controllerAs: 'ctrl'
+      action: 'start'
+
+    $routeProvider.when '/container/:id/stop',
+      templateUrl: '/partials/containers'
+      controller: 'ContainerController'
+      controllerAs: 'ctrl'
+      action: 'stop'
+
+    $routeProvider.when '/container/:id/pause',
+      templateUrl: '/partials/containers'
+      controller: 'ContainerController'
+      controllerAs: 'ctrl'
+      action: 'pause'
+
+    $routeProvider.when '/container/:id/unpause',
+      templateUrl: '/partials/containers'
+      controller: 'ContainerController'
+      controllerAs: 'ctrl'
+      action: 'unpause'
+
     $routeProvider.when '/login',
       templateUrl: '/partials/users/sign_in'
       controller: 'SessionsController'

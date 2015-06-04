@@ -9,12 +9,8 @@
   display: table;
 }
 
-#main-nav {
-  left: -$left-menu-width;
-}
-
 #page-wrapper {
-  margin-left: 0;
+  overflow: hidden;
 }
 
 #loginForm {
@@ -25,5 +21,20 @@
   h2 {
     font-size: 24px;
     font-weight: 600;
+  }
+
+  @media (min-width: $screen-sm-min) {
+    .logo {
+      position: absolute;
+      top: -33px;
+      left: 240px;
+      width: 400px;
+      height: 387px;
+      background-repeat: no-repeat;
+      background-image:  image-url("whale.png");
+    }
+  }
+  .panel {
+    position: relative;
   }
 }

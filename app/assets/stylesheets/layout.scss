@@ -20,22 +20,32 @@
   top: 0;
   left: -$left-menu-width;
 
-  @media (min-width: 768px) {
-    left: 0;
-  }
 }
 
 
 #page-wrapper {
   padding: 0 15px;
   min-height: 100vh;
-  position: relative !important;
+  position: relative;
+  margin: 0 0 0 0;
+}
+
+
+body.layouted {
+  @media (min-width: 768px) {
+    .navbar-static-side {
+      left: 0;
+    }
+  }
 
   @media (min-width: 768px) {
-    position: inherit;
-    margin: 0 0 0 $left-menu-width;
+    #page-wrapper {
+      margin: 0 0 0 $left-menu-width;
+    }
   }
 }
+
+
 
 #main-nav {
   .nav > li > a {

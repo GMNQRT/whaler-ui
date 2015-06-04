@@ -68,6 +68,7 @@ angular.module('whaler', [
       templateUrl: '/partials/users/sign_in'
       controller: 'SessionsController'
       controllerAs: 'ctrl'
+      action: 'showForm'
 
     $routeProvider.when '/signout',
       templateUrl: '/partials/users/sign_in'

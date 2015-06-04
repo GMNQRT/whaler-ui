@@ -3,9 +3,6 @@ br
   .col-xs-12.col-sm-6.col-md-4.col-lg-4 ng-repeat="container in ctrl.containers"
     .panel.panel-default
       .panel-heading
-        .text-center.pull-right
-          span.glyphicon.glyphicon-heart aria-hidden="true" ng-if="container.info.Ports.length != 0"
-          span.glyphicon.glyphicon-heart-empty aria-hidden="true" ng-if="container.info.Ports.length == 0"
         h3 {{ container.info.Names[0] }}
       .panel-body
         p Create at {{ container.info.Created | date:'yyyy-MM-dd HH:mm:ss' }}

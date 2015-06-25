@@ -20,7 +20,6 @@ ContainerController::stop = (container) ->
 
 ContainerController::pause = (container) ->
   @ContainerFactory.pause { id: container.id }, (res) ->
-    console.log container, res
     angular.extend container.info.State, res.info.State
 
 ContainerController::unpause = (container) ->
@@ -32,5 +31,5 @@ ContainerController::restart = (container) ->
     angular.extend container.info.State, res.info.State
 
 ContainerController::delete = (container) ->
-  @ContainerFactory.delete { id: container.id }, (res) ->
-    angular.extend container.info.State, res.info.State
+  @ContainerFactory.delete { id: container.id }, (res) =>
+    @containers.splice @containers.indexOf(container), 1

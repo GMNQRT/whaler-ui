@@ -4,8 +4,8 @@ br
     .panel.panel-default
       .panel-heading
         .text-center.pull-right
-          a.btn.btn-link ng-href="/container/{{ container.id }}/delete"
-            span.glyphicon.glyphicon-remove aria-hidden="true"
+          a.btn.btn-link ng-click="ctrl.delete(container)"
+            = fa_icon :remove
         h3 {{ container.info.Names[0] }}
       .panel-body
         p Create at {{ container.info.Created | date:'yyyy-MM-dd HH:mm:ss' }}

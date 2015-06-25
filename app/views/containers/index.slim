@@ -1,11 +1,11 @@
 #searchForm.row
-  = bootstrap_form_tag url: '', data: { 'ng-submit' => 'ctrl.searchImage(term, $event)' } do |f|
+  = bootstrap_form_tag url: '', data: { 'ng-submit' => 'ctrl.search(term, $event)' } do |f|
       = f.text_field :term,
         placeholder: 'Enter search term...',
         help: 'Examples: Web, Server ...',
         skip_label: true,
         wrapper_class: 'col-xs-6',
-        data: { 'ng-model' => 'term', 'ng-model-options' => '{ debounce: 250 }', 'ng-change' => 'ctrl.searchImage(term)' }
+        data: { 'ng-model' => 'term', 'ng-model-options' => '{ debounce: 250 }', 'ng-change' => 'ctrl.search(term)' }
 
       = f.form_group class: 'col-xs-3' do
         button.btn.btn-primary.btn-block type="submit"

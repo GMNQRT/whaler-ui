@@ -2,6 +2,7 @@ angular.module('whaler.controllers').controller 'ContainerController', [
   'ContainerFactory',
   '$routeParams',
   ContainerController = (@ContainerFactory, @$routeParams) ->
+    @term = ''
     @containers = @ContainerFactory.query()
 
     return
@@ -33,3 +34,10 @@ ContainerController::restart = (container) ->
 ContainerController::delete = (container) ->
   @ContainerFactory.delete { id: container.id }, (res) =>
     @containers.splice @containers.indexOf(container), 1
+
+ContainerController::search= (val, $event) ->
+  $event?.preventDefault()
+  return if !val || val.length == 0
+
+  @ContainerFactory.search { term: val }, (container) =>
+    @containers = containers

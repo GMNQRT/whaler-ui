@@ -1,4 +1,20 @@
-br
+#searchForm.row
+  = bootstrap_form_tag url: '', data: { 'ng-submit' => 'ctrl.searchImage(term, $event)' } do |f|
+      = f.text_field :term,
+        placeholder: 'Enter search term...',
+        help: 'Examples: Web, Server ...',
+        skip_label: true,
+        wrapper_class: 'col-xs-6',
+        data: { 'ng-model' => 'term', 'ng-model-options' => '{ debounce: 250 }', 'ng-change' => 'ctrl.searchImage(term)' }
+
+      = f.form_group class: 'col-xs-3' do
+        button.btn.btn-primary.btn-block type="submit"
+          => fa_icon :search
+          | Search
+      = f.form_group class: 'col-xs-3 no-padding' do
+        button.btn.btn-success.btn-block type="submit"
+          => fa_icon :plus
+          | Ajouter un container
 .row
   .col-xs-12.col-sm-6.col-md-4.col-lg-4 ng-repeat="container in ctrl.containers"
     .panel.panel-default

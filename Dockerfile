@@ -17,9 +17,6 @@ RUN bundle install
 # Add source code
 ADD . /whaler-ui
 
-# Install vendors assets
-RUN rake bower:install['--allow-root']
-
 # Expose server port
 EXPOSE 3001
 

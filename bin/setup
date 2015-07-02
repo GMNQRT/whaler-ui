@@ -13,12 +13,21 @@ Dir.chdir APP_ROOT do
   system "bundle check || bundle install"
 
   puts "\n== Download assets =="
-  system "bin/rake rake bower:install['--allow-root']"
+  system "bin/rake bower:install['--allow-root']"
 
-  puts "\n== Removing old logs and tempfiles =="
-  system "rm -f log/*"
+  puts "\n== Removing old tempfiles =="
+  pid_file = 'tmp/pids/server.pid'
+  if File.file?(pid_file)
+    pid = File.read(pid_file).to_i
+    begin
+      Process.getpgid pid
+      Process.kill "INT", pid
+      print "Shutting down old server instance\n"
+    rescue Exception => e
+      print "Remove old pid file\n"
+    end
+    File.delete pid_file
+  end
   system "rm -rf tmp/cache"
 
-  puts "\n== Restarting application server =="
-  system "touch tmp/restart.txt"
 end

@@ -6,7 +6,6 @@ angular.module('whaler.controllers').controller 'ImageController', [
 
     return
 ]
-
 ImageController::searchImage = (val, $event) ->
   $event?.preventDefault()
   return if !val || val.length == 0

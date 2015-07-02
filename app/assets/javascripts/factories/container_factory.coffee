@@ -11,4 +11,5 @@ angular.module('whaler.factories').service 'ContainerFactory', ['$resource', 'AP
     restart: { url: API.generateResourceUrl('container/:id/restart'), params: {id: '@id'}, method:'GET'}
     delete: { url: API.generateResourceUrl('container/:id'), params: {id: '@id'}, method:'DELETE'}
     search: { url: API.generateResourceUrl('container/search'), method:'GET', isArray: true }
+    create: { url: API.generateResourceUrl('container'), method:'POST'}
 ]

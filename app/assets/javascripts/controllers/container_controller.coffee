@@ -1,12 +1,22 @@
 angular.module('whaler.controllers').controller 'ContainerController', [
   'ContainerFactory',
+  'ImageFactory',
   '$routeParams',
-  ContainerController = (@ContainerFactory, @$routeParams) ->
+  ContainerController = (@ContainerFactory, @ImageFactory, @$routeParams) ->
     @term = ''
     @containers = @ContainerFactory.query()
 
     return
 ]
+
+ContainerController::new = () ->
+  @images = @ImageFactory.query()
+
+ContainerController::create = (container) ->
+  if (!container.tag)
+    container.tag = container['image'].info.RepoTags[0]
+  console.log container
+  @ContainerFactory.create { name: container['name'], tag: container['tag']}
 
 ContainerController::show = () ->
   @container = @ContainerFactory.get { id:  @$routeParams['id'] }

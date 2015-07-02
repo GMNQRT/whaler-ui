@@ -1,0 +1,19 @@
+br
+.row
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    .panel.panel-default
+      .panel-heading
+        h2 Création d'un conteneur
+      .panel-body
+        form novalidate=""
+          .form-group
+            label for="name"  Nom
+            input#name.form-control required="" placeholder="Non de votre conteneur" type="text" ng-model="container.name"
+          .form-group
+            label for="image" Image
+            select#image.form-control required="" ng-options="image as image.info.RepoTags[0] for image in ctrl.images track by image.info.RepoTags[0]" ng-model="container.image"
+          .form-group
+            label for="tag" Tag
+            select#tag.form-control required="" ng-options="tag for tag in container.image.info.RepoTags track by image.id" ng-model="container.tag"
+          button.btn.btn-default type="submit" ng-click="ctrl.create(container)"  Ajouter
+pre {{container | json}}

@@ -34,6 +34,12 @@ angular.module('whaler', [
       controller: 'ContainerController'
       controllerAs: 'ctrl'
 
+    $routeProvider.when '/container/new',
+      templateUrl: '/partials/containers/new'
+      controller: 'ContainerController'
+      controllerAs: 'ctrl'
+      action: 'new'
+
     $routeProvider.when '/container/:id',
       templateUrl: '/partials/containers/show'
       controller: 'ContainerController'

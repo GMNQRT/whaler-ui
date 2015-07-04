@@ -29,18 +29,21 @@ angular.module('whaler.provider').provider 'API', [ '$httpProvider', ($httpProvi
     login: (credentials) ->
       $http.post "#{config.scheme}://#{config.url}:#{config.port}/users/sign_in.json", credentials
       .then (response) ->
-        $cookies.put 'auth_token', response.data.auth_token
+        $cookies.putObject 'user', response.data.user
         return response.data
 
 
     logout: (redirection) ->
       $http.delete("#{config.scheme}://#{config.url}:#{config.port}/users/sign_out.json")
       .then () ->
-        $cookies.remove 'auth_token'
+        $cookies.remove 'user'
         $location.path redirection if redirection
 
     isAuthenticated: () ->
-      return if $cookies.get('auth_token') then true else false
+      return if (user = $cookies.getObject('user')) and user.authentication_token then true else false
+
+    getUser: () ->
+      return $cookies.getObject('user')
   ]
 
   @

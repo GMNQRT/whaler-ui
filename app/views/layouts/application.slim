@@ -15,6 +15,8 @@ html ng-app="whaler"
       .sidebar-collapse
         .brand
           = image_tag("brand.png", class: "img-responsive img-circle logo")
+          div.user-mail.m-t {{ app.getUser().email }}
+
         = render_navigation expand_all: true, renderer: :bootstrap
 
     #page-wrapper.gray-bg

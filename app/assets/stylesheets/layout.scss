@@ -5,10 +5,17 @@
   top: 0;
   left: -$left-menu-width;
   width: $left-menu-width;
-  overflow: hidden;
   transition: width 0.3s ease-in;
+ .sidebar-collapse {
+    overflow: hidden;
+ }
 }
 
+body {
+  @media (max-width: $screen-sm) {
+    background-color: red !important;
+  }
+}
 
 #page-wrapper {
   padding: 0 15px;
@@ -32,7 +39,6 @@ body.layouted {
   @media (min-width: $screen-sm) {
     .navbar-static-side {
       width: $left-menu-width;
-      z-index: 1;
       left: 0;
 
       &.collapsed {
@@ -96,6 +102,15 @@ body.layouted {
       position: relative;
       border: 2px solid transparent;
     }
+  }
+
+
+  .user-mail {
+    font-weight: bold;
+    max-width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #FFF;
   }
 
   &.collapsed {

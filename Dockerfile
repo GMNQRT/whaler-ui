@@ -21,4 +21,4 @@ ADD . /whaler-ui
 EXPOSE 3001
 
 # Start rails server
-CMD ruby bin/setup && rails server -b "0.0.0.0" -p 3000
+CMD ruby bin/setup && rails server -b "0.0.0.0" -p 3001

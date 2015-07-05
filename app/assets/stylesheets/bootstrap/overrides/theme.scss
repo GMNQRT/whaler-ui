@@ -24,3 +24,22 @@
     border-width: 1px 0px;
   }
 }
+
+.navbar-toggle .icon-bar {
+  background-color: $yellow;
+}
+
+.no-padding {
+  padding: 0;
+}
+.gray-bg {
+  background-color: $soft-gray;
+}
+
+.m-t {
+  margin-top: $line-height-computed;
+}
+
+.m-b {
+  margin-bottom: $line-height-computed;
+}

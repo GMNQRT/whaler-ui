@@ -9,14 +9,23 @@ html ng-app="whaler"
     = stylesheet_link_tag    'application', media: 'all'
     = javascript_include_tag 'application'
     = csrf_meta_tags
-  body class="{{ controller }}" ng-class="{'layouted': controller && controller != 'sessionsCtrl' }"
+  body class="{{ controller }}" ng-class="{'layouted': controller && controller != 'sessionsCtrl' }" ng-controller="ApplicationController as app"
 
-    nav#main-nav.navbar-default.navbar-static-side role="navigation"
+    nav#main-nav.navbar-default.navbar-static-side role="navigation" ng-class="{collapsed: controller && app.isCollapsed}"
       .sidebar-collapse
         .brand
-          = image_tag("logo.png", class: "img-responsive logo")
+          = image_tag("brand.png", class: "img-responsive img-circle logo")
+          div.user-mail.m-t {{ app.getUser().email }}
+
         = render_navigation expand_all: true, renderer: :bootstrap
+
     #page-wrapper.gray-bg
+      #topbar
+        button.navbar-toggle.pull-left.show type="button" ng-click="app.collapseNav()"
+          span.sr-only Toggle navigation
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
       .container ng-view=""
 
     footer

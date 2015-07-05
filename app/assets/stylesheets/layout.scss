@@ -1,48 +1,60 @@
-.no-padding {
-  padding: 0;
-}
-.gray-bg {
-  background-color: $soft-gray;
-}
-
-.m-t {
-  margin-top: $line-height-computed;
-}
-
-.m-b {
-  margin-bottom: $line-height-computed;
-}
 
 .navbar-static-side {
-  z-index: 2001;
+  z-index: 3;
   position: absolute;
-  width: $left-menu-width;
   top: 0;
   left: -$left-menu-width;
-
+  width: $left-menu-width;
+  transition: width 0.3s ease-in;
+ .sidebar-collapse {
+    overflow: hidden;
+ }
 }
 
+body {
+  @media (max-width: $screen-sm) {
+    background-color: red !important;
+  }
+}
 
 #page-wrapper {
   padding: 0 15px;
   min-height: 100vh;
   position: relative;
+  z-index: 2;
   margin: 0 0 -27px 0;
+  transition: margin-left 0.3s ease-in;
 }
 
 
 body.layouted {
-  @media (min-width: 768px) {
+  .collapsed {
+    left: 0;
+  }
+
+ .collapsed + #page-wrapper {
+    margin-left: $left-menu-width;
+  }
+
+  @media (min-width: $screen-sm) {
     .navbar-static-side {
+      width: $left-menu-width;
       left: 0;
+
+      &.collapsed {
+        width: $collapsed-left-menu-width;
+      }
+    }
+
+    #page-wrapper {
+      margin: 0 0 -27px $left-menu-width;
+
+    }
+    .collapsed + #page-wrapper {
+      margin-left: $collapsed-left-menu-width;
     }
   }
 
-  @media (min-width: 768px) {
-    #page-wrapper {
-      margin: 0 0 -27px $left-menu-width;
-    }
-  }
 }
 
 
@@ -51,6 +63,7 @@ body.layouted {
   .nav > li > a {
     color: #948B96;
     font-weight: 600;
+    white-space: nowrap;
     padding: 14px 20px 14px 25px;
 
     &:hover {
@@ -61,6 +74,14 @@ body.layouted {
     i {
       margin-right: 6px;
     }
+    span {
+      opacity: 0;
+      transition: opacity 0.3s ease-in;
+
+      @media (min-width: $screen-sm) {
+        opacity: 1;
+      }
+    }
   }
 
   .nav > li.active > a {
@@ -70,17 +91,63 @@ body.layouted {
 
   .brand {
     height: 156px;
-    background-color: $yellow;
+    padding: 30px 20px;
+    background-color: $purple-dark;
     background-repeat: no-repeat;
     background-image:  image-url("header-profile.png");
+    overflow: hidden;
 
     img {
+      background-color:#493E4B;
       position: relative;
-      top: 25px;
+      border: 2px solid transparent;
+    }
+  }
+
+
+  .user-mail {
+    font-weight: bold;
+    max-width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #FFF;
+  }
+
+  &.collapsed {
+    .brand {
+      height: $collapsed-left-menu-width;
+      padding: 5px;
+    }
+    img {
+      width: 40px;
+    }
+    .nav > li > a {
+      padding: 14px 10px 14px 17px;
+
+      span {
+        opacity: 1;
+
+        @media (min-width: $screen-sm) {
+          opacity: 0;
+        }
+      }
     }
   }
 }
 
+body.layouted #topbar {
+  display: block;
+}
+
+#topbar {
+  display: none;
+  position: relative;
+  z-index: 2002;
+  height: 50px;
+  background-color: #FFF;
+  margin: 0 -15px 20px;
+  padding: 0 20px;
+}
 
 #footer {
   height: 27px;

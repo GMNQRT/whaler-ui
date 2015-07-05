@@ -2,6 +2,9 @@ $body-bg: $purple;
 $text-color: #676A6C;
 $brand-primary: $yellow;
 
+$state-success-bg: $green;
+$state-danger-bg: $red;
+
 
 $navbar-default-bg: transparent;
 $navbar-default-toggle-icon-bar-bg: $yellow;
@@ -14,7 +17,7 @@ $font-size-base: 13px;
 $left-menu-width: 220px;
 $collapsed-left-menu-width: 50px;
 
-$screen-sm: 768px + $left-menu-width;
+$screen-sm: 768px;
 $screen-md: 992px + $left-menu-width;
 $screen-lg: 1200px + $left-menu-width;
 

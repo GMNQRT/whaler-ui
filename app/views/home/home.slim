@@ -1,5 +1,21 @@
 br
 .row
+  .col-xs-12.col-sm-6.col-md-3.col-lg-2
+    .panel.panel-default.info
+      .panel-body.no-padding
+        = fa_icon :server, class: 'bg-primary'
+        .right
+          span.text-primary.nb.m-r {{ ctrl.values.info.Containers }}
+          |  Containers
+  .col-xs-12.col-sm-6.col-md-3.col-lg-2
+    .panel.panel-default.info
+      .panel-body.no-padding
+        = fa_icon :connectdevelop, class: 'bg-success'
+        .right
+          span.text-success.nb.m-r {{ ctrl.values.info.Images }}
+          |  Images
+
+.row
   .col-xs-8.col-sm-8.col-md-8.col-lg-8
     .panel.panel-default
       .panel-heading

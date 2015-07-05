@@ -3,18 +3,15 @@
   z-index: 3;
   position: absolute;
   top: 0;
+  bottom: 0;
   left: -$left-menu-width;
   width: $left-menu-width;
   transition: width 0.3s ease-in;
+  background-color: inherit;
+
  .sidebar-collapse {
     overflow: hidden;
  }
-}
-
-body {
-  @media (max-width: $screen-sm) {
-    background-color: red !important;
-  }
 }
 
 #page-wrapper {

@@ -10,6 +10,7 @@ angular.module('whaler.interceptors').factory 'authInterceptor', [ '$q', '$locat
   responseError: (response) ->
     if response.status == 401
       $location.path '/login'
+      $cookies.remove 'user'
     $q.reject response
 
 ]

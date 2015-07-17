@@ -24,7 +24,7 @@
             = fa_icon :remove
         h3 {{ container.info.Names[0] }}
       .panel-body
-        p Create at {{ container.info.Created | date:'yyyy-MM-dd HH:mm:ss' }}
+        p Created at {{ container.info.Created * 1000 | date:'yyyy-MM-dd HH:mm:ss' }}
         p Image : {{ container.info.Image }}
         .btn-group aria-label="..." role="group"
           a.btn ng-click="ctrl.start(container)" ng-class="{ true: 'btn-success', false: 'btn-default' }[container.info.State.Running && !container.info.State.Paused]"

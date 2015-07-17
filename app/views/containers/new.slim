@@ -6,6 +6,7 @@ br
         h2 Création d'un conteneur
       .panel-body
         form novalidate=""
+          h3 Information primaire
           .form-group
             label for="name"  Nom
             input#name.form-control required="" placeholder="Non de votre conteneur" type="text" ng-model="container.name"
@@ -15,5 +16,186 @@ br
           .form-group
             label for="tag" Tag
             select#tag.form-control required="" ng-options="tag for tag in container.image.info.RepoTags track by image.id" ng-model="container.tag"
-          button.btn.btn-default type="submit" ng-click="ctrl.create(container)"  Ajouter
+          hr
+          h3 Conteneur Options
+          .row
+            .col-xs-6.col-sm-6.col-md-6.col-lg-6
+              .form-group
+                label for="name"  Cmd
+                input#name.form-control required="" placeholder="Non de votre conteneur" type="text" ng-model="container.name"
+              .form-group
+                label for="name"  Entrypoint
+                input#name.form-control required="" placeholder="Non de votre conteneur" type="text" ng-model="container.name"
+              .form-group
+                label for="name"  Hostname
+                input#name.form-control required="" placeholder="Non de votre conteneur" type="text" ng-model="container.name"
+              .form-group
+                label for="name"  Domainname
+                input#name.form-control required="" placeholder="Non de votre conteneur" type="text" ng-model="container.name"
+              .form-group
+                label for="name"  User
+                input#name.form-control required="" placeholder="Non de votre conteneur" type="text" ng-model="container.name"
+              .form-group
+                label for="name"  Memory
+                input#name.form-control required="" placeholder="Non de votre conteneur" type="text" ng-model="container.name"
+            .col-xs-6.col-sm-6.col-md-6.col-lg-6
+              .form-group
+                label for="name"  MemorySwap
+                input#name.form-control required="" placeholder="Non de votre conteneur" type="text" ng-model="container.name"
+              .form-group
+                label for="name"  CpuShares
+                input#name.form-control required="" placeholder="Non de votre conteneur" type="text" ng-model="container.name"
+              .form-group
+                label for="name"  Cpuset
+                input#name.form-control required="" placeholder="Non de votre conteneur" type="text" ng-model="container.name"
+              .form-group
+                label for="name"  WorkingDir
+                input#name.form-control required="" placeholder="Non de votre conteneur" type="text" ng-model="container.name"
+              .form-group
+                label for="name"  MacAddress
+                input#name.form-control required="" placeholder="Non de votre conteneur" type="text" ng-model="container.name"
+              .checkbox
+                label
+                  input type="checkbox" Tty
+              .checkbox
+                label
+                  input type="checkbox" StdinOnce
+              .checkbox
+                label
+                  input type="checkbox" NetworkDisabled
+              .checkbox
+                label
+                  input type="checkbox" OpenStdin
+          .row
+            .col-xs-6.col-sm-6.col-md-6.col-lg-6
+              .form-group
+                label for="name"  Volumes
+                input#name.form-control required="" placeholder="Non de votre conteneur" type="text" ng-model="container.name"
+            .col-xs-6.col-sm-6.col-md-6.col-lg-6
+              .form-group
+                label for="name"  SecurityOpts
+                input#name.form-control required="" placeholder="Non de votre conteneur" type="text" ng-model="container.name"
+          .row
+            .col-xs-12.col-sm-12.col-md-12.col-lg-12
+              .form-group
+                label for="name"  Env
+                input#name.form-control required="" placeholder="Non de votre conteneur" type="text" ng-model="container.name"
+          hr
+          h3 Host options
+          .row
+            .col-xs-6.col-sm-6.col-md-6.col-lg-6
+              .form-group
+                label for="name"  Binds
+                input#name.form-control required="" placeholder="Non de votre conteneur" type="text" ng-model="container.name"
+              .form-group
+                label for="name"  Links
+                input#name.form-control required="" placeholder="Non de votre conteneur" type="text" ng-model="container.name"
+              .form-group
+                label for="name"  Dns
+                input#name.form-control required="" placeholder="Non de votre conteneur" type="text" ng-model="container.name"
+              .form-group
+                label for="name"  DnsSearch
+                input#name.form-control required="" placeholder="Non de votre conteneur" type="text" ng-model="container.name"
+              .form-group
+                label for="name"  CapAdd
+                input#name.form-control required="" placeholder="Non de votre conteneur" type="text" ng-model="container.name"
+              .form-group
+                label for="name"  CapDrop
+                input#name.form-control required="" placeholder="Non de votre conteneur" type="text" ng-model="container.name"
+            .col-xs-6.col-sm-6.col-md-6.col-lg-6
+              .form-group
+                label for="name"  NetworkMode
+                input#name.form-control required="" placeholder="Non de votre conteneur" type="text" ng-model="container.name"
+              .checkbox
+                label
+                  input type="checkbox" PublishAllPorts
+              .checkbox
+                label
+                  input type="checkbox" Privileged
+              .form-group
+                label for="name"  VolumesFrom
+                input#name.form-control required="" placeholder="Non de votre conteneur" type="text" ng-model="container.name"
+              .form-group
+                label for="tag" RestartPolicy
+                select#tag.form-control required="" ng-model="container.tag"
+                  option disabled
+                  option always
+                  option on-failure
+              .form-group
+                label for="name"  MaximumRetryCount
+                input#name.form-control required="" placeholder="Non de votre conteneur" type="text" ng-model="container.name"
+          hr
+          .row
+            .col-xs-12.col-sm-12.col-md-12.col-lg-12
+              .form-group
+                label for="name"  ExtraHosts
+                input#name.form-control required="" placeholder="Non de votre conteneur" type="text" ng-model="container.name"
+          .row
+            .col-xs-12.col-sm-12.col-md-12.col-lg-12
+              .form-group
+                label for="name"  LxcConf
+                input#name.form-control required="" placeholder="Non de votre conteneur" type="text" ng-model="container.name"
+          .row
+            .col-xs-12.col-sm-12.col-md-12.col-lg-12
+              .form-group
+                label for="name"  Devices
+                input#name.form-control required="" placeholder="Non de votre conteneur" type="text" ng-model="container.name"
+          .row
+            .col-xs-12.col-sm-12.col-md-12.col-lg-12
+              .form-group
+                label for="name"  PortBindings
+                input#name.form-control required="" placeholder="Non de votre conteneur" type="text" ng-model="container.name"
+        button.btn.btn-default type="submit" ng-click="ctrl.create(container)"  Ajouter
+
 pre {{container | json}}
+
+pre
+  | "AttachStdin": false,
+  | "AttachStdout": true,
+  | "AttachStderr": true,
+  | "Tty": false,
+  | "OpenStdin": false,
+  | "StdinOnce": false,
+  | "Env": null,
+  | "Entrypoint": "",
+  | "Labels": {
+  |        "com.example.vendor": "Acme",
+  |        "com.example.license": "GPL",
+  |        "com.example.version": "1.0"
+  | },
+  | "Volumes": {
+  |        "/tmp": {}
+  | },
+  | "WorkingDir": "",
+  | "NetworkDisabled": false,
+  | "ExposedPorts": {
+  |        "22/tcp": {}
+  | },
+  | "HostConfig": {
+  |  "Binds": ["/tmp:/tmp"],
+  |  "Links": ["redis3:redis"],
+  |  "LxcConf": {"lxc.utsname":"docker"},
+  |  "MemorySwap": 0,
+  |  "CpuShares": 512,
+  |  "CpuPeriod": 100000,
+  |  "CpusetCpus": "0,1",
+  |  "CpusetMems": "0,1",
+  |  "BlkioWeight": 300,
+  |  "OomKillDisable": false,
+  |  "PortBindings": { "22/tcp": [{ "HostPort": "11022" }] },
+  |  "PublishAllPorts": false,
+  |  "Privileged": false,
+  |  "ReadonlyRootfs": false,
+  |  "Dns": ["8.8.8.8"],
+  |  "DnsSearch": [""],
+  |  "ExtraHosts": null,
+  |  "VolumesFrom": ["parent", "other:ro"],
+  |  "CapAdd": ["NET_ADMIN"],
+  |  "CapDrop": ["MKNOD"],
+  |  "RestartPolicy": { "Name": "", "MaximumRetryCount": 0 },
+  |  "NetworkMode": "bridge",
+  |  "Devices": [],
+  |  "Ulimits": [{}],
+  |  "LogConfig": { "Type": "json-file", "Config": {} },
+  |  "SecurityOpt": [""],
+  |  "CgroupParent": "".row

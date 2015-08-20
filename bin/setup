@@ -13,7 +13,7 @@ Dir.chdir APP_ROOT do
   system "bundle check || bundle install"
 
   puts "\n== Download assets =="
-  system "bin/rake bower:install['--allow-root']"
+  system "/bin/rake bower:install['--allow-root']"
 
   puts "\n== Removing old tempfiles =="
   pid_file = 'tmp/pids/server.pid'

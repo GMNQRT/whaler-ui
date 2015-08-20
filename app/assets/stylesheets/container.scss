@@ -1,0 +1,19 @@
+journal {
+  display: block;
+  height: 274px;
+  resize: vertical;
+  overflow: auto;
+  background-color: black;
+  color: white;
+  padding: $padding-base-vertical $padding-base-horizontal;
+
+  log {
+    display: block;
+    min-height: 19px;
+
+    &:nth-child(odd) {
+      font-weight: bold;
+      color: $yellow;
+    }
+  }
+}

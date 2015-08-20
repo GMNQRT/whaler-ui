@@ -1,7 +1,10 @@
 angular.module('whaler.controllers').controller 'ContainerController', [
+  '$scope',
   'ContainerFactory',
   '$routeParams',
-  ContainerController = (@ContainerFactory, @$routeParams) ->
+  'API',
+  'StreamFactory'
+  ContainerController = (@$scope, @ContainerFactory, @$routeParams, @API, @StreamFactory) ->
     @term = ''
     @containers = @ContainerFactory.query()
 
@@ -9,7 +12,16 @@ angular.module('whaler.controllers').controller 'ContainerController', [
 ]
 
 ContainerController::show = () ->
+  @logs = new Array()
   @container = @ContainerFactory.get { id:  @$routeParams['id'] }
+
+  source = @StreamFactory.listen("#{@API.baseUrl()}container/#{@$routeParams['id']}/logs.json");
+  source.$on 'logs', (message) =>
+    @logs.push(message)
+  , @$scope
+  @$scope.$on '$destroy', source.destroy
+
+  return
 
 ContainerController::start = (container) ->
   @ContainerFactory.start { id: container.id }, (res) ->

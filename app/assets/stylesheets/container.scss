@@ -17,3 +17,19 @@ journal {
     }
   }
 }
+
+.actions .action {
+  float: left;
+  text-align: center;
+  padding: 0 $padding-base-horizontal;
+
+  .btn {
+    line-height: 23px;
+  }
+}
+.btn-rounded {
+  border-radius: 100%;
+}
+.btn-legend {
+  display: block;
+}

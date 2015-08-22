@@ -11,23 +11,51 @@ br
             .text-center.pull-right Create at : {{ ctrl.container.info.Created | date:'yyyy-MM-dd HH:mm:ss' }}
             .text-center.pull-right Started at : {{ ctrl.container.info.State.StartedAt  | date:'yyyy-MM-dd HH:mm:ss' }}
             .text-center.pull-right Finished at : {{ ctrl.container.info.State.FinishedAt  | date:'yyyy-MM-dd HH:mm:ss' }}
-            .btn-group.pull-right aria-label="..." role="group" 
-              a.btn.btn-success ng-href="/container/{{ ctrl.container.id }}/start" ng-if="ctrl.container.info.State.stateNumber == 2"
-                span.glyphicon.glyphicon-play aria-hidden="true" 
-              a.btn.btn-default ng-href="/container/{{ ctrl.container.id }}/start" ng-if="ctrl.container.info.State.stateNumber != 2"
-                span.glyphicon.glyphicon-play aria-hidden="true" 
-              a.btn.btn-warning ng-href="/container/{{ ctrl.container.id }}/unpause" ng-if="ctrl.container.info.State.stateNumber == 3"
-                span.glyphicon.glyphicon-pause aria-hidden="true" 
-              a.btn.btn-default ng-href="/container/{{ ctrl.container.id }}/pause" ng-if="ctrl.container.info.State.stateNumber != 3"
-                span.glyphicon.glyphicon-pause aria-hidden="true" 
-              a.btn.btn-danger ng-href="/container/{{ ctrl.container.id }}/stop" ng-if="ctrl.container.info.State.stateNumber == 0"
-                span.glyphicon.glyphicon-stop aria-hidden="true" 
-              a.btn.btn-default ng-href="/container/{{ ctrl.container.id }}/stop" ng-if="ctrl.container.info.State.stateNumber != 0"
-                span.glyphicon.glyphicon-stop aria-hidden="true" 
-              a.btn.btn-default ng-href="/container/{{ ctrl.container.id }}/restart"
-                span.glyphicon.glyphicon-repeat aria-hidden="true" 
-              button.btn.btn-danger type="submit" ng-if="ctrl.container.info.State.stateNumber == -1"
-                span.glyphicon.glyphicon-alert aria-hidden="true" 
+            / .btn-group.pull-right aria-label="..." role="group"
+            /   a.btn.btn-success ng-href="/container/{{ ctrl.container.id }}/start" ng-if="ctrl.container.info.State.stateNumber == 2"
+            /     span.glyphicon.glyphicon-play aria-hidden="true"
+            /   a.btn.btn-default ng-href="/container/{{ ctrl.container.id }}/start" ng-if="ctrl.container.info.State.stateNumber != 2"
+            /     span.glyphicon.glyphicon-play aria-hidden="true"
+            /   a.btn.btn-warning ng-href="/container/{{ ctrl.container.id }}/unpause" ng-if="ctrl.container.info.State.stateNumber == 3"
+            /     span.glyphicon.glyphicon-pause aria-hidden="true"
+            /   a.btn.btn-default ng-href="/container/{{ ctrl.container.id }}/pause" ng-if="ctrl.container.info.State.stateNumber != 3"
+            /     span.glyphicon.glyphicon-pause aria-hidden="true"
+            /   a.btn.btn-danger ng-href="/container/{{ ctrl.container.id }}/stop" ng-if="ctrl.container.info.State.stateNumber == 0"
+            /     span.glyphicon.glyphicon-stop aria-hidden="true"
+            /   a.btn.btn-default ng-href="/container/{{ ctrl.container.id }}/stop" ng-if="ctrl.container.info.State.stateNumber != 0"
+            /     span.glyphicon.glyphicon-stop aria-hidden="true"
+            /   a.btn.btn-default ng-href="/container/{{ ctrl.container.id }}/restart"
+            /     span.glyphicon.glyphicon-repeat aria-hidden="true"
+            /   button.btn.btn-danger type="submit" ng-if="ctrl.container.info.State.stateNumber == -1"
+            /     span.glyphicon.glyphicon-alert aria-hidden="true"
+
+.row
+  .col-xs-6
+    .panel.panel-default
+      .panel-body
+        .actions
+          .action ng-show="!ctrl.container.info.State.Running || ctrl.container.info.State.Paused"
+            a.btn.btn-default.btn-rounded ng-click="ctrl.start(ctrl.container)"
+              = fa_icon :play
+            .btn-legend START
+          .action ng-show="ctrl.container.info.State.Running || ctrl.container.info.State.Paused"
+            a.btn.btn-default.btn-rounded ng-click="ctrl.stop(ctrl.container)"
+              = fa_icon :stop
+            .btn-legend STOP
+          .action ng-show="ctrl.container.info.State.Running && !ctrl.container.info.State.Paused"
+            a.btn.btn-default.btn-rounded ng-click="ctrl.pause(ctrl.container)"
+              = fa_icon :pause
+            .btn-legend PAUSE
+          .action ng-show="ctrl.container.info.State.Running || ctrl.container.info.State.Paused"
+            a.btn.btn-default.btn-rounded ng-click="ctrl.restart(ctrl.container)"
+              = fa_icon :undo
+            .btn-legend RESTART
+          .action ng-show="ctrl.container.info.State.Running && !ctrl.container.info.State.Paused"
+            a.btn.btn-default.btn-rounded ng-click="ctrl.exec(ctrl.container)"
+              = fa_icon :terminal
+            .btn-legend EXEC
+
+
 .row
   .col-xs-12.col-sm-12.col-md-12.col-lg-12
     .panel.panel-default
@@ -115,13 +143,13 @@ br
         div ng-repeat="(protocol,liens) in ctrl.container.info.NetworkSettings.Ports"
           ul ng-repeat="port in liens"
             li {{ port.HostIp }}:{{ port.HostPort }} -> {{ protocol }}
-        ul.nav.nav-pills role="tablist" 
-          li.active role="presentation" 
-            a href="#" 
+        ul.nav.nav-pills role="tablist"
+          li.active role="presentation"
+            a href="#"
               | Bridge
               span.badge {{ctrl.container.info.NetworkSettings.Bridge}}
-          li.active role="presentation" 
-            a href="#" 
+          li.active role="presentation"
+            a href="#"
               | Mac Address
               span.badge {{ctrl.container.info.NetworkSettings.MacAddress}}
 .row

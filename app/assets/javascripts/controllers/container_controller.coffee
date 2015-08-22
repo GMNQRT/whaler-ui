@@ -24,26 +24,35 @@ ContainerController::show = () ->
   return
 
 ContainerController::start = (container) ->
-  @ContainerFactory.start { id: container.id }, (res) ->
-    angular.extend container.info.State, res.info.State
+  console.log "start"
+  if container.info.State.Paused
+    @unpause container
+  else
+    @ContainerFactory.start { id: container.id }, (res) ->
+      angular.extend container.info.State, res.info.State
 
 ContainerController::stop = (container) ->
+  console.log "stop"
   @ContainerFactory.stop { id: container.id }, (res) ->
     angular.extend container.info.State, res.info.State
 
 ContainerController::pause = (container) ->
+  console.log "pause"
   @ContainerFactory.pause { id: container.id }, (res) ->
     angular.extend container.info.State, res.info.State
 
 ContainerController::unpause = (container) ->
+  console.log "unpause"
   @ContainerFactory.unpause { id: container.id }, (res) ->
     angular.extend container.info.State, res.info.State
 
 ContainerController::restart = (container) ->
+  console.log "restart"
   @ContainerFactory.restart { id: container.id }, (res) ->
     angular.extend container.info.State, res.info.State
 
 ContainerController::delete = (container) ->
+  console.log "delete"
   @ContainerFactory.delete { id: container.id }, (res) =>
     @containers.splice @containers.indexOf(container), 1
 

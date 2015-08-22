@@ -28,12 +28,12 @@ ContainerController::start = (container) ->
   if container.info.State.Paused
     @unpause container
   else
-    @ContainerFactory.start { id: container.id }, (res) ->
+    @ContainerFactory.start { id: container.id }, (res) =>
       angular.extend container.info.State, res.info.State
 
 ContainerController::stop = (container) ->
   console.log "stop"
-  @ContainerFactory.stop { id: container.id }, (res) ->
+  @ContainerFactory.stop { id: container.id }, (res) =>
     angular.extend container.info.State, res.info.State
 
 ContainerController::pause = (container) ->

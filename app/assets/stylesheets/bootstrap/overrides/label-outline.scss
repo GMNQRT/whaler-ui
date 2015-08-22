@@ -1,0 +1,25 @@
+@mixin label-outline-variant($color) {
+  color: $color;
+  background-image: none;
+  background-color: transparent;
+  border: 1px solid $color;
+}
+
+.label-primary-outline {
+  @include label-outline-variant($label-primary-bg);
+}
+.label-default-outline {
+  @include label-outline-variant($label-default-bg);
+}
+.label-info-outline {
+  @include label-outline-variant($label-info-bg);
+}
+.label-success-outline {
+  @include label-outline-variant($label-success-bg);
+}
+.label-warning-outline {
+  @include label-outline-variant($label-warning-bg);
+}
+.label-danger-outline {
+  @include label-outline-variant($label-danger-bg);
+}

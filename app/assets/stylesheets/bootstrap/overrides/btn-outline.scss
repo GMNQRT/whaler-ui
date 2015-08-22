@@ -1,0 +1,43 @@
+@mixin button-outline-variant($color) {
+  color: $color;
+  background-image: none;
+  background-color: transparent;
+  border-color: $color;
+
+  &:focus,
+  &.focus,
+  &:active,
+  &.active,
+  &:hover,
+  .open > &.dropdown-toggle {
+    color: #fff;
+    background-color: $color;
+        border-color: $color;
+  }
+
+  &.disabled,
+  &:disabled,
+  fieldset[disabled] & {
+    &:hover,
+    &:focus,
+    &.focus {
+      border-color: lighten($color, 20%);
+    }
+  }
+}
+
+.btn-primary-outline {
+  @include button-outline-variant($btn-primary-bg);
+}
+.btn-info-outline {
+  @include button-outline-variant($btn-info-bg);
+}
+.btn-success-outline {
+  @include button-outline-variant($btn-success-bg);
+}
+.btn-warning-outline {
+  @include button-outline-variant($btn-warning-bg);
+}
+.btn-danger-outline {
+  @include button-outline-variant($btn-danger-bg);
+}

@@ -1,47 +1,70 @@
+.row
+  .col-xs-6.col-sm-6.col-md-6.col-lg-6
+    h1.m-t-0
+      | {{ ctrl.container.info.Name }}
+      small< container="ctrl.container" container-state=""
+    small Name : {{ ctrl.container.info.Config.Hostname }} | image : {{ ctrl.container.info.Config.Image }}
+
+  .col-xs-6
+    .actions
+      .action.pull-right.ng-cloak ng-show="ctrl.container.info.State.Running === false || ctrl.container.info.State.Paused"
+        a.btn.btn-default.btn-rounded ng-click="ctrl.start(ctrl.container)"
+          = fa_icon :play
+        .btn-legend START
+      .action.pull-right.ng-cloak ng-show="ctrl.container.info.State.Running || ctrl.container.info.State.Paused"
+        a.btn.btn-default.btn-rounded ng-click="ctrl.stop(ctrl.container)"
+          = fa_icon :stop
+        .btn-legend STOP
+      .action.pull-right.ng-cloak ng-show="ctrl.container.info.State.Running && ctrl.container.info.State.Paused === false"
+        a.btn.btn-default.btn-rounded ng-click="ctrl.pause(ctrl.container)"
+          = fa_icon :pause
+        .btn-legend PAUSE
+      .action.pull-right.ng-cloak ng-show="ctrl.container.info.State.Running || ctrl.container.info.State.Paused"
+        a.btn.btn-default.btn-rounded ng-click="ctrl.restart(ctrl.container)"
+          = fa_icon :undo
+        .btn-legend RESTART
+      .action.pull-right.ng-cloak ng-show="ctrl.container.info.State.Running && ctrl.container.info.State.Paused === false"
+        a.btn.btn-default.btn-rounded ng-click="ctrl.exec(ctrl.container)"
+          = fa_icon :terminal
+        .btn-legend EXEC
+br
+.row
+  #journal.col-xs-8
+    header
+      h2.text-uppercase Container logs
+    journal
+      log ng-repeat="log in ctrl.logs" data="log.data"
+
+  .col-xs-4
+    .panel.panel-default
+      .panel-heading
+        h2.text-uppercase Informations
+      .panel-body
+        p Create at : {{ ctrl.container.info.Created | date:'yyyy-MM-dd HH:mm:ss' }}
+        p Started at : {{ ctrl.container.info.State.StartedAt  | date:'yyyy-MM-dd HH:mm:ss' }}
+        p Finished at : {{ ctrl.container.info.State.FinishedAt  | date:'yyyy-MM-dd HH:mm:ss' }}
 br
 .row
   .col-xs-12.col-sm-12.col-md-12.col-lg-12
     .panel.panel-default
       .panel-heading
-        .row
-          .col-xs-6.col-sm-6.col-md-6.col-lg-6
-            h1
-              | {{ ctrl.container.info.Name }}
-              small< container="ctrl.container" container-state=""
-            small Name : {{ ctrl.container.info.Config.Hostname }} | image : {{ ctrl.container.info.Config.Image }}
-
-          .col-xs-6.col-sm-6.col-md-6.col-lg-6
-            .text-center.pull-right Create at : {{ ctrl.container.info.Created | date:'yyyy-MM-dd HH:mm:ss' }}
-            .text-center.pull-right Started at : {{ ctrl.container.info.State.StartedAt  | date:'yyyy-MM-dd HH:mm:ss' }}
-            .text-center.pull-right Finished at : {{ ctrl.container.info.State.FinishedAt  | date:'yyyy-MM-dd HH:mm:ss' }}
-
-
-.row
-  .col-xs-6
-    .panel.panel-default
+        h2.text-uppercase Environment Variables
       .panel-body
-        .actions
-          .action.ng-cloak ng-show="ctrl.container.info.State.Running === false || ctrl.container.info.State.Paused"
-            a.btn.btn-default.btn-rounded ng-click="ctrl.start(ctrl.container)"
-              = fa_icon :play
-            .btn-legend START
-          .action.ng-cloak ng-show="ctrl.container.info.State.Running || ctrl.container.info.State.Paused"
-            a.btn.btn-default.btn-rounded ng-click="ctrl.stop(ctrl.container)"
-              = fa_icon :stop
-            .btn-legend STOP
-          .action.ng-cloak ng-show="ctrl.container.info.State.Running && ctrl.container.info.State.Paused === false"
-            a.btn.btn-default.btn-rounded ng-click="ctrl.pause(ctrl.container)"
-              = fa_icon :pause
-            .btn-legend PAUSE
-          .action.ng-cloak ng-show="ctrl.container.info.State.Running || ctrl.container.info.State.Paused"
-            a.btn.btn-default.btn-rounded ng-click="ctrl.restart(ctrl.container)"
-              = fa_icon :undo
-            .btn-legend RESTART
-          .action.ng-cloak ng-show="ctrl.container.info.State.Running && ctrl.container.info.State.Paused === false"
-            a.btn.btn-default.btn-rounded ng-click="ctrl.exec(ctrl.container)"
-              = fa_icon :terminal
-            .btn-legend EXEC
-
+        pre {{ctrl.container.info.Config.Env | json}}
+        table.table
+          thead
+            th Key
+            th Value
+            th
+          tbody
+            tr ng-repeat="env in ctrl.container.info.Config.Env"
+              td
+                input.form-control type="text" value="{{ env | envKey }}"/
+              td
+                input.form-control type="text" value="{{ env | envValue }}"/
+              td
+                .btn.btn-default x
+        .btn.btn-primary save
 
 .row
   .col-xs-12.col-sm-12.col-md-12.col-lg-12
@@ -173,21 +196,5 @@ br
             p SecurityOpt : {{ctrl.container.info.HostConfig.SecurityOpt}}
             p Ulimits : {{ctrl.container.info.HostConfig.Ulimits}}
             p VolumesFrom : {{ctrl.container.info.HostConfig.VolumesFrom}}
-.row
-  .col-xs-12.col-sm-12.col-md-12.col-lg-12
-    .panel.panel-default
-      .panel-heading
-        h2 Environement variable
-      .panel-body
-        .well
-          div ng-repeat="env in ctrl.container.info.Config.Env"
-            p {{ env }}
 
-.row
-  .col-xs-12.col-sm-12.col-md-12.col-lg-12
-    .panel.panel-default
-      .panel-heading
-        h2 Logs
-      .panel-body
-        journal
-          log ng-repeat="log in ctrl.logs" data="log.data"
+

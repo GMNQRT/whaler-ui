@@ -56,6 +56,19 @@ ContainerController::delete = (container) ->
   @ContainerFactory.delete { id: container.id }, (res) =>
     @containers.splice @containers.indexOf(container), 1
 
+ContainerController::setEnv = (data) ->
+  console.log data
+  # @ContainerFactory.delete { id: container.id }, (res) =>
+    # @containers.splice @containers.indexOf(container), 1
+
+ContainerController::removeEnv = (data) ->
+  console.log data
+
+ContainerController::addEnv = (data) ->
+  console.log data
+  # @ContainerFactory.delete { id: container.id }, (res) =>
+    # @containers.splice @containers.indexOf(container), 1
+
 ContainerController::search= (val, $event) ->
   $event?.preventDefault()
   return if !val || val.length == 0

@@ -9,5 +9,5 @@ angular.module('whaler.controllers').controller 'ApplicationController', [
 ApplicationController::getUser = () ->
   @user = @API.getUser()
 
-ApplicationController::collapseNav = () ->
+ApplicationController::toggleNav = () ->
   @isCollapsed = !@isCollapsed

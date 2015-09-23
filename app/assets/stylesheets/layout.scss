@@ -15,7 +15,7 @@
 }
 
 #page-wrapper {
-  padding: 0 15px;
+  // padding: 0 15px;
   min-height: 100vh;
   position: relative;
   z-index: 2;
@@ -30,7 +30,7 @@ body.layouted {
   }
 
  .collapsed + #page-wrapper {
-    margin-left: $left-menu-width;
+    margin-left: 0;
   }
 
   @media (min-width: $screen-sm) {
@@ -54,7 +54,24 @@ body.layouted {
 
 }
 
-
+.collapsed + #page-wrapper {
+  @media (max-width: $screen-sm) {
+    #mobile-backdrop
+    {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background-color: rgba(62, 62, 62, 0.08);
+      z-index: 1;
+    }
+    main {
+      transform: translate(0);
+      -webkit-filter: blur(5px);
+    }
+  }
+}
 
 #main-nav {
   .nav > li > a {
@@ -87,8 +104,8 @@ body.layouted {
   }
 
   .brand {
-    height: 156px;
-    padding: 30px 20px;
+    height: 50px;
+    padding: 0px 10px;
     background-color: $purple-dark;
     background-repeat: no-repeat;
     background-image:  image-url("header-profile.png");
@@ -101,14 +118,6 @@ body.layouted {
     }
   }
 
-
-  .user-mail {
-    font-weight: bold;
-    max-width: 90%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    color: #FFF;
-  }
 
   &.collapsed {
     .brand {
@@ -141,12 +150,54 @@ body.layouted #topbar {
   position: relative;
   z-index: 2002;
   height: 50px;
-  background-color: #FFF;
-  margin: 0 -15px 20px;
-  padding: 0 20px;
+  background-color: $purple;
+
+  .navbar-right {
+    margin-right: 0;
+  }
+
+  a {
+    color: white;
+  }
+
+  .dropdown.user-mail {
+    background-color: #38283C;
+
+    .dropdown-menu {
+      background-color: inherit;
+      border: none;
+    }
+  }
+}
+
+#searchForm {
+  display: inline-block;
+  padding: 0;
+  position: relative;
+  box-shadow: none;
+
+  .fa {
+    position: absolute;
+    top: 10px;
+    left: 0;
+  }
+  input {
+    border: none;
+    background-color: inherit;
+    color: #FFF;
+    padding-left: 16px;
+
+    &:focus {
+      box-shadow: none;
+      border: none;
+
+      + .fa {
+        color: white;
+      }
+    }
+  }
 }
 
 #footer {
   height: 27px;
 }
-

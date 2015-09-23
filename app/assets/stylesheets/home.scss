@@ -1,14 +1,13 @@
 .info
 {
-  white-space: nowrap;
   overflow: hidden;
-  position: relative;
 
   i.fa {
-    padding: 20px;
     color: #FFF;
     font-size: 22px;
     font-weight: bold;
+    vertical-align: middle;
+    line-height: 72px;
   }
 
   .nb {
@@ -16,11 +15,32 @@
     vertical-align: sub;
   }
 
-  .right {
-    position: absolute;
-    left: 65px;
-    top: 10px;
-    right: 20px;
-    text-align: right;
+  a {
+    color: inherit;
+  }
+  a:hover {
+    text-decoration: none;
+  }
+}
+
+.data-list {
+  li {
+    padding: 20px 0;
+  }
+  .value {
+    float: right;
+    color: #333;
+    font-weight: bold;
+  }
+}
+
+.table td {
+  vertical-align: middle;
+}
+.table img {
+  max-height: 40px;
+
+  &[src*=svg] {
+    width: 50px;
   }
 }

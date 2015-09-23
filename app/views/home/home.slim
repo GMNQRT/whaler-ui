@@ -1,57 +1,88 @@
-br
-.row
-  .col-xs-12.col-sm-6.col-md-3.col-lg-2
-    .panel.panel-default.info
-      .panel-body.no-padding
-        = fa_icon :server, class: 'bg-primary'
-        .right
-          span.text-primary.nb.m-r {{ ctrl.values.info.Containers }}
-          |  Containers
-  .col-xs-12.col-sm-6.col-md-3.col-lg-2
-    .panel.panel-default.info
-      .panel-body.no-padding
-        = fa_icon :connectdevelop, class: 'bg-success'
-        .right
-          span.text-success.nb.m-r {{ ctrl.values.info.Images }}
-          |  Images
+h4.current-place.p-a.m-a-0.f-14
+  =' fa_icon 'th-large'
+  span.hidden-xs Dashboard
 
 .row
-  .col-xs-8.col-sm-8.col-md-8.col-lg-8
+  .col-xs-12.col-sm-6.col-md-3.col-lg-2
+    .panel.panel-default.info
+      a.panel-header.bg-primary.col-xs-3.text-center href="/container"
+        = fa_icon :server
+      a.panel-body.col-xs-9 href="/container"
+        span.text-primary.f-30.m-r {{ ctrl.values.info.Containers }}
+        | Containers
+  
+  .col-xs-12.col-sm-6.col-md-3.col-lg-2
+    .panel.panel-default.info
+      a.panel-header.bg-success.col-xs-3.text-center href="/images"
+        = fa_icon :connectdevelop
+      a.panel-body.col-xs-9 href="/images"
+        span.text-success.f-30.m-r {{ ctrl.values.info.Images }}
+        | Images
+
+        
+.row
+  .col-xs-12.col-sm-6.col-md-4
     .panel.panel-default
       .panel-heading
-        h1 Homepage
-      .panel-body
-        p Date server : {{ ctrl.values.info.SystemTime | date:'yyyy-MM-dd HH:mm:ss Z' }}
-        .row
-          .col-xs-12.col-sm-6.col-md-6.col-lg-6
-            h2 Virtual Machine
-            p Os : {{ ctrl.values.version.Os }}
-            p Arch : {{ ctrl.values.version.Arch }}
-            p Number CPU : {{ ctrl.values.info.NCPU}}
-            p Total memory: {{ ctrl.values.info.MemTotal}} Octets
-          .col-xs-12.col-sm-6.col-md-6.col-lg-6
-            h2 Core
-            p Name: {{ ctrl.values.info.Name}}
-            p Version: {{ ctrl.values.info.KernelVersion}}
-        .row
-          .col-xs-12.col-sm-6.col-md-6.col-lg-6
-            h2 Docker
-            p Client API version : {{ ctrl.values.version.ApiVersion }}
-            p Client version : {{ ctrl.values.version.Version }}
-            p Git commit : {{ ctrl.values.version.GitCommit }}
-          .col-xs-12.col-sm-6.col-md-6.col-lg-6
-            h2 Go
-            p Go version : {{ ctrl.values.version.GoVersion }}
-            p Go Number thread : {{ ctrl.values.info.NGoroutines}}
-  .col-xs-4.col-sm-4.col-md-4.col-lg-4
+        h2.panel-title Virtual Machine
+      .panel-body.p-x-0
+        table.table.table-hover.table-borderless.m-b-0
+          tr
+            th
+              = image_tag("icons/coding-html.svg", class: "m-r")
+              | Os
+            td {{ ctrl.values.version.Os }}
+          tr
+            th
+              = image_tag("icons/cpu-chip.svg", class: "m-r")
+              | Arch
+            td {{ ctrl.values.version.Arch }}
+          tr
+            th
+              = image_tag("icons/cpu-processor.svg", class: "m-r")
+              | Number CPU
+            td {{ ctrl.values.info.NCPU }}
+          tr
+            th
+              = image_tag("icons/memory-sd-card.svg", class: "m-r")
+              | Total memory
+            td {{ ctrl.values.info.MemTotal }} Octets
+          tr
+            th
+              = image_tag("icons/chessboard.svg", class: "m-r")
+              | Go version
+            td {{ ctrl.values.version.GoVersion }}
+          tr
+            th
+              = image_tag("icons/conveyor-belt.svg", class: "m-r")
+              | Go Number thread
+            td {{ ctrl.values.info.NGoroutines}}
+
+  .col-xs-12.col-sm-6.col-md-4
     .panel.panel-default
       .panel-heading
-        h1 Information
+        h2.panel-title Core
       .panel-body
-        ul.list-group
-          li.list-group-item
-            span.badge {{ ctrl.values.info.Containers}}
-            | Number containers
-          li.list-group-item
-            span.badge {{ ctrl.values.info.Images}}
-            | Number images
+        table.table.table-borderless.m-b-0
+          tr
+            th Name
+            td {{ ctrl.values.info.Name}}
+          tr
+            th Version
+            td {{ ctrl.values.info.KernelVersion}}
+
+    .panel.panel-default
+      .panel-heading
+        h2.panel-title Docker
+      .panel-body
+        table.table.table-borderless.m-b-0
+          tr
+            th Client API version
+            td {{ ctrl.values.version.ApiVersion }}
+          tr
+            th Client version
+            td {{ ctrl.values.version.Version }}
+          tr
+            th Git commit
+            td {{ ctrl.values.version.GitCommit }}
+  

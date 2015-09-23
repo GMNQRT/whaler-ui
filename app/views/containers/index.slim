@@ -1,46 +1,15 @@
-#searchForm.row
-  = bootstrap_form_tag url: '', data: { 'ng-submit' => 'ctrl.search(term, $event)' } do |f|
-      = f.text_field :term,
-        placeholder: 'Enter search term...',
-        help: 'Examples: Web, Server ...',
-        skip_label: true,
-        wrapper_class: 'col-xs-6',
-        data: { 'ng-model' => 'term', 'ng-model-options' => '{ debounce: 250 }', 'ng-change' => 'ctrl.search(term)' }
+h4.current-place.p-a.m-a-0.f-14
+  => fa_icon :tasks
+  span.hidden-xs Containers
 
-      = f.form_group class: 'col-xs-3' do
-        button.btn.btn-primary.btn-block type="submit"
-          => fa_icon :search
-          | Search
-      = f.form_group class: 'col-xs-3 no-padding' do
-        button.btn.btn-success.btn-block type="submit"
-          => fa_icon :plus
-          | Ajouter un container
 .row
-  .col-xs-12.col-sm-6.col-md-4.col-lg-4 ng-repeat="container in ctrl.containers"
-    .panel.panel-default
-      .panel-heading
-        .text-center.pull-right
-          a.btn.btn-link ng-click="ctrl.delete(container)"
-            = fa_icon :remove
-        h3 {{ container.info.Names[0] }}
-      .panel-body
-        p Created at {{ container.info.Created * 1000 | date:'yyyy-MM-dd HH:mm:ss' }}
-        p Image : {{ container.info.Image }}
-        .btn-group aria-label="..." role="group"
-          a.btn ng-click="ctrl.start(container)" ng-class="{ true: 'btn-success', false: 'btn-default' }[container.info.State.Running && !container.info.State.Paused]"
-            = fa_icon :play
-
-          a.btn ng-click="ctrl.pause(container)" ng-class="{ true: 'btn-warning', false: 'btn-default' }[container.info.State.Paused]"
-            = fa_icon :pause
-
-          a.btn ng-click="ctrl.stop(container)" ng-class="{ true: 'btn-danger', false: 'btn-default' }[!container.info.State.Running]"
-            = fa_icon :stop
-
-          a.btn.btn-default  ng-click="ctrl.restart(container)"
-            = fa_icon :repeat
-
-          button.btn.btn-danger type="submit" ng-if="container.info.State.Error != ''"
-            = fa_icon 'exclamation-triangle'
-
-          a.btn.btn-default ng-href="/container/{{ container.id }}"
-            = fa_icon :eye
+  .col-xs-12.col-sm-6.col-md-4.col-lg-3 ng-repeat="container in ctrl.containers"
+    container-card[
+      ng-model="container"
+      start="ctr.start(container)"
+      pause="ctrl.pause(container)"
+      stop="ctrl.stop(container)"
+      restart="ctrl.restart(container)"
+      exec="ctrl.exec(container)"
+      remove="ctrl.remove(container)"
+    ]

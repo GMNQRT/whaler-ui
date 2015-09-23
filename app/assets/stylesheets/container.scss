@@ -1,3 +1,37 @@
+container-card {
+  display: block;
+
+
+  .panel {
+    height: 100px;
+  }
+  .panel-title {
+    @include text-overflow();
+  }
+  .panel-header {
+    height: 100%;
+    color: white;
+  }
+  .panel-body {
+    height: 100%;
+  }
+
+  footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-top: 1px solid $soft-gray;
+    width: 100%;
+    padding: 5px;
+    box-shadow: none;
+    a {
+      color: #737373;
+    }
+  }
+}
+
+
+
 h1 small[container-state]{
   font-size: 45%;
   vertical-align: middle;

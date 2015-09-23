@@ -36,6 +36,25 @@
   border: none;
 }
 
+.btn-group {
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,0.3);
+  .btn {
+    border: none;
+    border-radius: 0;
+
+    &:hover {
+      background-color: inherit;
+    }
+  }
+  .btn-group {
+    box-shadow: none;
+  }
+}
+
+.o-auto {
+  overflow: auto;
+}
+
 
 .m-a-0 { margin:        0 !important; }
 .m-t-0 { margin-top:    0 !important; }

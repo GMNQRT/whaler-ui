@@ -1,17 +1,7 @@
-#searchForm.row
-  = bootstrap_form_tag url: '', data: { 'ng-submit' => 'ctrl.searchImage(term, $event)' } do |f|
-      = f.text_field :term,
-        placeholder: 'Enter search term...',
-        help: 'Examples: Rails, redis, NGINX ...',
-        skip_label: true,
-        wrapper_class: 'col-xs-10',
-        data: { 'ng-model' => 'term', 'ng-model-options' => '{ debounce: 250 }', 'ng-change' => 'ctrl.searchImage(term)' }
-
-      = f.form_group class: 'col-xs-2 no-padding' do
-        button.btn.btn-primary.btn-block type="submit"
-          => fa_icon :search
-          | Search
-
+h4.current-place.p-a.m-a-0.f-14
+  =' fa_icon 'picture-o'
+  span.hidden-xs Images
+  
 .row ng-repeat="image in ctrl.images"
   .panel.panel-default.image-info
     .panel-body

@@ -2,6 +2,7 @@ angular.module('whaler.controllers').controller 'ApplicationController', [
   'API',
   ApplicationController = (@API) ->
     @isCollapsed = false
+    @rightPaneIsShown = false
 
     return
 ]

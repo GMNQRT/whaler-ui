@@ -1,3 +1,11 @@
+aside#right-pane
+  row ng-if="ctrl.selectedContainer"
+    .col-xs-6.col-sm-6.col-md-6.col-lg-6
+      h1.m-t-0
+        | {{ ctrl.selectedContainer.info.Name }}
+        small< container="ctrl.selectedContainer" container-state=""
+      small Name : {{ ctrl.selectedContainer.info.Config.Hostname }} | image : {{ ctrl.selectedContainer.info.Config.Image }}
+
 h4.current-place.p-a.m-a-0.f-14
   => fa_icon :tasks
   span.hidden-xs Containers
@@ -12,4 +20,5 @@ h4.current-place.p-a.m-a-0.f-14
       restart="ctrl.restart(container)"
       exec="ctrl.exec(container)"
       remove="ctrl.remove(container)"
+      on-select="ctrl.select(container)"
     ]

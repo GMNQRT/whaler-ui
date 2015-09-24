@@ -8,16 +8,17 @@ angular.module('whaler.directives').directive 'containerCard', [ ()->
     restart: "&"
     exec: "&"
     remove: "&"
+    onSelect: "&"
 
-  link : ($scope, $el, $attr, $ctrl) ->
-
+  controller : ($scope) ->
+    $scope.toggleRightPane = () ->
+      $scope.onSelect($scope.ngModel)
+      return
 
   template: """
 <div class="panel panel-default">
   <div class="panel-header col-xs-3 p-a bg-success">
-    <h2 class="panel-title">
-      Virtual Machine
-    </h2>
+    <h2 class="panel-title">{{ngModel.info.Config.Image}}</h2>
   </div>
   <div class="panel-body col-xs-9">
     <header>
@@ -34,7 +35,7 @@ angular.module('whaler.directives').directive 'containerCard', [ ()->
         <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-v"></i></a>
         <ul class="dropdown-menu">
           <li><a href="#">remove</a></li>
-          <li><a href="#">More info</a></li>
+          <li><a href="#" ng-click="toggleRightPane()">More info</a></li>
         </ul>
       </div>
     </footer>

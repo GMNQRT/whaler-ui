@@ -6,6 +6,7 @@ angular.module('whaler.controllers').controller 'ContainerController', [
   'StreamFactory'
   ContainerController = (@$scope, @ContainerFactory, @$routeParams, @API, @StreamFactory) ->
     @term = ''
+    @selectedContainer = null
     @containers = @ContainerFactory.query()
 
     return
@@ -15,7 +16,7 @@ ContainerController::show = () ->
   @logs = new Array()
   @container = @ContainerFactory.get { id:  @$routeParams['id'] }
 
-  source = @StreamFactory.listen("#{@API.baseUrl()}container/#{@$routeParams['id']}/logs.json");
+  source = @StreamFactory.listen("#{@API.baseUrl()}container/#{@$routeParams['id']}/logs.json")
   source.$on 'logs', (message) =>
     @logs.push(message)
   , @$scope
@@ -28,12 +29,12 @@ ContainerController::start = (container) ->
   if container.info.State.Paused
     @unpause container
   else
-    @ContainerFactory.start { id: container.id }, (res) =>
+    @ContainerFactory.start { id: container.id }, (res) ->
       angular.extend container.info.State, res.info.State
 
 ContainerController::stop = (container) ->
   console.log "stop"
-  @ContainerFactory.stop { id: container.id }, (res) =>
+  @ContainerFactory.stop { id: container.id }, (res) ->
     angular.extend container.info.State, res.info.State
 
 ContainerController::pause = (container) ->
@@ -68,6 +69,12 @@ ContainerController::addEnv = (data) ->
   console.log data
   # @ContainerFactory.delete { id: container.id }, (res) =>
     # @containers.splice @containers.indexOf(container), 1
+
+ContainerController::select = (container) ->
+  angular.element('#right-pane').addClass('active')
+  @selectedContainer = container
+  console.log container
+
 
 ContainerController::search= (val, $event) ->
   $event?.preventDefault()

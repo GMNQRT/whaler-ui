@@ -17,7 +17,8 @@ angular.module('whaler', [
   '$resourceProvider'
   '$httpProvider'
   'APIProvider'
-  ($routeProvider, $locationProvider, $resourceProvider, $httpProvider, APIProvider) ->
+  'WebSocketProvider'
+  ($routeProvider, $locationProvider, $resourceProvider, $httpProvider, APIProvider, WebSocketProvider) ->
     $routeProvider.when '/',
       templateUrl: '/partials/home'
       controller: 'HomeController'
@@ -92,6 +93,7 @@ angular.module('whaler', [
 
 
     APIProvider.scheme('http').url('192.168.59.103').port('3000')
+    WebSocketProvider.connect('192.168.59.103:3000/websocket')
     $resourceProvider.defaults.stripTrailingSlashes = true
     $locationProvider.html5Mode(true).hashPrefix('!')
     return
@@ -99,7 +101,7 @@ angular.module('whaler', [
 .run(['$rootScope', '$route', '$location', ($rootScope, $route, $location) ->
   $location.pushState = (url, params) ->
     angular.extend $route.current.pathParams, params
-    $location.path(url);
+    $location.path(url)
 
   $rootScope.$on '$routeChangeSuccess', (ev, data) ->
     $rootScope.controller = data.controller.toLowerCase().replace(/controller/, 'Ctrl') if data.controller?
@@ -109,7 +111,7 @@ angular.module('whaler', [
       if $route.current.scope[$route.current.controllerAs][$route.current.action]
         $route.current.scope[$route.current.controllerAs][$route.current.action]()
       else
-        throw "Undefined action '#{$route.current.action}'' on controller '#{$route.current.controllerAs}'"
+        throw new Error("Undefined action '#{$route.current.action}'' on controller '#{$route.current.controllerAs}'")
 ])
 
 angular.module 'whaler.filters', []

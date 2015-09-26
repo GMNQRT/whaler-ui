@@ -1,10 +1,10 @@
 aside#right-pane
-  row ng-if="ctrl.selectedContainer"
+  row ng-if="ctrl.containers[ctrl.selectedContainer]"
     .col-xs-6.col-sm-6.col-md-6.col-lg-6
       h1.m-t-0
-        | {{ ctrl.selectedContainer.info.Name }}
-        small< container="ctrl.selectedContainer" container-state=""
-      small Name : {{ ctrl.selectedContainer.info.Config.Hostname }} | image : {{ ctrl.selectedContainer.info.Config.Image }}
+        | {{ ctrl.containers[ctrl.selectedContainer].info.Name }}
+        small< container="ctrl.containers[ctrl.selectedContainer]" container-state=""
+      small Name : {{ ctrl.containers[ctrl.selectedContainer].info.Config.Hostname }} | image : {{ ctrl.containers[ctrl.selectedContainer].info.Config.Image }}
 
 h4.current-place.p-a.m-a-0.f-14
   => fa_icon :tasks
@@ -14,11 +14,11 @@ h4.current-place.p-a.m-a-0.f-14
   .col-xs-12.col-sm-6.col-md-4.col-lg-3 ng-repeat="container in ctrl.containers"
     container-card[
       ng-model="container"
-      start="ctr.start(container)"
+      start="ctrl.start(container)"
       pause="ctrl.pause(container)"
       stop="ctrl.stop(container)"
       restart="ctrl.restart(container)"
       exec="ctrl.exec(container)"
       remove="ctrl.remove(container)"
-      on-select="ctrl.select(container)"
+      on-select="ctrl.showMoreInfo(container)"
     ]

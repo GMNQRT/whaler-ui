@@ -5,13 +5,16 @@ angular.module('whaler.controllers').controller 'ContainerController', [
   'API',
   'StreamFactory'
   'WebSocket'
-  ContainerController = (@$scope, @ContainerFactory, @$routeParams, @API, @StreamFactory, @WebSocket) ->
-    @term = ''
+  ContainerController = (@$scope, @ContainerFactory, @$routeParams, @API, @StreamFactory, WebSocket) ->
     @selectedContainer = null
-    @containers = @ContainerFactory.query()
+    @containers        = @ContainerFactory.query()
+    @socketChannel     = WebSocket.subscribe('container')
+
+    @socketChannel.bind 'event', (data) => @$scope.$apply(@updateContainer.call(@, data))
 
     return
 ]
+
 
 ContainerController::show = () ->
   @logs = new Array()
@@ -26,60 +29,32 @@ ContainerController::show = () ->
   return
 
 ContainerController::start = (container) ->
-  console.log "start"
-  if container.info.State.Paused
-    @unpause container
-  else
-    @ContainerFactory.start { id: container.id }, (res) ->
-      angular.extend container.info.State, res.info.State
+  return @unpause container if container.info.State.Paused
+  @ContainerFactory.start { id: container.id }
 
 ContainerController::stop = (container) ->
-  console.log "stop"
-  @ContainerFactory.stop { id: container.id }, (res) ->
-    angular.extend container.info.State, res.info.State
+  @ContainerFactory.stop { id: container.id }
 
 ContainerController::pause = (container) ->
-  console.log "pause"
-  @ContainerFactory.pause { id: container.id }, (res) ->
-    angular.extend container.info.State, res.info.State
+  @ContainerFactory.pause { id: container.id }
 
 ContainerController::unpause = (container) ->
-  console.log "unpause"
-  @ContainerFactory.unpause { id: container.id }, (res) ->
-    angular.extend container.info.State, res.info.State
+  @ContainerFactory.unpause { id: container.id }
 
 ContainerController::restart = (container) ->
-  console.log "restart"
-  @ContainerFactory.restart { id: container.id }, (res) ->
-    angular.extend container.info.State, res.info.State
+  @ContainerFactory.restart { id: container.id }
 
 ContainerController::delete = (container) ->
-  console.log "delete"
   @ContainerFactory.delete { id: container.id }, (res) =>
     @containers.splice @containers.indexOf(container), 1
 
-ContainerController::setEnv = (data) ->
-  console.log data
-  # @ContainerFactory.delete { id: container.id }, (res) =>
-    # @containers.splice @containers.indexOf(container), 1
+# Update container informations throught websocket
+ContainerController::updateContainer = (data) ->
+  for container, i in @containers when container.id == data.container.id
+    @containers[i] = data.container
+  return
 
-ContainerController::removeEnv = (data) ->
-  console.log data
-
-ContainerController::addEnv = (data) ->
-  console.log data
-  # @ContainerFactory.delete { id: container.id }, (res) =>
-    # @containers.splice @containers.indexOf(container), 1
-
-ContainerController::select = (container) ->
+# Display container informations on right pane
+ContainerController::showMoreInfo = (container) ->
   angular.element('#right-pane').addClass('active')
-  @selectedContainer = container
-  console.log container
-
-
-ContainerController::search= (val, $event) ->
-  $event?.preventDefault()
-  return if !val || val.length == 0
-
-  @ContainerFactory.search { term: val }, (container) =>
-    @containers = containers
+  @selectedContainer = @containers.indexOf(container)

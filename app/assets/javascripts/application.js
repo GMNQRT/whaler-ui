@@ -26,3 +26,4 @@
 //= require_tree ./providers
 //= require_tree ./factories
 //= require_tree ./interceptors
+//= require websocket_rails/main

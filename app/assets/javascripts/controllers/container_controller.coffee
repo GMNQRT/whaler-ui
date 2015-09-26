@@ -4,7 +4,8 @@ angular.module('whaler.controllers').controller 'ContainerController', [
   '$routeParams',
   'API',
   'StreamFactory'
-  ContainerController = (@$scope, @ContainerFactory, @$routeParams, @API, @StreamFactory) ->
+  'WebSocket'
+  ContainerController = (@$scope, @ContainerFactory, @$routeParams, @API, @StreamFactory, @WebSocket) ->
     @term = ''
     @selectedContainer = null
     @containers = @ContainerFactory.query()

@@ -50,8 +50,12 @@ ContainerController::delete = (container) ->
 
 # Update container informations throught websocket
 ContainerController::updateContainer = (data) ->
-  for container, i in @containers when container.id == data.container.id
-    @containers[i] = data.container
+  for container, i in @containers when container.id == data.event.id
+    if data.event.status is 'destroy'
+      @containers.splice i, 1
+    else
+      @containers[i] = data.container
+    return
   return
 
 # Display container informations on right pane

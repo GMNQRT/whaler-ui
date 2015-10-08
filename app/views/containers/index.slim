@@ -1,4 +1,12 @@
 aside#right-pane
+  nav.row.f-14
+    .dropdown.pull-right
+      a.btn.btn-link.dropdown-toggle data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
+        => fa_icon 'ellipsis-v'
+      ul.dropdown-menu
+        li: a href="#" ng-click="ctrl.moreInfo()" More info
+        li: a href="#" ng-click="ctrl.hideRightPane()" Close
+  
   row ng-if="ctrl.containers[ctrl.selectedContainer]"
     .col-xs-6.col-sm-6.col-md-6.col-lg-6
       h1.m-t-0
@@ -20,5 +28,6 @@ h4.current-place.p-a.m-a-0.f-14
       restart="ctrl.restart(container)"
       exec="ctrl.exec(container)"
       remove="ctrl.remove(container)"
-      on-select="ctrl.showMoreInfo(container)"
+      more="ctrl.moreInfo(container)"
+      on-select="ctrl.showRightPane(container)"
     ]

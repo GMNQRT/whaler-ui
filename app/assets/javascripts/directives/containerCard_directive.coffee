@@ -8,12 +8,10 @@ angular.module('whaler.directives').directive 'containerCard', [ ()->
     restart: "&"
     exec: "&"
     remove: "&"
+    more: "&"
     onSelect: "&"
 
   controller : ($scope) ->
-    $scope.toggleRightPane = () ->
-      $scope.onSelect($scope.ngModel)
-      return
 
   template: """
 <div class="panel panel-default">
@@ -23,7 +21,7 @@ angular.module('whaler.directives').directive 'containerCard', [ ()->
   <div class="panel-body col-xs-9">
     <header>
       <container-state container="ngModel" class="pull-right"></container-state>
-      <h2 class="panel-title">{{ngModel.info.Name}}</h2>
+      <h2 class="panel-title"><a href="#" ng-click="onSelect(ngModel)">{{ngModel.info.Name}}</a></h2>
     </header>
     <footer class="btn-group" role="group">
       <a class="btn btn-default" ng-show="ngModel.info.State.Running === false || ngModel.info.State.Paused" ng-click="start(ngModel)"><i class="fa fa-play"></i></a>
@@ -34,8 +32,8 @@ angular.module('whaler.directives').directive 'containerCard', [ ()->
       <div class="btn-group pull-right" role="group">
         <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-v"></i></a>
         <ul class="dropdown-menu">
-          <li><a href="#">remove</a></li>
-          <li><a href="#" ng-click="toggleRightPane()">More info</a></li>
+          <li><a href="#" ng-click="remove()">Remove</a></li>
+          <li><a href="#" ng-click="more(ngModel)">More info</a></li>
         </ul>
       </div>
     </footer>

@@ -92,8 +92,8 @@ angular.module('whaler', [
     $routeProvider.otherwise '/'
 
 
-    APIProvider.scheme('http').url('192.168.59.103').port('3000')
-    WebSocketProvider.connect('192.168.59.103:3000/websocket')
+    APIProvider.scheme('http').url('192.168.59.104').port('3000')
+    WebSocketProvider.connect('192.168.59.104:3000/websocket')
     $resourceProvider.defaults.stripTrailingSlashes = true
     $locationProvider.html5Mode(true).hashPrefix('!')
     return

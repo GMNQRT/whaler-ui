@@ -1,30 +1,35 @@
 angular.module('whaler.controllers').controller 'ContainerController', [
   '$scope',
+  '$location',
   'ContainerFactory',
   '$routeParams',
   'API',
   'StreamFactory'
   'WebSocket'
-  ContainerController = (@$scope, @ContainerFactory, @$routeParams, @API, @StreamFactory, WebSocket) ->
+  ContainerController = (@$scope, @$location, @ContainerFactory, @$routeParams, @API, @StreamFactory, @WebSocket) ->
     @selectedContainer = null
     @containers        = @ContainerFactory.query()
-    @socketChannel     = WebSocket.subscribe('container')
+    @containersChannel = @WebSocket.subscribe('container')
 
-    @socketChannel.bind 'event', (data) => @$scope.$apply(@updateContainer.call(@, data))
+    @containersChannel.bind 'event', (data) => @$scope.$apply(@updateContainer.call(@, data))
 
     return
 ]
 
 
 ContainerController::show = () ->
-  @logs = new Array()
-  @container = @ContainerFactory.get { id:  @$routeParams['id'] }
+  container_id     = @$routeParams['id']
+  containerChannel = @WebSocket.subscribe "container.#{container_id}"
+  @logs            = new Array()
 
-  source = @StreamFactory.listen("#{@API.baseUrl()}container/#{@$routeParams['id']}/logs.json")
-  source.$on 'logs', (message) =>
-    @logs.push(message)
-  , @$scope
-  @$scope.$on '$destroy', source.destroy
+  @WebSocket.trigger 'container.watchlogs', container: container_id
+  containerChannel.bind "log", (chunk) =>
+    @logs.push chunk
+    @$scope.$apply()
+
+  @$scope.$on '$destroy', () =>
+    @WebSocket.trigger 'container.unwatchlogs', container: container_id
+    @WebSocket.unsubscribe "container.#{@$routeParams['id']}"
 
   return
 
@@ -44,21 +49,32 @@ ContainerController::unpause = (container) ->
 ContainerController::restart = (container) ->
   @ContainerFactory.restart { id: container.id }
 
-ContainerController::delete = (container) ->
-  @ContainerFactory.delete { id: container.id }, (res) =>
-    @containers.splice @containers.indexOf(container), 1
+ContainerController::remove = (container) ->
+  @ContainerFactory.delete { id: container.id }
 
-# Update container informations throught websocket
+# Update containers' informations through websocket
 ContainerController::updateContainer = (data) ->
-  for container, i in @containers when container.id == data.event.id
-    if data.event.status is 'destroy'
-      @containers.splice i, 1
-    else
-      @containers[i] = data.container
-    return
+  if data.event.status is 'create'
+    @containers.push data.container
+  else
+    for container, i in @containers when container.id == data.event.id
+      if data.event.status is 'destroy'
+        @containers.splice i, 1
+      else
+        @containers[i] = data.container
+      return
+  return
+
+ContainerController::moreInfo = (container) ->
+  @$location.path "/container/#{container.id}"
   return
 
 # Display container informations on right pane
-ContainerController::showMoreInfo = (container) ->
+ContainerController::showRightPane = (container) ->
   angular.element('#right-pane').addClass('active')
   @selectedContainer = @containers.indexOf(container)
+
+# Hide right pane
+ContainerController::hideRightPane = () ->
+  angular.element('#right-pane').removeClass('active')
+  return

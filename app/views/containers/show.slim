@@ -33,7 +33,7 @@ br
     header
       h2.text-uppercase Container logs
     journal
-      log ng-repeat="log in ctrl.logs" data="log.data"
+      log ng-repeat="log in ctrl.logs track by $index" data="log"
 
   .col-xs-4
     .panel.panel-default

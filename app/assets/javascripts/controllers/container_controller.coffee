@@ -3,34 +3,33 @@ angular.module('whaler.controllers').controller 'ContainerController', [
   '$location',
   'ContainerFactory',
   '$routeParams',
-  'API',
-  'StreamFactory'
   'WebSocket'
-  ContainerController = (@$scope, @$location, @ContainerFactory, @$routeParams, @API, @StreamFactory, @WebSocket) ->
-    @selectedContainer = null
-    @containers        = @ContainerFactory.query()
-    @containersChannel = @WebSocket.subscribe('container')
-
-    @containersChannel.bind 'event', (data) => @$scope.$apply(@updateContainer.call(@, data))
+  ContainerController = (@$scope, @$location, @ContainerFactory, @$routeParams, @WebSocket) ->
 
     return
 ]
 
 
-ContainerController::show = () ->
-  container_id     = @$routeParams['id']
-  containerChannel = @WebSocket.subscribe "container.#{container_id}"
-  @logs            = new Array()
+ContainerController::indexAction = () ->
+  @selectedContainer = null
+  @containers        = @ContainerFactory.query () =>
+    @containersChannel = @WebSocket.subscribe('container')
 
-  @WebSocket.trigger 'container.watchlogs', container: container_id
-  containerChannel.bind "log", (chunk) =>
-    @logs.push chunk
-    @$scope.$apply()
+    @containersChannel.bind 'event', (data) => @$scope.$apply(@updateContainer.call(@, data))
 
-  @$scope.$on '$destroy', () =>
-    @WebSocket.trigger 'container.unwatchlogs', container: container_id
-    @WebSocket.unsubscribe "container.#{@$routeParams['id']}"
+    @$scope.$on '$destroy', () => @WebSocket.unsubscribe 'container'
+  return
 
+ContainerController::showAction = () ->
+  @container = @ContainerFactory.get id: @$routeParams['id'], (container) =>
+    containerChannel = @WebSocket.subscribe 'container.:container', container: container.id
+    @logs            = new Array()
+
+    containerChannel.bind "log", (chunk) =>
+      @logs.push chunk
+      @$scope.$apply()
+
+    @$scope.$on '$destroy', () => @WebSocket.unsubscribe 'container.:container', container: container.id
   return
 
 ContainerController::start = (container) ->

@@ -2,12 +2,10 @@ $label-font-size: 12px;
 $input-padding-bottom: 15px;
 
 .form-group {
-  /*styles for the form-group itself*/
   position: relative;
   width: 100%;
 
   .form-control {
-    /*Default styles for field*/
     position: relative;
     background: none;
     border: 1px solid rgba(0, 0, 0, .08);
@@ -25,23 +23,21 @@ $input-padding-bottom: 15px;
   }
 
   label {
-    /*Default styles for label*/
-    display: inline-block;
     position: absolute;
-    margin-bottom: 6px;
-    top:0;
-
+    top: 0;
     font-size: $label-font-size;
     font-weight: 300;
-
     color: rgba(0, 0, 0, 0.4);
-    padding: 0;
     @include transition(all .3s ease);
+  }
 
+  &.is-empty:not(.has-focus) label {
+    font-weight: 400;
+    font-size: 14px;
+    top: 23px;
   }
 
   &::after {
-    /*Default styles for 'after' pseudo selector for form-group*/
     content: "";
     position: absolute;
     width: 0;
@@ -50,13 +46,12 @@ $input-padding-bottom: 15px;
     left: 50%;
     z-index: 1000;
     background: rgba(0,0,0,.08);
-    transition: all .3s ease;
+    @include transition(all .3s ease);
   }
 
-  .error-block {
-    /*Default Styles for Help-block*/
+  .help-block {
     position: absolute;
-    line-height: 0;
+    top:100%;
     font-weight: 300;
     font-size: 12px;
     color: $brand-danger;
@@ -69,8 +64,12 @@ $input-padding-bottom: 15px;
       visibility: hidden;
       opacity: 0;
     }
-  }
 
+    &:not(.ng-hide) {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
 
 
   &.has-focus {
@@ -83,7 +82,6 @@ $input-padding-bottom: 15px;
       left:0;
       background: $brand-primary;
       width: 100%;
-      /*We are changing the width of the pseudo element from 0 to 100%. As there is already transition added to it, the change in width will 'animate'. As we have strategically positioned this pseudo element just below the input with a 2px height, it will 'appear' as bottom-border for the input (which it is actually not)*/
     }
   }
 
@@ -93,21 +91,11 @@ $input-padding-bottom: 15px;
       color: $brand-danger;
     }
 
-
     &::after {
       left: 0;
       background: $brand-danger;
       width: 100%;
     }
-
-    .help-block:not(.ng-hide) {
-      position: absolute;
-      color: $brand-danger;
-      opacity: 1;
-      visibility: visible;
-      top:100%;
-    }
-
   }
 
   &.has-success.has-focus{
@@ -121,12 +109,5 @@ $input-padding-bottom: 15px;
       background: $brand-success;
       width: 100%;
     }
-  }
-
-
-  &.is-empty:not(.has-focus) label {
-    font-weight: 400;
-    font-size: 14px;
-    top: 23px;
   }
 }

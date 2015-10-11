@@ -1,9 +1,14 @@
+h4.current-place.p-a.m-a-0.f-14
+  => fa_icon :tasks
+  span.hidden-xs Containers / {{ ctrl.container.info.Name }}
+  small< container="ctrl.container" container-state=""
+
 .row
   .col-xs-6.col-sm-6.col-md-6.col-lg-6
-    h1.m-t-0
-      | {{ ctrl.container.info.Name }}
-      small< container="ctrl.container" container-state=""
-    small Name : {{ ctrl.container.info.Config.Hostname }} | image : {{ ctrl.container.info.Config.Image }}
+    / h1.m-t-0
+    /   | {{ ctrl.container.info.Name }}
+    /   small< container="ctrl.container" container-state=""
+    / small Name : {{ ctrl.container.info.Config.Hostname }} | image : {{ ctrl.container.info.Config.Image }}
 
   .col-xs-6
     .actions
@@ -29,20 +34,20 @@
         .btn-legend EXEC
 br
 .row
-  #journal.col-xs-8
-    header
-      h2.text-uppercase Container logs
-    journal
-      log ng-repeat="log in ctrl.logs track by $index" data="log"
+  .col-xs-12.col-sm-8
+    journal#journal
+      journal-heading.panel-title.text-uppercase Container logs
+      journal-body
+        journal-row ng-repeat="log in ctrl.logs track by $index" data="log"
 
-  .col-xs-4
-    .panel.panel-default
-      .panel-heading
-        h2.text-uppercase Informations
-      .panel-body
-        p Create at : {{ ctrl.container.info.Created | date:'yyyy-MM-dd HH:mm:ss' }}
-        p Started at : {{ ctrl.container.info.State.StartedAt  | date:'yyyy-MM-dd HH:mm:ss' }}
-        p Finished at : {{ ctrl.container.info.State.FinishedAt  | date:'yyyy-MM-dd HH:mm:ss' }}
+  / .col-xs-12.col-sm-4
+  /   .panel.panel-default
+  /     .panel-heading
+  /       h2.panel-title.text-uppercase Informations
+  /     .panel-body
+  /       p Create at : {{ ctrl.container.info.Created | date:'yyyy-MM-dd HH:mm:ss' }}
+  /       p Started at : {{ ctrl.container.info.State.StartedAt  | date:'yyyy-MM-dd HH:mm:ss' }}
+  /       p Finished at : {{ ctrl.container.info.State.FinishedAt  | date:'yyyy-MM-dd HH:mm:ss' }}
 br
 .row
   .col-xs-12.col-sm-12.col-md-12.col-lg-12
@@ -50,21 +55,34 @@ br
       .panel-heading
         h2.text-uppercase Environment Variables
       .panel-body
-        pre {{ctrl.container.info.Config.Env | json}}
-        table.table
-          thead
-            th Key
-            th Value
-            th
-          tbody
-            tr ng-repeat="env in ctrl.container.info.Config.Env"
-              td
-                input.form-control type="text" value="{{ env | envKey }}"/
-              td
-                input.form-control type="text" value="{{ env | envValue }}"/
-              td
-                .btn.btn-default x
-        .btn.btn-primary save
+        form name="form" novalidate=""
+          table.table
+            thead
+              th Key
+              th Value
+              th
+            tbody
+              tr
+                td
+                  div.form-group
+                    input#inputId.form-control type="text" name="inputName" ng-model="ctrl.testModel" label="Key" 
+                    p.error-block ng-show="ctrl.testModel.$error.required" Key is Required!
+                td
+                td
+              / tr ng-repeat="env in ctrl.container.info.Config.Env"
+              /   td
+              /     .form-group ng-class="{ 'has-focus': form['env_' + $index].hasFocus,
+              /           'has-success': form['env_' + $index].$valid,
+              /           'has-error': form['env_' + $index].$invalid && (form.$submitted || form['env_' + $index].$touched),
+              /           'is-empty': !form['env_' + $index].$viewValue }"
+              /       label Key
+              /       input.form-control type="text" name="{{ 'env_' + $index }}" value="{{ env | envKey }}" ng-focus="form['env_' + $index].hasFocus=true" ng-blur="form['env_' + $index].hasFocus=false" ng-model="test"
+              /   td
+              /     .form-group
+              /       input.form-control type="text" value="{{ env | envValue }}"
+              /   td
+              /     .btn.btn-default x
+            .btn.btn-primary save
 
 .row
   .col-xs-12.col-sm-12.col-md-12.col-lg-12

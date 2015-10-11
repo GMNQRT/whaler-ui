@@ -6,7 +6,7 @@
   left: -$left-menu-width;
   width: $left-menu-width;
   transition: width 0.3s ease-in;
-  background-color: inherit;
+  border-right: 1px solid rgba(0, 0, 0, .14);
 
  .sidebar-collapse {
     overflow: hidden;
@@ -72,18 +72,17 @@ body.layouted {
 
 #main-nav {
   .nav > li > a {
-    color: #948B96;
+    color: $text-color;
     font-weight: 600;
     white-space: nowrap;
-    padding: 14px 20px 14px 25px;
-
-    &:hover {
-      color: white;
-      background-color: $purple-dark;
-    }
+    padding: 15px 20px 15px 25px;
 
     i {
-      margin-right: 6px;
+      position: relative;
+      top: 2px;
+      font-size: 18px;
+      margin-right: 15px;
+      color: $text-secondary;
     }
     span {
       opacity: 0;
@@ -96,29 +95,32 @@ body.layouted {
   }
 
   .nav > li.active > a {
-    color: white;
-    background-color: $purple-dark;
+    color: $brand-primary;
+    background-color: $nav-link-hover-bg;
+    i {
+      color: $brand-primary;
+    }
   }
 
   .brand {
-    height: 50px;
+    height: $navbar-height;
     padding: 0px 10px;
-    background-color: $purple-dark;
-    background-repeat: no-repeat;
-    background-image:  image-url("header-profile.png");
     overflow: hidden;
+    border-bottom: 1px solid rgba(0, 0, 0, .14);
 
     img {
       background-color:#493E4B;
       position: relative;
       border: 2px solid transparent;
+      height: $navbar-height - 20px;
+      top: 10px;
     }
   }
 
 
   &.collapsed {
     .brand {
-      height: $collapsed-left-menu-width;
+      height: $navbar-height;
       padding: 5px;
     }
     img {
@@ -146,8 +148,12 @@ body.layouted #topbar {
   display: none;
   position: relative;
   z-index: 2002;
-  height: 50px;
-  background-color: $purple;
+  border: none;
+  background-color: $brand-primary;
+
+  .navbar-toggle {
+    margin-left: $navbar-padding-horizontal;
+  }
 
   .navbar-right {
     margin-right: 0;
@@ -171,25 +177,23 @@ body.layouted #topbar {
     padding: 0;
     position: relative;
     box-shadow: none;
+    color: #FFF;
+    margin-top: -2px;
 
     .fa {
       position: absolute;
-      top: 10px;
+      top: ($input-height-base + $input-padding-bottom) / 2;
       left: 0;
     }
     input {
       border: none;
       background-color: inherit;
+      padding-left: $navbar-padding-horizontal + 5;
+      box-shadow: none;
       color: #FFF;
-      padding-left: 16px;
 
       &:focus {
-        box-shadow: none;
         border: none;
-
-        + .fa {
-          color: white;
-        }
       }
     }
   }

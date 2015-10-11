@@ -1,21 +1,23 @@
-$body-bg: $purple;
-$text-color: #676A6C;
-$brand-primary: $yellow;
+$body-bg: white;
+$text-color: fade-out(black, 0.13);
+$text-secondary: fade-out(black, 0.46);
+$brand-primary: #2196F3;
 
 $state-success-bg: $green;
 $state-danger-bg: $red;
 
+$navbar-height: 58px;
+$navbar-margin-bottom: 0;
+$navbar-default-bg: white;
+$navbar-default-toggle-icon-bar-bg: white;
 
-$navbar-default-bg: $purple;
-$navbar-default-toggle-icon-bar-bg: $yellow;
-
-$nav-link-hover-bg: $purple-dark;
+$nav-link-hover-bg: fade-out(black, 0.88);
 
 $font-family-sans-serif: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 $font-size-base: 13px;
 
-$left-menu-width: 220px;
-$collapsed-left-menu-width: 50px;
+$left-menu-width: 250px;
+$collapsed-left-menu-width: 52px;
 
 $screen-sm: 768px;
 $screen-md: 992px + $left-menu-width;

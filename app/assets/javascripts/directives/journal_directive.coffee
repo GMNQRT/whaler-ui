@@ -2,15 +2,21 @@ angular.module('whaler.directives').directive 'journal', [ ()->
   restrict: 'E'
   transclude: true
   controller: () ->
-  link : ($scope, $el, $attr, $ctrl) ->
-    rows = $el.find('ng-transclude')[0]
-    $scope.$watch (() -> rows.childElementCount), () ->
-      $el[0].scrollTop = $el[0].scrollHeight
-
-  template: """<ng-transclude></ng-transclude>"""
+  link : ($scope, $el, $attr, $ctrl, $transclude) ->
+    $transclude $scope, (clone) ->
+      $el.append clone
 ]
-.directive 'log', [ ()->
+.directive 'journalBody', [ ()->
   require: '^journal'
+  restrict: 'E'
+  transclude: true
+  link : ($scope, $el, $attr, $ctrl, $transclude) ->
+    $el.append $transclude()
+    $scope.$watch (() -> $el.childElementCount), () ->
+      $el.scrollTop = $el.scrollHeight
+]
+.directive 'journalRow', [ ()->
+  require: ['^journalBody', '^journal']
   restrict: 'E'
   transclude: true
   scope:

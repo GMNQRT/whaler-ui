@@ -21,6 +21,7 @@ ContainerController::indexAction = () ->
   return
 
 ContainerController::showAction = () ->
+  @testModel = "test"
   @container = @ContainerFactory.get id: @$routeParams['id'], (container) =>
     containerChannel = @WebSocket.subscribe 'container.:container', container: container.id
     @logs            = new Array()

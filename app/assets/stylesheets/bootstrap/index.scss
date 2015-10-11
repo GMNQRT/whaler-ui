@@ -9,6 +9,7 @@
 @import "bootstrap-sass-official/assets/stylesheets/bootstrap";
 
 // Theme
+@import "overrides/input";
 @import "overrides/label-outline";
 @import "overrides/btn-outline";
 @import "overrides/shadows";

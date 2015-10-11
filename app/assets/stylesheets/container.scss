@@ -1,3 +1,7 @@
+$journal-text-color: white;
+$journal-header-bg: #242e32;
+$journal-body-bg: #263238;
+
 container-card {
   display: block;
 
@@ -30,52 +34,73 @@ container-card {
   }
 }
 
-
-
-h1 small[container-state]{
-  font-size: 45%;
-  vertical-align: middle;
-}
-
-#journal header {
-  color: white;
-  background-color: #281C2B;
-  border-bottom: 1px solid #49334E;
-  padding: $panel-heading-padding;
-}
-
 journal {
   display: block;
-  height: 374px;
-  resize: vertical;
-  overflow: auto;
-  background-color: $body-bg;
-  color: white;
-  padding: $padding-base-vertical $padding-base-horizontal;
+  color: $journal-text-color;
 
-  log {
+  journal-heading {
     display: block;
-    min-height: 19px;
-
-    &:nth-child(odd) {
-      font-weight: bold;
-      color: $yellow;
-    }
+    background-color: $journal-header-bg;
+    border-bottom: 1px solid lighten($journal-header-bg, 5%);
+    padding: $panel-heading-padding;
+  }
+  journal-body {
+    display: block;
+    overflow: auto;
+    resize: vertical;
+    min-height: 374px;
+    background-color: $journal-body-bg;
+    padding: $padding-base-vertical $padding-base-horizontal;
+  }
+  journal-row {
+    display: block;
   }
 }
 
-.actions .action {
-  float: left;
-  text-align: center;
-  padding: 0 $padding-base-horizontal;
-
-  .btn {
-    line-height: 23px;
-  }
-}
-.btn-rounded {
-  border-radius: 100%;
-}
-.btn-legend {
-  display: block;
-}
+// h1 small[container-state]{
+//   font-size: 45%;
+//   vertical-align: middle;
+// }
+//
+// #journal header {
+//   color: white;
+//   background-color: #281C2B;
+//   border-bottom: 1px solid #49334E;
+//   padding: $panel-heading-padding;
+// }
+//
+// journal {
+//   display: block;
+//   height: 374px;
+//   resize: vertical;
+//   overflow: auto;
+//   background-color: $body-bg;
+//   color: white;
+//   padding: $padding-base-vertical $padding-base-horizontal;
+//
+//   log {
+//     display: block;
+//     min-height: 19px;
+//
+//     &:nth-child(odd) {
+//       font-weight: bold;
+//       color: $yellow;
+//     }
+//   }
+// }
+//
+// .actions .action {
+//   float: left;
+//   text-align: center;
+//   padding: 0 $padding-base-horizontal;
+//
+//   .btn {
+//     line-height: 23px;
+//   }
+// }
+// .btn-rounded {
+//   border-radius: 100%;
+// }
+// .btn-legend {
+//   display: block;
+// }

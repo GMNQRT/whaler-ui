@@ -25,7 +25,12 @@
 }
 
 .navbar-toggle .icon-bar {
-  background-color: $yellow;
+  width: 17px;
+  background-color: $navbar-default-toggle-icon-bar-bg;
+
+  & + .icon-bar {
+    margin-top: 3px;
+  }
 }
 
 .gray-bg {

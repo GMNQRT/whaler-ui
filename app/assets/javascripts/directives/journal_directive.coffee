@@ -16,7 +16,7 @@ angular.module('whaler.directives').directive 'journal', [ ()->
       $el.scrollTop = $el.scrollHeight
 ]
 .directive 'journalRow', [ ()->
-  require: ['^journalBody', '^journal']
+  require: ['^?journalBody', '^journal']
   restrict: 'E'
   transclude: true
   scope:

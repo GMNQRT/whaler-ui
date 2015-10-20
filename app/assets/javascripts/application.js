@@ -17,6 +17,8 @@
 //= require angular-resource/angular-resource
 //= require angular-cookies/angular-cookies
 //= require angular-rails-templates
+//= require angular-bootstrap/ui-bootstrap.min
+//= require angular-bootstrap/ui-bootstrap-tpls.min
 //= require bootstrap-sass-official/assets/javascripts/bootstrap-sprockets
 //= require ./app
 //= require_tree ./filters

@@ -1,0 +1,54 @@
+toggle-switch, [toggle-switch] {
+
+  input:disabled + label {
+    opacity: 0.6;
+  }
+
+  & > label {
+    display: inline-block;
+    position: relative;
+    width: 40px;
+    height: 16px;
+    border-radius: 8px;
+    background: rgba(0,0,0,0.26);
+    -webkit-transition: background .28s cubic-bezier(0.4,0,0.2,1);
+    transition: background .28s cubic-bezier(0.4,0,0.2,1);
+    vertical-align: middle;
+    cursor: pointer;
+  }
+
+  & > label:before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    width: 24px;
+    height: 24px;
+    background: #fafafa;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.28);
+    border-radius: 50%;
+    -webkit-transition: left .28s cubic-bezier(0.4,0,0.2,1),background .28s cubic-bezier(0.4,0,0.2,1),box-shadow .28s cubic-bezier(0.4,0,0.2,1);
+    transition: left .28s cubic-bezier(0.4,0,0.2,1),background .28s cubic-bezier(0.4,0,0.2,1),box-shadow .28s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  input:not(:disabled):checked {
+    + label {
+      background: fade-out($brand-primary, 0.5);
+    }
+
+    + label:before {
+      background: $brand-primary;
+    }
+  }
+  input:checked + label:before {
+    left: 20px;
+  }
+
+  input:not(:disabled) + label:active:before {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28),0 0 0 20px rgba(128, 128, 128, 0.1);
+  }
+
+  input:not(:disabled):checked + label:active:before {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28),0 0 0 20px fade-out($brand-primary, 0.9);
+  }
+}

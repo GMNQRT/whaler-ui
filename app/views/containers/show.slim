@@ -4,213 +4,36 @@ h4.current-place.p-a.m-a-0.f-14
   small< container="ctrl.container" container-state=""
 
 .row
-  .col-xs-6.col-sm-6.col-md-6.col-lg-6
-    / h1.m-t-0
-    /   | {{ ctrl.container.info.Name }}
-    /   small< container="ctrl.container" container-state=""
-    / small Name : {{ ctrl.container.info.Config.Hostname }} | image : {{ ctrl.container.info.Config.Image }}
-
   .col-xs-6
-    .actions
-      .action.pull-right.ng-cloak ng-show="ctrl.container.info.State.Running === false || ctrl.container.info.State.Paused"
-        a.btn.btn-default.btn-rounded ng-click="ctrl.start(ctrl.container)"
-          = fa_icon :play
-        .btn-legend START
-      .action.pull-right.ng-cloak ng-show="ctrl.container.info.State.Running || ctrl.container.info.State.Paused"
-        a.btn.btn-default.btn-rounded ng-click="ctrl.stop(ctrl.container)"
-          = fa_icon :stop
-        .btn-legend STOP
-      .action.pull-right.ng-cloak ng-show="ctrl.container.info.State.Running && ctrl.container.info.State.Paused === false"
-        a.btn.btn-default.btn-rounded ng-click="ctrl.pause(ctrl.container)"
-          = fa_icon :pause
-        .btn-legend PAUSE
-      .action.pull-right.ng-cloak ng-show="ctrl.container.info.State.Running || ctrl.container.info.State.Paused"
-        a.btn.btn-default.btn-rounded ng-click="ctrl.restart(ctrl.container)"
-          = fa_icon :undo
-        .btn-legend RESTART
-      .action.pull-right.ng-cloak ng-show="ctrl.container.info.State.Running && ctrl.container.info.State.Paused === false"
-        a.btn.btn-default.btn-rounded ng-click="ctrl.exec(ctrl.container)"
-          = fa_icon :terminal
-        .btn-legend EXEC
-br
-.row
-  .col-xs-12.col-sm-8
-    journal#journal
-      journal-heading.panel-title.text-uppercase Container logs
-      journal-body
-        journal-row ng-repeat="log in ctrl.logs track by $index" data="log"
+    .btn-group
+      a.btn.btn-primary.ng-cloak ng-show="ctrl.container.info.State.Running === false || ctrl.container.info.State.Paused" ng-click="ctrl.start(ctrl.container)"
+        => fa_icon :play
+        | START
+      a.btn.btn-primary.ng-cloak ng-show="ctrl.container.info.State.Running || ctrl.container.info.State.Paused" ng-click="ctrl.stop(ctrl.container)"
+        => fa_icon :stop
+        | STOP
+      a.btn.btn-primary.ng-cloak ng-show="ctrl.container.info.State.Running && ctrl.container.info.State.Paused === false" ng-click="ctrl.pause(ctrl.container)"
+        => fa_icon :pause
+        | PAUSE
+      a.btn.btn-primary.ng-cloak ng-show="ctrl.container.info.State.Running || ctrl.container.info.State.Paused" ng-click="ctrl.restart(ctrl.container)"
+        => fa_icon :undo
+        | RESTART
+      a.btn.btn-primary.ng-cloak ng-show="ctrl.container.info.State.Running && ctrl.container.info.State.Paused === false" ng-click="ctrl.exec(ctrl.container)"
+        => fa_icon :terminal
+        | EXEC
 
-  / .col-xs-12.col-sm-4
-  /   .panel.panel-default
-  /     .panel-heading
-  /       h2.panel-title.text-uppercase Informations
-  /     .panel-body
-  /       p Create at : {{ ctrl.container.info.Created | date:'yyyy-MM-dd HH:mm:ss' }}
-  /       p Started at : {{ ctrl.container.info.State.StartedAt  | date:'yyyy-MM-dd HH:mm:ss' }}
-  /       p Finished at : {{ ctrl.container.info.State.FinishedAt  | date:'yyyy-MM-dd HH:mm:ss' }}
-br
-.row
-  .col-xs-12.col-sm-12.col-md-12.col-lg-12
-    .panel.panel-default
-      .panel-heading
-        h2.text-uppercase Environment Variables
-      .panel-body
-        form name="form" novalidate=""
-          table.table
-            thead
-              th Key
-              th Value
-              th
-            tbody
-              tr
-                td
-                  div.form-group
-                    input#inputId.form-control type="text" name="inputName" ng-model="ctrl.testModel" label="Key" 
-                    p.error-block ng-show="ctrl.testModel.$error.required" Key is Required!
-                td
-                td
-              / tr ng-repeat="env in ctrl.container.info.Config.Env"
-              /   td
-              /     .form-group ng-class="{ 'has-focus': form['env_' + $index].hasFocus,
-              /           'has-success': form['env_' + $index].$valid,
-              /           'has-error': form['env_' + $index].$invalid && (form.$submitted || form['env_' + $index].$touched),
-              /           'is-empty': !form['env_' + $index].$viewValue }"
-              /       label Key
-              /       input.form-control type="text" name="{{ 'env_' + $index }}" value="{{ env | envKey }}" ng-focus="form['env_' + $index].hasFocus=true" ng-blur="form['env_' + $index].hasFocus=false" ng-model="test"
-              /   td
-              /     .form-group
-              /       input.form-control type="text" value="{{ env | envValue }}"
-              /   td
-              /     .btn.btn-default x
-            .btn.btn-primary save
 
 .row
-  .col-xs-12.col-sm-12.col-md-12.col-lg-12
-    .panel.panel-default
-      .panel-heading
-        h2 Settings
-      .panel-body
-        .row
-          .col-xs-6.col-sm-6.col-md-6.col-lg-6
-            h4 CPU
-            p Cpu setting : {{ ctrl.container.info.Config.Cpuset }}
-            p Cpu Shares : {{ ctrl.container.info.Config.CpuShares }}
-          .col-xs-6.col-sm-6.col-md-6.col-lg-6
-            h4 Ports
-            p ExposedPorts :
-            ul ng-repeat="(protocol,liens) in ctrl.container.info.Config.ExposedPorts"
-              li {{ protocol }}
-            p PortSpecs : {{ ctrl.container.info.Config.PortSpecs }}
-        hr
-        .row
-          .col-xs-3.col-sm-3.col-md-3.col-lg-3
-            p Pid : {{ ctrl.container.info.State.Pid }}
-            p Domainname : {{ ctrl.container.info.Config.Domainname }}
-            p Entrypoint : {{ ctrl.container.info.Config.Entrypoint }}
-          .col-xs-3.col-sm-3.col-md-3.col-lg-3
-            p User : {{ ctrl.container.info.Config.User }}
-            p Labels : {{ ctrl.container.info.Config.Labels }}
-            p MacAddress : {{ ctrl.container.info.Config.MacAddress }}
-          .col-xs-3.col-sm-3.col-md-3.col-lg-3
-            p Memory : {{ ctrl.container.info.Config.Memory }}
-            p MemorySwap : {{ ctrl.container.info.Config.MemorySwap }}
-            p OnBuild : {{ ctrl.container.info.Config.OnBuild }}
-          .col-xs-3.col-sm-3.col-md-3.col-lg-3
-            p Volumes : {{ ctrl.container.info.Config.Volumes }}
-            p WorkingDir : {{ ctrl.container.info.Config.WorkingDir }}
-        .row
-          .col-xs-6.col-sm-6.col-md-6.col-lg-6
-            h4 Booleen
-            ul.list-group
-              li.list-group-item
-                span.badge {{ ctrl.container.info.Config.NetworkDisabled }}
-                | Network Disabled
-              li.list-group-item
-                span.badge {{ ctrl.container.info.Config.StdinOnce }}
-                | Stdin Once
-              li.list-group-item
-                span.badge {{ ctrl.container.info.Config.OpenStdin }}
-                | Open Stdin
-              li.list-group-item
-                span.badge {{ ctrl.container.info.Config.Tty }}
-                | Tty
-          .col-xs-6.col-sm-6.col-md-6.col-lg-6
-            h4 Attachement
-            ul.list-group
-              li.list-group-item
-                span.badge {{ ctrl.container.info.Config.AttachStderr }}
-                | Stderr
-              li.list-group-item
-                span.badge {{ ctrl.container.info.Config.AttachStdin }}
-                | Stdin
-              li.list-group-item
-                span.badge {{ ctrl.container.info.Config.AttachStdout }}
-                | Stdout
-.row
-  .col-xs-12.col-sm-12.col-md-12.col-lg-12
-    .panel.panel-default
-      .panel-heading
-        h2 Network settings
-      .panel-body
-        .row
-          .col-xs-6.col-sm-6.col-md-6.col-lg-6
-            h4 IP
-            p Gateway : {{ctrl.container.info.NetworkSettings.Gateway}}
-            p Address : {{ctrl.container.info.NetworkSettings.IPAddress}}
-            p Prefix Length : {{ctrl.container.info.NetworkSettings.IPPrefixLen}}
-          .col-xs-6.col-sm-6.col-md-6.col-lg-6
-            h4 IPv6
-            p Gateway : {{ctrl.container.info.NetworkSettings.IPv6Gateway}}
-            p Address : {{ctrl.container.info.NetworkSettings.GlobalIPv6Address}}
-            p Prefix Length : {{ctrl.container.info.NetworkSettings.GlobalIPv6PrefixLen}}
-            p Link Local Address : {{ctrl.container.info.NetworkSettings.LinkLocalIPv6Address}}
-            p Link Local Prefix Length : {{ctrl.container.info.NetworkSettings.LinkLocalIPv6PrefixLen}}
-        hr
-        p PortMapping : {{ctrl.container.info.NetworkSettings.PortMapping}}
-        p Ports :
-        div ng-repeat="(protocol,liens) in ctrl.container.info.NetworkSettings.Ports"
-          ul ng-repeat="port in liens"
-            li {{ port.HostIp }}:{{ port.HostPort }} -> {{ protocol }}
-        ul.nav.nav-pills role="tablist"
-          li.active role="presentation"
-            a href="#"
-              | Bridge
-              span.badge {{ctrl.container.info.NetworkSettings.Bridge}}
-          li.active role="presentation"
-            a href="#"
-              | Mac Address
-              span.badge {{ctrl.container.info.NetworkSettings.MacAddress}}
-.row
-  .col-xs-12.col-sm-12.col-md-12.col-lg-12
-    .panel.panel-default
-      .panel-heading
-        h2 Host
-      .panel-body
-        .row
-          .col-xs-6.col-sm-6.col-md-6.col-lg-6
-            p Binds : {{ctrl.container.info.HostConfig.Binds}}
-            p CapAdd : {{ctrl.container.info.HostConfig.CapAdd}}
-            p CapDrop : {{ctrl.container.info.HostConfig.CapDrop}}
-            p CgroupParent : {{ctrl.container.info.HostConfig.CgroupParent}}
-            p ContainerIDFile : {{ctrl.container.info.HostConfig.ContainerIDFile}}
-            p CpuShares : {{ctrl.container.info.HostConfig.CpuShares}}
-            p CpusetCpus : {{ctrl.container.info.HostConfig.CpusetCpus}}
-            p Devices : {{ctrl.container.info.HostConfig.Devices}}
-            p Dns : {{ctrl.container.info.HostConfig.Dns}}
-            p DnsSearch : {{ctrl.container.info.HostConfig.DnsSearch}}
-            p ExtraHosts : {{ctrl.container.info.HostConfig.ExtraHosts}}
-            p IpcMode : {{ctrl.container.info.HostConfig.IpcMode}}
-          .col-xs-6.col-sm-6.col-md-6.col-lg-6
-            p Links : {{ctrl.container.info.HostConfig.Links}}
-            p LxcConf : {{ctrl.container.info.HostConfig.LxcConf}}
-            p Memory : {{ctrl.container.info.HostConfig.Memory}}
-            p MemorySwap : {{ctrl.container.info.HostConfig.MemorySwap}}
-            p NetworkMode : {{ctrl.container.info.HostConfig.NetworkMode}}
-            p PidMode : {{ctrl.container.info.HostConfig.PidMode}}
-            p PortBindings : {{ctrl.container.info.HostConfig.PortBindings}}
-            p Privileged : {{ctrl.container.info.HostConfig.Privileged}}
-            p PublishAllPorts : {{ctrl.container.info.HostConfig.PublishAllPorts}}
-            p ReadonlyRootfs : {{ctrl.container.info.HostConfig.ReadonlyRootfs}}
-            p SecurityOpt : {{ctrl.container.info.HostConfig.SecurityOpt}}
-            p Ulimits : {{ctrl.container.info.HostConfig.Ulimits}}
-            p VolumesFrom : {{ctrl.container.info.HostConfig.VolumesFrom}}
+  uib-tabset.col-xs-12 type="pills"
+    uib-tab heading="General"
+      / nom container, les variables environnement et supression container
+      = render partial: 'general'
+
+    uib-tab heading="Network"
+      / liste des ports 
+      = render partial: 'network'
+      
+    uib-tab heading="Advanced"
+      /tty, stdin
+      /li Volumes
+      = render partial: 'advanced'

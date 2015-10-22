@@ -15,6 +15,12 @@ html ng-app="whaler"
       .sidebar-collapse
         .brand
           = image_tag("brand.png", class: "img-responsive img-circle logo")
+          / div.dropdown
+          a.username.dropdown-toggle.text-right href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
+            | {{ app.getUser().email }}
+            / | {{ app.getUser().email }} <span class="caret m-l"></span>
+          / ul.dropdown-menu.nav
+            / li: a href="/signout" #{fa_icon("sign-out")} Sign out
         = render_navigation expand_all: true, renderer: :bootstrap
 
     #page-wrapper.gray-bg
@@ -29,14 +35,6 @@ html ng-app="whaler"
           .form-group
             input.form-control type="text" placeholder="Search"
             = fa_icon('search', class: 'pull-left')
-
-        ul.nav.navbar-nav.navbar-right.pull-right
-          li.dropdown.user-mail.p-l
-            a.dropdown-toggle.text-right href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
-              | #{fa_icon(:user)} <span class="caret m-l"></span>
-            ul.dropdown-menu.nav
-              li: a href="#" {{ app.getUser().email }}
-              li: a href="/signout" #{fa_icon("sign-out")} Sign out
             
 
       #mobile-backdrop.visible-xs ng-click="app.toggleNav()"

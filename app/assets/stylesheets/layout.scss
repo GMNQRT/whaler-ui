@@ -114,6 +114,13 @@ body.layouted {
       border: 2px solid transparent;
       height: $navbar-height - 20px;
       top: 10px;
+      float: left;
+    }
+    .username {
+      line-height: $navbar-height;
+      float: left;
+      margin-left: $line-height-computed;
+      color: $text-color;
     }
   }
 
@@ -125,6 +132,7 @@ body.layouted {
     }
     img {
       width: 40px;
+      top: 5px;
     }
     .nav > li > a {
       padding: 14px 10px 14px 17px;

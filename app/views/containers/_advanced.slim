@@ -1,0 +1,112 @@
+.row
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    .panel.panel-default
+      .panel-heading
+        h4.text-uppercase Environment Variables
+      .panel-body
+        form name="form" novalidate=""
+          .row
+            .col-xs-6 Key
+            .col-xs-6 Value
+          .row ng-repeat="env in ctrl.container.info.Config.Env"
+            .col-xs-6
+              div.form-group
+                input#inputId.form-control type="text" name="{{ 'key_' + $index }}" ng-model="ctrl.env[$index]" label="Key" 
+            .col-xs-5
+              div.form-group
+                input#inputId.form-control type="text" name="{{ 'value_' + $index }}" ng-model="ctrl.env[$index]" label="Value" 
+            .col-xs-1
+              .leave-behind
+                => fa_icon :trash
+
+.row
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    .panel.panel-default
+      .panel-heading
+        h4 Settings
+      .panel-body
+        .row
+          table.table.table-hover.table-borderless.m-b-0
+            caption.p-l CPU
+            tbody
+              tr
+                th Cpu setting
+                td {{ ctrl.container.info.Config.Cpuset }}
+              tr
+                th Cpu Shares
+                td {{ ctrl.container.info.Config.CpuShares }}
+        .row
+          table.table.table-hover.table-borderless.m-b-0
+            tbody
+              tr
+                th Pid
+                td {{ ctrl.container.info.State.Pid }}
+              tr
+                th Domainname
+                td {{ ctrl.container.info.Config.Domainname }}
+              tr
+                th Entrypoint
+                td {{ ctrl.container.info.Config.Entrypoint }}
+        .row
+          table.table.table-hover.table-borderless.m-b-0
+            tbody
+              tr
+                th User
+                td {{ ctrl.container.info.Config.User }}
+              tr
+                th Labels
+                td {{ ctrl.container.info.Config.Labels }}
+              tr
+                th MacAddress
+                td {{ ctrl.container.info.Config.MacAddress }}
+        .row
+          table.table.table-hover.table-borderless.m-b-0
+            tbody
+              tr
+                th Memory
+                td {{ ctrl.container.info.Config.Memory }}
+              tr
+                th MemorySwap
+                td {{ ctrl.container.info.Config.MemorySwap }}
+              tr
+                th OnBuild
+                td {{ ctrl.container.info.Config.OnBuild }}
+        .row
+          table.table.table-hover.table-borderless.m-b-0
+            tbody
+              tr
+                th Volumes
+                td {{ ctrl.container.info.Config.Volumes }}
+              tr
+                th WorkingDir
+                td {{ ctrl.container.info.Config.WorkingDir }}
+        .row
+          table.table.table-hover.table-borderless.m-b-0
+            caption.p-l Booleen
+            tbody
+              tr
+                th Network Disabled
+                td: toggle-switch ng-model="ctrl.container.info.Config.NetworkDisabled"
+              tr
+                th Stdin Once
+                td: toggle-switch ng-model="ctrl.container.info.Config.StdinOnce"
+              tr
+                th Open Stdin
+                td: toggle-switch ng-model="ctrl.container.info.Config.OpenStdin"
+              tr
+                th Tty
+                td: toggle-switch ng-model="ctrl.container.info.Config.Tty"
+
+        .row
+          table.table.table-hover.table-borderless.m-b-0
+            caption.p-l Attachement
+            tbody
+              tr
+                th Stderr
+                td: toggle-switch ng-model="ctrl.container.info.Config.AttachStderr"
+              tr
+                th Stdin
+                td: toggle-switch ng-model="ctrl.container.info.Config.AttachStdin"
+              tr
+                th Stdout
+                td: toggle-switch ng-model="ctrl.container.info.Config.AttachStdout"

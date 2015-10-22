@@ -1,0 +1,32 @@
+.row
+  .col-xs-12.col-sm-8
+    journal#journal
+      journal-heading.panel-title.text-uppercase Container logs
+      journal-body
+        journal-row ng-repeat="log in ctrl.logs track by $index" data="log"
+
+  .col-xs-12.col-sm-4
+    .panel.panel-default
+      .panel-heading
+        h4.panel-title.text-uppercase Port mapping
+      .panel-body
+        .row
+          table.table.table-hover.table-borderless.m-b-0
+            tbody
+              tr ng-repeat="(protocol,liens) in ctrl.container.info.NetworkSettings.Ports"
+                th {{ protocol }}
+                td
+                  ul.list-unstyled ng-repeat="port in liens"
+                    li {{ port.HostIp }}:{{ port.HostPort }}
+
+  .col-xs-12.col-sm-4
+    .panel.panel-default
+      .panel-heading
+        h4.panel-title.text-uppercase Volumes
+      .panel-body
+        .row
+          table.table.table-hover.table-borderless.m-b-0
+            tbody
+              tr ng-repeat="(volumeName,hostDirectory) in ctrl.container.info.Volumes"
+                th {{ volumeName }}
+                td {{ hostDirectory }}

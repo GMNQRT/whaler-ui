@@ -1,25 +1,31 @@
+$container-card-height: 90px;
+
 container-card, [container-card] {
   display: block;
-  height: 90px;
+  height: $container-card-height;
   margin-bottom: 0;
   border-left-width: 4px;
   border-left-style: solid;
   border-left-color: white;
   cursor: pointer;
-  @include transition(all ease-in 0.2s);
+  overflow: hidden;
+  @include transition(all ease-in .2s);
 
   &:hover {
+    border-left-color: fade-out($soft-gray, 0.6);
     background-color: fade-out($soft-gray, 0.6);
   }
   &.container-active {
-    // background-color: fade-out($brand-primary, 0.8);
     border-left-color: $brand-primary;
+
     .container-state .state-icon {
-        background-color: $brand-primary;
+      background-color: $brand-primary;
     }
+
     .container-time {
       color: $brand-primary;
     }
+
     .container-toggle-option {
       color: $brand-primary;
     }
@@ -77,29 +83,67 @@ container-card, [container-card] {
       font-size: 22px;
     }
   }
+
   .container-time {
     float: right;
     color: $text-soft;
     font-weight: bold;
-    @include transition(color ease-in 0.2s);
+    @include transition(color ease-in .2s);
   }
+
   .container-toggle-option {
     float: right;
     color: $text-soft;
     font-size: 20px;
-    @include transition(color ease-in 0.2s);
+    @include transition(color ease-in .2s);
+
+    &:hover {
+      color: fade-out($brand-primary, .3);
+    }
   }
 
-  footer {
+  .leave-behinds {
+    display: block;
     position: absolute;
-    bottom: 0;
-    left: 0;
-    border-top: 1px solid $soft-gray;
-    width: 100%;
-    padding: 5px;
-    box-shadow: none;
-    a {
-      color: #737373;
+    top: 0;
+    right: 0px;
+    z-index: 1;
+    transform: translateX(102%);
+    @include transition(transform ease-in 0.2s);
+    @include box-shadow(none);
+
+    &:after {
+      content:'';
+      display:block;
+      position:absolute;
+      z-index: 2;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      pointer-events: none;
+      @include box-shadow(inset 0 1px 4px 0 rgba(0, 0, 0, 0.3));
+    }
+
+    &.show {
+      transform: translateX(0px);
+
+      & ~ .container-state, & ~ .container-body {
+        @include transition(transform ease-in .2s);
+        transform: translateX(-100px);
+      }
+    }
+
+    .btn {
+      width: 80px;
+      float: right;
+      padding: 0;
+      height: $container-card-height;
+      line-height: $container-card-height;
+    }
+
+    .btn.btn-default {
+      background-color: $soft-gray;
     }
   }
 }

@@ -4,7 +4,10 @@ angular.module('whaler.controllers').controller 'ContainerController', [
   'ContainerFactory',
   '$routeParams',
   'WebSocket'
-  ContainerController = (@$scope, @$location, @ContainerFactory, @$routeParams, @WebSocket) ->
+  '$rootScope'
+  ContainerController = (@$scope, @$location, @ContainerFactory, @$routeParams, @WebSocket, $rootScope) ->
+    @views =
+      container: '/partials/containers/show.html'
 
     return
 ]
@@ -21,7 +24,6 @@ ContainerController::indexAction = () ->
   return
 
 ContainerController::showAction = () ->
-  @testModel = "test"
   @container = @ContainerFactory.get id: @$routeParams['id'], (container) =>
     containerChannel = @WebSocket.subscribe 'container.:container', container: container.id
     @logs            = new Array()
@@ -70,11 +72,7 @@ ContainerController::moreInfo = (container) ->
   return
 
 # Display container informations on right pane
-ContainerController::showRightPane = (container) ->
-  angular.element('#right-pane').addClass('active')
+ContainerController::select = (container) ->
+  @containers[@selectedContainer].active = false if @containers[@selectedContainer]
   @selectedContainer = @containers.indexOf(container)
-
-# Hide right pane
-ContainerController::hideRightPane = () ->
-  angular.element('#right-pane').removeClass('active')
-  return
+  @containers[@selectedContainer].active = true if @containers[@selectedContainer]

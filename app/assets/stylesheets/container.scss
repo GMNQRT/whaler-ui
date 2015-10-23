@@ -2,36 +2,14 @@ $journal-text-color: white;
 $journal-header-bg: #242e32;
 $journal-body-bg: #263238;
 
-container-card {
-  display: block;
-
-
-  .panel {
-    height: 100px;
-  }
-  .panel-title {
-    @include text-overflow();
-  }
-  .panel-header {
-    height: 100%;
-    color: white;
-  }
-  .panel-body {
-    height: 100%;
-  }
-
-  footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    border-top: 1px solid $soft-gray;
-    width: 100%;
-    padding: 5px;
-    box-shadow: none;
-    a {
-      color: #737373;
-    }
-  }
+#list-content {
+  height: calc(100vh - #{$navbar-height});
+  border-right: 1px solid $soft-gray;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+#tpl-content {
+  // border-left: 1px solid $soft-gray;
 }
 
 journal {

@@ -1,5 +1,6 @@
-angular.module('whaler.directives').directive 'containerCard', [ ()->
+angular.module('whaler.directives').directive 'containerCard', [ '$compile', ($compile)->
   restrict: 'AE'
+  priority: 1500
   scope:
     ngModel: '='
     start: "&"
@@ -12,18 +13,38 @@ angular.module('whaler.directives').directive 'containerCard', [ ()->
     onSelect: "&"
 
   controller : ($scope) ->
+  link : ($scope, $el, $attr, $ctrl) ->
+    $scope.$watch (() -> $scope.ngModel?.info?.State), (state) ->
+      return $scope.state = "unknow" unless state
+      return $scope.state = "dead" if state.Dead
+      return $scope.state = "paused" if state.Paused
+      return $scope.state = "running" if state.Running
+      return $scope.state = "stopped"
+    , true
+
+    $el.attr 'ng-class', "{
+      'container-active': ngModel.active,
+      'container-default': state == 'unknow',
+      'container-success': state == 'running',
+      'container-warning': state == 'paused',
+      'container-danger': state == 'dead' || state == 'stopped'
+    }"
+
+    $compile($el, null, 1500)($scope)
 
   template: """
-<div class="panel panel-default">
-  <div class="panel-header col-xs-3 p-a bg-success">
-    <h2 class="panel-title">{{ngModel.info.Config.Image}}</h2>
+  <div class="container-state col-xs-3">
+    <div class="state-icon">{{ngModel.info.Name|limitTo:1:1}}</div>
   </div>
-  <div class="panel-body col-xs-9">
+  <div class="container-body col-xs-9" ng-click="onSelect(ngModel)">
     <header>
-      <container-state container="ngModel" class="pull-right"></container-state>
-      <h2 class="panel-title"><a href="#" ng-click="onSelect(ngModel)">{{ngModel.info.Name}}</a></h2>
+      <span class="container-time">12h</span>
+      <h2 class="container-title">{{ngModel.info.Name}}</h2>
+      <small>{{ngModel.info.Config.Image}}</small>
     </header>
-    <footer class="btn-group" role="group">
+    <a class="container-toggle-option"><i class="fa fa-ellipsis-h"></i></a>
+
+    <!--footer class="btn-group" role="group">
       <a class="btn btn-default" ng-show="ngModel.info.State.Running === false || ngModel.info.State.Paused" ng-click="start(ngModel)"><i class="fa fa-play"></i></a>
       <a class="btn btn-default" ng-show="ngModel.info.State.Running && ngModel.info.State.Paused === false" ng-click="stop(ngModel)"><i class="fa fa-stop"></i></a>
       <a class="btn btn-default" ng-show="ngModel.info.State.Running && ngModel.info.State.Paused === false" ng-click="pause(ngModel)"><i class="fa fa-pause"></i></a>
@@ -36,7 +57,7 @@ angular.module('whaler.directives').directive 'containerCard', [ ()->
           <li><a href="#" ng-click="more(ngModel)">More info</a></li>
         </ul>
       </div>
-    </footer>
+    </footer-->
   </div>
-</div>"""
+"""
 ]

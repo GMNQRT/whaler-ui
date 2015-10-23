@@ -13,7 +13,7 @@
         .row
           table.table.table-hover.table-borderless.m-b-0
             tbody
-              tr ng-repeat="(protocol,liens) in ctrl.container.info.NetworkSettings.Ports"
+              tr ng-repeat="(protocol,liens) in ctrl.containers[ctrl.selectedContainer].info.NetworkSettings.Ports"
                 th {{ protocol }}
                 td
                   ul.list-unstyled ng-repeat="port in liens"
@@ -27,6 +27,6 @@
         .row
           table.table.table-hover.table-borderless.m-b-0
             tbody
-              tr ng-repeat="(volumeName,hostDirectory) in ctrl.container.info.Volumes"
+              tr ng-repeat="(volumeName,hostDirectory) in ctrl.containers[ctrl.selectedContainer].info.Volumes"
                 th {{ volumeName }}
                 td {{ hostDirectory }}

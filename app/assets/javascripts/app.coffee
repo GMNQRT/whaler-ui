@@ -36,9 +36,10 @@ angular.module('whaler', [
       controller: 'ContainerController'
       controllerAs: 'ctrl'
       action: 'indexAction'
+      title: 'Containers'
 
     $routeProvider.when '/container/:id',
-      templateUrl: '/partials/containers/show'
+      templateUrl: '/partials/containers'
       controller: 'ContainerController'
       controllerAs: 'ctrl'
       action: 'showAction'
@@ -73,6 +74,7 @@ angular.module('whaler', [
     $rootScope.controller = data.controller.toLowerCase().replace(/controller/, 'Ctrl') if data.controller?
 
   $rootScope.$on '$viewContentLoaded', (event) ->
+    $rootScope.title = $route.current.title
     if $route.current.controllerAs and $route.current.action
       if $route.current.scope[$route.current.controllerAs][$route.current.action]
         $route.current.scope[$route.current.controllerAs][$route.current.action]()

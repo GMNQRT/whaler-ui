@@ -1,26 +1,6 @@
-aside#right-pane
-  nav.row.f-14
-    .dropdown.pull-right
-      a.btn.btn-link.dropdown-toggle data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"
-        => fa_icon 'ellipsis-v'
-      ul.dropdown-menu
-        li: a href="#" ng-click="ctrl.moreInfo()" More info
-        li: a href="#" ng-click="ctrl.hideRightPane()" Close
-  
-  row ng-if="ctrl.containers[ctrl.selectedContainer]"
-    .col-xs-6.col-sm-6.col-md-6.col-lg-6
-      h1.m-t-0
-        | {{ ctrl.containers[ctrl.selectedContainer].info.Name }}
-        small< container="ctrl.containers[ctrl.selectedContainer]" container-state=""
-      small Name : {{ ctrl.containers[ctrl.selectedContainer].info.Config.Hostname }} | image : {{ ctrl.containers[ctrl.selectedContainer].info.Config.Image }}
-
-h4.current-place.p-a.m-a-0.f-14
-  => fa_icon :tasks
-  span.hidden-xs Containers
-
-.row
-  .col-xs-12.col-sm-6.col-md-4.col-lg-3 ng-repeat="container in ctrl.containers"
-    container-card[
+.col-xs-12.col-sm-6.col-md-3.scrollbar-small#list-content
+  .row ng-repeat="container in ctrl.containers"
+    container-card.col-xs-12.p-a-0[
       ng-model="container"
       start="ctrl.start(container)"
       pause="ctrl.pause(container)"
@@ -29,5 +9,8 @@ h4.current-place.p-a.m-a-0.f-14
       exec="ctrl.exec(container)"
       remove="ctrl.remove(container)"
       more="ctrl.moreInfo(container)"
-      on-select="ctrl.showRightPane(container)"
+      on-select="ctrl.select(container)"
     ]
+
+.col-xs-12.col-sm-6.col-md-9#tpl-content
+  div ng-include='' src="ctrl.views.container"

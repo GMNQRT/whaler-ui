@@ -5,43 +5,44 @@ html ng-app="whaler"
     meta charset="utf-8"
     meta http-equiv="X-UA-Compatible" content="IE=edge"
     meta name="viewport" content="width=device-width, initial-scale=1"
-    title WhalerUi
+    title {{ title }} - WhalerUi
     = stylesheet_link_tag    'application', media: 'all'
     = javascript_include_tag 'application'
     = csrf_meta_tags
-  body class="{{ controller }}" ng-class="{'layouted': controller && controller != 'sessionsCtrl' }" ng-controller="ApplicationController as app"
+  body class="{{ controller }}"  ng-controller="ApplicationController as app"
 
-    nav#main-nav.navbar-default.navbar-static-side role="navigation" ng-class="{collapsed: controller && app.isCollapsed}"
-      .sidebar-collapse
-        .brand
-          = image_tag("brand.png", class: "img-responsive img-circle logo")
-          / div.dropdown
-          a.username.dropdown-toggle.text-right href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
-            | {{ app.getUser().email }}
-            / | {{ app.getUser().email }} <span class="caret m-l"></span>
-          / ul.dropdown-menu.nav
-            / li: a href="/signout" #{fa_icon("sign-out")} Sign out
-        = render_navigation expand_all: true, renderer: :bootstrap
+    #topbar.navbar.navbar-primary.navbar-fixed-top ng-if="controller && controller != 'sessionsCtrl'"
+      button.navbar-toggle.pull-left.m-l.show type="button" ng-click="app.toggleNav()"
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      p.title {{ title }}
+      form#searchForm.navbar-form.navbar-right.pull-right role="search"
+        .form-group
+          input.form-control type="text" placeholder="Search"
+          = fa_icon('search', class: 'pull-left')
+    
+    / #aside-nav
+    /   nav.navbar-default.navbar-static-side role="navigation" ng-class="{collapsed: controller && app.isCollapsed}"
+    /     .sidebar-collapse
+    /       .brand
+    /         = image_tag("brand.png", class: "img-responsive img-circle logo")
+    /         a.username.dropdown-toggle.text-right href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
+    /           | {{ app.getUser().email }}
+    /           / li: a href="/signout" #{fa_icon("sign-out")} Sign out
+    /       = render_navigation expand_all: true, renderer: :bootstrap
+    /     #mobile-backdrop.visible-xs ng-click="app.toggleNav()"
 
-    #page-wrapper.gray-bg
-      #topbar.navbar.navbar-primary.navbar-static-top
-        button.navbar-toggle.pull-left.show type="button" ng-click="app.toggleNav()"
-          span.sr-only Toggle navigation
-          span.icon-bar
-          span.icon-bar
-          span.icon-bar
-          
-        form#searchForm.navbar-form.navbar-left.pull-left role="search"
-          .form-group
-            input.form-control type="text" placeholder="Search"
-            = fa_icon('search', class: 'pull-left')
             
 
-      #mobile-backdrop.visible-xs ng-click="app.toggleNav()"
+    #page-wrapper
+      nav#main-nav ng-if="controller && controller != 'sessionsCtrl'"
+        = render_navigation expand_all: true, renderer: :bootstrap
+      
       main.container-fluid ng-view=""
 
-      footer#footer
-        .container
-          .row
-            .col-xs-12
-              p.text-right Copyright © Whaler 2014 - 2015
+      / footer#footer.container
+      /   .row
+      /     .col-xs-12
+      /       p.text-right Copyright © Whaler 2014 - 2015

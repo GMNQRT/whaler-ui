@@ -14,7 +14,7 @@ angular.module('whaler.controllers').controller 'ContainerController', [
 
 
 ContainerController::indexAction = () ->
-  @selectedContainer = null
+  @selectedContainer = 0
   @containers        = @ContainerFactory.query () =>
     @containersChannel = @WebSocket.subscribe('container')
 

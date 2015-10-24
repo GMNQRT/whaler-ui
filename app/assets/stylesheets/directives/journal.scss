@@ -1,0 +1,26 @@
+$journal-text-color: white;
+$journal-header-bg: #242e32;
+$journal-body-bg: #263238;
+
+journal {
+  display: block;
+  color: $journal-text-color;
+
+  journal-heading {
+    display: block;
+    background-color: $journal-header-bg;
+    border-bottom: 1px solid lighten($journal-header-bg, 5%);
+    padding: $panel-heading-padding;
+  }
+  journal-body {
+    display: block;
+    overflow: auto;
+    resize: vertical;
+    min-height: 374px;
+    background-color: $journal-body-bg;
+    padding: $padding-base-vertical $padding-base-horizontal;
+  }
+  journal-row {
+    display: block;
+  }
+}

@@ -1,34 +1,23 @@
-.row
-  .col-xs-6
+header#page-header
+  .pull-right.header-actions
     .btn-group
-      a.btn.btn-primary.ng-cloak ng-show="ctrl.container.info.State.Running === false || ctrl.container.info.State.Paused" ng-click="ctrl.start(ctrl.container)"
+      a.btn.btn-default.ng-cloak ng-show="ctrl.containers[ctrl.selectedContainer].info.State.Running === false || ctrl.containers[ctrl.selectedContainer].info.State.Paused" ng-click="ctrl.start(ctrl.containers[ctrl.selectedContainer])"
         => fa_icon :play
-        | START
-      a.btn.btn-primary.ng-cloak ng-show="ctrl.container.info.State.Running || ctrl.container.info.State.Paused" ng-click="ctrl.stop(ctrl.container)"
+      a.btn.btn-default.ng-cloak ng-show="ctrl.containers[ctrl.selectedContainer].info.State.Running || ctrl.containers[ctrl.selectedContainer].info.State.Paused" ng-click="ctrl.stop(ctrl.containers[ctrl.selectedContainer])"
         => fa_icon :stop
-        | STOP
-      a.btn.btn-primary.ng-cloak ng-show="ctrl.container.info.State.Running && ctrl.container.info.State.Paused === false" ng-click="ctrl.pause(ctrl.container)"
+      a.btn.btn-default.ng-cloak ng-show="ctrl.containers[ctrl.selectedContainer].info.State.Running && ctrl.containers[ctrl.selectedContainer].info.State.Paused === false" ng-click="ctrl.pause(ctrl.containers[ctrl.selectedContainer])"
         => fa_icon :pause
-        | PAUSE
-      a.btn.btn-primary.ng-cloak ng-show="ctrl.container.info.State.Running || ctrl.container.info.State.Paused" ng-click="ctrl.restart(ctrl.container)"
+      a.btn.btn-default.ng-cloak ng-show="ctrl.containers[ctrl.selectedContainer].info.State.Running || ctrl.containers[ctrl.selectedContainer].info.State.Paused" ng-click="ctrl.restart(ctrl.containers[ctrl.selectedContainer])"
         => fa_icon :undo
-        | RESTART
-      a.btn.btn-primary.ng-cloak ng-show="ctrl.container.info.State.Running && ctrl.container.info.State.Paused === false" ng-click="ctrl.exec(ctrl.container)"
+      a.btn.btn-default.ng-cloak ng-show="ctrl.containers[ctrl.selectedContainer].info.State.Running && ctrl.containers[ctrl.selectedContainer].info.State.Paused === false" ng-click="ctrl.exec(ctrl.containers[ctrl.selectedContainer])"
         => fa_icon :terminal
-        | EXEC
+  h2 class="container-title" {{ ctrl.containers[ctrl.selectedContainer].info.Name }}
+  small {{ ctrl.containers[ctrl.selectedContainer].info.Config.Image }}
+  
 
 
 .row
-  uib-tabset.col-xs-12 type="pills"
-    uib-tab heading="General"
-      / nom container, les variables environnement et supression container
-      = render partial: 'general'
-
-    uib-tab heading="Network"
-      / liste des ports 
-      = render partial: 'network'
-      
-    uib-tab heading="Advanced"
-      /tty, stdin
-      /li Volumes
-      = render partial: 'advanced'
+  uib-tabset#tab-content.col-xs-12 type="pills"
+    uib-tab heading="General" = render partial: 'general'
+    uib-tab heading="Network" = render partial: 'network'
+    uib-tab heading="Advanced" = render partial: 'advanced'

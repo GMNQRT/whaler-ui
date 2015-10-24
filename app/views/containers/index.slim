@@ -1,4 +1,4 @@
-.col-xs-12.col-sm-6.col-md-3.scrollbar-small#list-content
+.col-xs-12.col-sm-6.col-md-3.scrollbar-small.full-screen-height#list-content
   .row ng-repeat="container in ctrl.containers"
     container-card.col-xs-12.p-a-0[
       ng-model="container"
@@ -11,5 +11,5 @@
       on-select="ctrl.select(container)"
     ]
 
-.col-xs-12.col-sm-6.col-md-9#tpl-content
+.col-xs-12.col-sm-6.col-md-9.scrollbar-small.full-screen-height#info-content
   div ng-include='' src="ctrl.views.container"

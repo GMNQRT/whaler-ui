@@ -74,7 +74,7 @@ container-card, [container-card] {
       position: absolute;
       z-index: 2;
       top: 50%;
-      right: 20px;
+      right: ($grid-gutter-width / 2);
       width: 10px;
       height: 10px;
       border-width: 3px;

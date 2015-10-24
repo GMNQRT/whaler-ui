@@ -3,12 +3,11 @@ $journal-header-bg: #242e32;
 $journal-body-bg: #263238;
 
 #list-content {
-  height: calc(100vh - #{$navbar-height});
   border-right: 1px solid $soft-gray;
-  overflow-y: auto;
   overflow-x: hidden;
 }
-#tpl-content {
+
+#info-content {
   // border-left: 1px solid $soft-gray;
 }
 

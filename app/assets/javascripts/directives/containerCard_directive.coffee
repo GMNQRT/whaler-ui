@@ -1,4 +1,4 @@
-angular.module('whaler.directives').directive 'containerCard', [ '$compile', '$window', ($compile, $window)->
+angular.module('whaler.directives').directive 'containerCard', [ '$compile', '$window', '$filter', ($compile, $window, $filter)->
   # Refence to active leave-behind element
   oldLeaveBehind = null
 
@@ -37,6 +37,17 @@ angular.module('whaler.directives').directive 'containerCard', [ '$compile', '$w
         return $scope.state = "stopped"
       , true
 
+      # $scope.time = () ->
+      #   now = new Date()
+      #   cur = new Date($scope.ngModel.info.Created)
+      #
+      #   return "#{diff}y" if (diff = now.getYear() - cur.getYear()) > 0
+      #   return "#{diff}m" if (diff = now.getMonth() - cur.getMonth()) > 0
+      #   return "#{diff}d" if (diff = now.getDay() - cur.getDay()) > 0
+      #   return "#{diff}h" if (diff = now.getHours() - cur.getHours()) > 0
+      #
+      #   diff = now.getMinutes() - cur.getMinutes()
+      #   return "#{diff}min"
 
       $scope.showOption = ($event) ->
         $event.preventDefault()
@@ -58,7 +69,7 @@ angular.module('whaler.directives').directive 'containerCard', [ '$compile', '$w
         </div>
         <div class="container-body col-xs-9" ng-click="onSelect(ngModel)">
           <header>
-            <span class="container-time">12h</span>
+            <span class="container-time">{{ngModel.info.Created|timeAgo}}</span>
             <h2 class="container-title">{{ngModel.info.Name}}</h2>
             <small>{{ngModel.info.Config.Image}}</small>
           </header>

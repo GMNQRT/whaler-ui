@@ -1,4 +1,5 @@
 $container-card-height: 90px;
+$container-card-transition-duration: .2s;
 
 container-card, [container-card] {
   display: block;
@@ -9,7 +10,7 @@ container-card, [container-card] {
   border-left-color: white;
   cursor: pointer;
   overflow: hidden;
-  @include transition(all ease-in .2s);
+  @include transition(all ease-in $container-card-transition-duration);
 
   &:hover {
     border-left-color: fade-out($soft-gray, 0.6);
@@ -30,21 +31,24 @@ container-card, [container-card] {
       color: $brand-primary;
     }
   }
-  // &.container-default {
-  //   border-left-color: $soft-gray;
-  // }
-  //
-  // &.container-success {
-  //   border-left-color: $green;
-  // }
-  //
-  // &.container-warning {
-  //   border-left-color: $red;
-  // }
-  //
-  // &.container-danger {
-  //   border-left-color: $red;
-  // }
+
+  &.container-success {
+    .container-body:after {
+      border-color: fade-out($green, 0.3);
+    }
+  }
+
+  &.container-warning {
+    .container-body:after {
+      border-color: fade-out($brand-warning, 0.3);
+    }
+  }
+
+  &.container-danger {
+    .container-body:after {
+      border-color: fade-out($red, 0.3);
+    }
+  }
 
   .container-title {
     font-size: 15px;
@@ -63,6 +67,28 @@ container-card, [container-card] {
     height: 100%;
     border-bottom: 1px solid $soft-gray;
     padding-left: 0;
+
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      z-index: 2;
+      top: 50%;
+      right: 20px;
+      width: 10px;
+      height: 10px;
+      border-width: 3px;
+      border-style: solid;
+      border-color: $soft-gray;
+      border-radius: 100%;
+    }
+
+    small {
+      width: 100%;
+      padding-right: 50px;
+      display: inline-block;
+      @include text-overflow();
+    }
   }
 
   .container-state {
@@ -88,14 +114,14 @@ container-card, [container-card] {
     float: right;
     color: $text-soft;
     font-weight: bold;
-    @include transition(color ease-in .2s);
+    @include transition(color ease-in $container-card-transition-duration);
   }
 
   .container-toggle-option {
     float: right;
     color: $text-soft;
     font-size: 20px;
-    @include transition(color ease-in .2s);
+    @include transition(color ease-in $container-card-transition-duration);
 
     &:hover {
       color: fade-out($brand-primary, .3);
@@ -109,7 +135,7 @@ container-card, [container-card] {
     right: 0px;
     z-index: 1;
     transform: translateX(102%);
-    @include transition(transform ease-in 0.2s);
+    @include transition(transform ease-in $container-card-transition-duration);
     @include box-shadow(none);
 
     &:after {
@@ -129,7 +155,7 @@ container-card, [container-card] {
       transform: translateX(0px);
 
       & ~ .container-state, & ~ .container-body {
-        @include transition(transform ease-in .2s);
+        @include transition(transform ease-in $container-card-transition-duration);
         transform: translateX(-100px);
       }
     }

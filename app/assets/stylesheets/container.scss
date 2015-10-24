@@ -1,7 +1,7 @@
-$page-header-bg: #FAFAFA;
+$page-header-bg: white;
 
 #list-content {
-  border-right: 1px solid $soft-gray;
+  border-right: 1px solid darken($soft-gray, 5%);
   overflow-x: hidden;
 }
 
@@ -17,7 +17,6 @@ $page-header-bg: #FAFAFA;
   }
 
   .btn-group {
-    background-color: $page-header-bg;
     @include box-shadow(none);
 
     .btn-default {
@@ -37,6 +36,11 @@ $page-header-bg: #FAFAFA;
       }
     }
   }
+}
+
+#info-content {
+  background: $soft-gray;
+  @include box-shadow(0 0 5px rgba(0, 0, 0, .12));
 }
 
 #tab-content {

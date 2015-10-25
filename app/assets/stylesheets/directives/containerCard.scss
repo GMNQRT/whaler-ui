@@ -107,6 +107,11 @@ container-card, [container-card] {
       text-transform: uppercase;
       font-weight: bold;
       font-size: 22px;
+      @include transition(background-color ease-in .5s);
+
+      &.tilt {
+        background-color: $green;
+      }
     }
   }
 

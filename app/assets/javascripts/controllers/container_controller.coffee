@@ -1,11 +1,10 @@
 angular.module('whaler.controllers').controller 'ContainerController', [
   '$scope',
-  '$location',
+  '$timeout',
   'ContainerFactory',
   '$routeParams',
   'WebSocket'
-  '$rootScope'
-  ContainerController = (@$scope, @$location, @ContainerFactory, @$routeParams, @WebSocket, $rootScope) ->
+  ContainerController = (@$scope, @$timeout, @ContainerFactory, @$routeParams, @WebSocket) ->
     @views =
       container: '/partials/containers/show.html'
 
@@ -14,13 +13,16 @@ angular.module('whaler.controllers').controller 'ContainerController', [
 
 
 ContainerController::indexAction = () ->
-  @selectedContainer = 0
-  @containers        = @ContainerFactory.query () =>
+  @containers = @ContainerFactory.query () =>
+    @select @containers[0]
     @containersChannel = @WebSocket.subscribe('container')
 
     @containersChannel.bind 'event', (data) => @$scope.$apply(@updateContainer.call(@, data))
 
-    @$scope.$on '$destroy', () => @WebSocket.unsubscribe 'container'
+    @$scope.$on '$destroy', () =>
+      @WebSocket.unsubscribe 'container'
+      if @containers[@selectedContainer] and @containers[@selectedContainer].active
+        @WebSocket.unsubscribe 'container.:container', container: @containers[@selectedContainer].id
   return
 
 ContainerController::showAction = () ->
@@ -63,16 +65,32 @@ ContainerController::updateContainer = (data) ->
       if data.event.status is 'destroy'
         @containers.splice i, 1
       else
-        @containers[i] = data.container
+        @containers[i]      = data.container
+        @containers[i].tilt = true
+        @containers[@selectedContainer].active = true if @containers[@selectedContainer].id == container.id
       return
   return
 
-ContainerController::moreInfo = (container) ->
-  @$location.path "/container/#{container.id}"
-  return
 
 # Display container informations on right pane
 ContainerController::select = (container) ->
-  @containers[@selectedContainer].active = false if @containers[@selectedContainer]
+  if @containers[@selectedContainer]
+    @WebSocket.unsubscribe 'container.:container', container: @containers[@selectedContainer].id
+    @containers[@selectedContainer].active = false
+    @containerChannel.destroy() if @containerChannel
+
+  @logs = new Array()
   @selectedContainer = @containers.indexOf(container)
   @containers[@selectedContainer].active = true if @containers[@selectedContainer]
+
+  @$timeout.cancel @logTimeout if @logTimeout
+  # Subscribes to 'log' after 1s to prevent quick switch between containers to throw too many request
+  @logTimeout = @$timeout () =>
+    @containerChannel = @WebSocket.subscribe 'container.:container', container: container.id
+    @logs            = new Array()
+
+    @containerChannel.bind 'log', (chunk) =>
+      @logs.push chunk
+      @$scope.$apply()
+  , 1000
+  return

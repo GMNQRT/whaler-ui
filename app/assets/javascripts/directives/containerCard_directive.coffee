@@ -1,4 +1,4 @@
-angular.module('whaler.directives').directive 'containerCard', [ '$compile', '$window', '$filter', ($compile, $window, $filter)->
+angular.module('whaler.directives').directive 'containerCard', [ '$compile', '$window', '$timeout', ($compile, $window, $timeout)->
   # Refence to active leave-behind element
   oldLeaveBehind = null
 
@@ -37,17 +37,9 @@ angular.module('whaler.directives').directive 'containerCard', [ '$compile', '$w
         return $scope.state = "stopped"
       , true
 
-      # $scope.time = () ->
-      #   now = new Date()
-      #   cur = new Date($scope.ngModel.info.Created)
-      #
-      #   return "#{diff}y" if (diff = now.getYear() - cur.getYear()) > 0
-      #   return "#{diff}m" if (diff = now.getMonth() - cur.getMonth()) > 0
-      #   return "#{diff}d" if (diff = now.getDay() - cur.getDay()) > 0
-      #   return "#{diff}h" if (diff = now.getHours() - cur.getHours()) > 0
-      #
-      #   diff = now.getMinutes() - cur.getMinutes()
-      #   return "#{diff}min"
+      $scope.$watch (() -> $scope.ngModel?.tilt), (tilt) ->
+        $timeout (() -> $scope.ngModel?.tilt = false), 1000 if tilt == true
+        $el.find('.state-icon').toggleClass 'tilt', tilt == true
 
       $scope.showOption = ($event) ->
         $event.preventDefault()

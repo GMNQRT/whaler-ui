@@ -75,22 +75,27 @@ ContainerController::updateContainer = (data) ->
 # Display container informations on right pane
 ContainerController::select = (container) ->
   if @containers[@selectedContainer]
+    # Quit if click on same container
+    return if container.id == @containers[@selectedContainer].id
+    # Else unbind and disable previous selected container
     @WebSocket.unsubscribe 'container.:container', container: @containers[@selectedContainer].id
     @containers[@selectedContainer].active = false
     @containerChannel.destroy() if @containerChannel
 
-  @logs = new Array()
+  @logs              = new Array()
   @selectedContainer = @containers.indexOf(container)
-  @containers[@selectedContainer].active = true if @containers[@selectedContainer]
 
-  @$timeout.cancel @logTimeout if @logTimeout
-  # Subscribes to 'log' after 1s to prevent quick switch between containers to throw too many request
-  @logTimeout = @$timeout () =>
-    @containerChannel = @WebSocket.subscribe 'container.:container', container: container.id
-    @logs            = new Array()
+  if @containers[@selectedContainer]
+    @containers[@selectedContainer].active = true
 
-    @containerChannel.bind 'log', (chunk) =>
-      @logs.push chunk
-      @$scope.$apply()
-  , 1000
+    @$timeout.cancel @logTimeout if @logTimeout
+    # Subscribes to 'log' after 1s to prevent quick switch between containers to throw too many request
+    @logTimeout = @$timeout () =>
+      @logs             = new Array()
+      @containerChannel = @WebSocket.subscribe 'container.:container', container: container.id
+
+      @containerChannel.bind 'log', (chunk) =>
+        @logs.push chunk
+        @$scope.$apply()
+    , 1000
   return

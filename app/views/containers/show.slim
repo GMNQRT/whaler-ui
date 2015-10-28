@@ -1,23 +1,27 @@
-header#page-header
-  .pull-right.header-actions
-    .btn-group
-      a.btn.btn-default.ng-cloak ng-show="ctrl.containers[ctrl.selectedContainer].info.State.Running === false || ctrl.containers[ctrl.selectedContainer].info.State.Paused" ng-click="ctrl.start(ctrl.containers[ctrl.selectedContainer])"
-        => fa_icon :play
-      a.btn.btn-default.ng-cloak ng-show="ctrl.containers[ctrl.selectedContainer].info.State.Running || ctrl.containers[ctrl.selectedContainer].info.State.Paused" ng-click="ctrl.stop(ctrl.containers[ctrl.selectedContainer])"
-        => fa_icon :stop
-      a.btn.btn-default.ng-cloak ng-show="ctrl.containers[ctrl.selectedContainer].info.State.Running && ctrl.containers[ctrl.selectedContainer].info.State.Paused === false" ng-click="ctrl.pause(ctrl.containers[ctrl.selectedContainer])"
-        => fa_icon :pause
-      a.btn.btn-default.ng-cloak ng-show="ctrl.containers[ctrl.selectedContainer].info.State.Running || ctrl.containers[ctrl.selectedContainer].info.State.Paused" ng-click="ctrl.restart(ctrl.containers[ctrl.selectedContainer])"
-        => fa_icon :undo
-      a.btn.btn-default.ng-cloak ng-show="ctrl.containers[ctrl.selectedContainer].info.State.Running && ctrl.containers[ctrl.selectedContainer].info.State.Paused === false" ng-click="ctrl.exec(ctrl.containers[ctrl.selectedContainer])"
-        => fa_icon :terminal
-  h2 class="container-title" {{ ctrl.containers[ctrl.selectedContainer].info.Name }}
-  small {{ ctrl.containers[ctrl.selectedContainer].info.Config.Image }}
-  
+.col-xs-12.col-sm-6.col-md-3.scrollbar-small.full-screen-height#list-content
+  = render partial: 'container_list'
+
+.col-xs-12.col-sm-6.col-md-9.scrollbar-small.full-screen-height#info-content
+  header#page-header
+    .pull-right.header-actions
+      .btn-group
+        a.btn.btn-default.ng-cloak ng-show="ctrl.containers[ctrl.selectedContainer].info.State.Running === false || ctrl.containers[ctrl.selectedContainer].info.State.Paused" ng-click="ctrl.start(ctrl.containers[ctrl.selectedContainer])"
+          => fa_icon :play
+        a.btn.btn-default.ng-cloak ng-show="ctrl.containers[ctrl.selectedContainer].info.State.Running || ctrl.containers[ctrl.selectedContainer].info.State.Paused" ng-click="ctrl.stop(ctrl.containers[ctrl.selectedContainer])"
+          => fa_icon :stop
+        a.btn.btn-default.ng-cloak ng-show="ctrl.containers[ctrl.selectedContainer].info.State.Running && ctrl.containers[ctrl.selectedContainer].info.State.Paused === false" ng-click="ctrl.pause(ctrl.containers[ctrl.selectedContainer])"
+          => fa_icon :pause
+        a.btn.btn-default.ng-cloak ng-show="ctrl.containers[ctrl.selectedContainer].info.State.Running || ctrl.containers[ctrl.selectedContainer].info.State.Paused" ng-click="ctrl.restart(ctrl.containers[ctrl.selectedContainer])"
+          => fa_icon :undo
+        a.btn.btn-default.ng-cloak ng-show="ctrl.containers[ctrl.selectedContainer].info.State.Running && ctrl.containers[ctrl.selectedContainer].info.State.Paused === false" ng-click="ctrl.exec(ctrl.containers[ctrl.selectedContainer])"
+          => fa_icon :terminal
+    h2 class="container-title" {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Name }}
+    small {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.Image }}
+    
 
 
-.row
-  uib-tabset#tab-content.col-xs-12 type="pills"
-    uib-tab heading="General" = render partial: 'general'
-    uib-tab heading="Network" = render partial: 'network'
-    uib-tab heading="Advanced" = render partial: 'advanced'
+  .row
+    uib-tabset#tab-content.col-xs-12 type="pills"
+      uib-tab heading="General" = render partial: 'general'
+      uib-tab heading="Network" = render partial: 'network'
+      uib-tab heading="Advanced" = render partial: 'advanced'

@@ -1,15 +1,1 @@
-.col-xs-12.col-sm-6.col-md-3.scrollbar-small.full-screen-height#list-content
-  .row ng-repeat="container in ctrl.containers"
-    container-card.col-xs-12.p-a-0[
-      ng-model="container"
-      start="ctrl.start(container)"
-      pause="ctrl.pause(container)"
-      stop="ctrl.stop(container)"
-      restart="ctrl.restart(container)"
-      remove="ctrl.remove(container)"
-      more="ctrl.moreInfo(container)"
-      on-select="ctrl.select(container)"
-    ]
-
-.col-xs-12.col-sm-6.col-md-9.scrollbar-small.full-screen-height#info-content
-  div ng-include='' src="ctrl.views.container"
+= render partial: 'container_list'

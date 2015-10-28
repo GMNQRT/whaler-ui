@@ -1,8 +1,10 @@
 angular.module('whaler.controllers').controller 'HomeController', [
+  '$scope',
   '$http',
   'API',
-  HomeController = (@$http, @API) ->
-    @values = []
+  'ContainerService'
+  HomeController = (@$scope, @$http, @API, @ContainerService) ->
+    @ContainerService.initialize @$scope
 
     return
 ]

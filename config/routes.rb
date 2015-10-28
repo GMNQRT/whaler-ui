@@ -1,15 +1,20 @@
 Rails.application.routes.draw do
 
-  root 'home#index'
+  root 'application#layout'
 
   scope :partials do
-    get '/home' => 'home#home'
+    get '/dashboard' => 'dashboard#show'
+
     resources :images
+
     resources :containers
+
     get '/users/sign_in' => 'sessions#new'
+
     get '/users/sign_out' => 'registrations#new'
+
     get '/users/sign_up' => 'registrations#new'
   end
 
-  get '*path' => 'home#index'
+  get '*path' => 'application#layout' # Redirect all to application's entry point
 end

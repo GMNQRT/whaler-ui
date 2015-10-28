@@ -21,28 +21,23 @@ angular.module('whaler', [
   'WebSocketProvider'
   ($routeProvider, $locationProvider, $resourceProvider, $httpProvider, APIProvider, WebSocketProvider) ->
     $routeProvider.when '/',
-      templateUrl: '/partials/home'
+      templateUrl: '/partials/dashboard'
       controller: 'HomeController'
       controllerAs: 'ctrl'
       action: 'getInfo'
-
-    $routeProvider.when '/images',
-      templateUrl: '/partials/images'
-      controller: 'ImageController'
-      controllerAs: 'ctrl'
+      title: 'Dashboard'
 
     $routeProvider.when '/container',
-      templateUrl: '/partials/containers'
+      templateUrl: '/partials/containers/show'
       controller: 'ContainerController'
       controllerAs: 'ctrl'
       action: 'indexAction'
       title: 'Containers'
 
-    $routeProvider.when '/container/:id',
-      templateUrl: '/partials/containers'
-      controller: 'ContainerController'
+    $routeProvider.when '/images',
+      templateUrl: '/partials/images'
+      controller: 'ImageController'
       controllerAs: 'ctrl'
-      action: 'showAction'
 
     $routeProvider.when '/login',
       templateUrl: '/partials/users/sign_in'

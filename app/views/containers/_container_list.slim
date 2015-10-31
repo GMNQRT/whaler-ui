@@ -1,11 +1,3 @@
-.row ng-repeat="container in ctrl.ContainerService.containers"
-  container-card.col-xs-12.p-a-0[
-    ng-model="container"
-    start="ctrl.ContainerService.start(container)"
-    pause="ctrl.ContainerService.pause(container)"
-    stop="ctrl.ContainerService.stop(container)"
-    restart="ctrl.ContainerService.restart(container)"
-    remove="ctrl.ContainerService.remove(container)"
-    more="ctrl.ContainerService.moreInfo(container)"
-    on-select="ctrl.ContainerService.select(container)"
-  ]
+container-list
+  .row ng-repeat="container in $containers"
+    container-card.col-xs-12.p-a-0 ng-model="container" on-select="ctrl.select(container)"  

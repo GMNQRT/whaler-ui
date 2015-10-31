@@ -2,9 +2,6 @@ angular.module('whaler.controllers').controller 'ApplicationController', [
   'API',
   'ContainerService'
   ApplicationController = (@API, @ContainerService) ->
-    # @ContainerService.ctrl = @
-    # @AsideService.view = '/partials/containers'
-
     @isCollapsed = false
     return
 ]

@@ -5,16 +5,12 @@ angular.module('whaler.services').service 'ContainerService', [
   'ContainerFactory'
   'WebSocket'
   ContainerService = (@$rootScope, @$timeout, @$routeParams, @ContainerFactory, @WebSocket) ->
-
+    @containers = @ContainerFactory.query()
     return
 ]
 
-ContainerService::initialize = ($scope, forceRelaod = false) ->
-  @bindTo $scope
-  if !@containers || forceRelaod
-    @ContainerFactory.query (containers) =>
-      @containers = containers
-      @select @containers[0]
+ContainerService::reload = () ->
+  @containers = @ContainerFactory.query()
 
 ContainerService::bindTo = (@$scope) ->
   @containersChannel = @WebSocket.subscribe('container') unless @containersChannel # Watch containers events
@@ -63,18 +59,18 @@ ContainerService::updateContainer = (data) ->
       else
         @containers[i]      = data.container
         @containers[i].tilt = true
-        @containers[@selectedContainer].active = true if @containers[@selectedContainer].id == container.id
+        @containers[@selectedContainer].active = true if @containers[@selectedContainer]?.id == container.id
       return
   return
 
 # Display container informations on right pane
 ContainerService::select = (container) ->
-  if prevContainer = @containers[@selectedContainer]
-    return if container.id == prevContainer.id # Quit if same container is selected
+  if @containers[@selectedContainer]
+    return if container.id == @containers[@selectedContainer].id # Quit if same container is selected
     # Disable previous selected container
     @containers[@selectedContainer].active = false
   @selectedContainer = @containers.indexOf(container)
 
   if @containers[@selectedContainer]
     @containers[@selectedContainer].active = true
-    @notify 'select', @containers[@selectedContainer], prevContainer
+    @notify 'select', @containers[@selectedContainer]

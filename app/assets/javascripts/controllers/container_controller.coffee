@@ -1,41 +1,38 @@
 angular.module('whaler.controllers').controller 'ContainerController', [
   '$scope'
   '$timeout'
-  '$routeParams'
   'WebSocket'
   'ContainerService'
-  ContainerController = (@$scope, @$timeout, @$routeParams, @WebSocket, @ContainerService) ->
-    @ContainerService.initialize @$scope
-    @ContainerService.subscribe 'select', @select.bind(@)
+  ContainerController = (@$scope, @$timeout, @WebSocket, @ContainerService) ->
+    @logs = new Array()
+
     return
 ]
 
-
 ContainerController::indexAction = () ->
-  @$scope.$on '$destroy', () =>
-    if @ContainerService.containers[@ContainerService.selectedContainer]?.active
-      @WebSocket.unsubscribe 'container.:container', container: @ContainerService.containers[@ContainerService.selectedContainer].id
-
+  @$scope.$on '$destroy', () => if @prevContainer
+    @unwatch @prevContainer
 
   if @ContainerService.containers?[@ContainerService.selectedContainer]?.active
-    @select null, @ContainerService.containers[@ContainerService.selectedContainer], null
+    @select @ContainerService.containers[@ContainerService.selectedContainer]
+
+
+# Unbind from container channel
+ContainerController::unwatch = (container) ->
+  @WebSocket.unsubscribe 'container.:container', container: container.info.Name.substr(1)
+  @containerChannel.destroy()
+  @prevContainer = @containerChannel = null
 
 
 # Display container informations on right pane
-ContainerController::select = ($event, container, prevContainer) ->
-  if @containerChannel
-    @WebSocket.unsubscribe 'container.:container', container: prevContainer.id
-    @containerChannel.destroy()
-    # @containerChannel = null
+ContainerController::select = (container) ->
+  @unwatch @prevContainer if @prevContainer
 
-  @logs = new Array()
-  @$timeout.cancel @logTimeout if @logTimeout
-  # Subscribes to 'log' after 1s to prevent quick switch between containers to throw too many request
-  @logTimeout = @$timeout () =>
-    @containerChannel = @WebSocket.subscribe 'container.:container', container: container.id
+  @logs              = new Array()
+  @containersChannel = @WebSocket.subscribe("container.:container", container: container.info.Name.substr(1)) # Watch containers logs
+  @prevContainer     = container
 
-    @containerChannel.bind 'log', (chunk) =>
-      @logs.push chunk
-      @$scope.$apply()
-  , 1000
+  @containersChannel.bind 'log', (data) =>
+    @logs.push(data.message)
+    @$scope.$apply()
   return

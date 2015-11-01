@@ -24,12 +24,14 @@ $screen-sm: 768px;
 $screen-md: 992px + $left-menu-width;
 $screen-lg: 1200px + $left-menu-width;
 
+// $grid-gutter-width: 16px;
+
 $input-border-radius: 0;
 $input-border-radius-small: 0;
 $input-border-radius-large: 0;
 $panel-border-radius: 0;
 
-@btn-default-color: inherit;
+$btn-default-color: inherit;
 
 $panel-default-heading-bg: white;
 $font-size-small: ceil(($font-size-base * 0.8));

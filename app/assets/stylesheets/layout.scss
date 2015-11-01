@@ -71,6 +71,18 @@ body {
   }
 }
 
+#list-content {
+  border-right: 1px solid darken($soft-gray, 5%);
+  overflow-x: hidden;
+}
+
+#list-content + #main-content {
+  padding-top: ($grid-gutter-width / 2);
+  background: $soft-gray;
+  @include box-shadow(0 0 5px rgba(0, 0, 0, .12));
+}
+
+
 .full-screen-height {
   height: calc(100vh - #{$navbar-height});
   overflow: auto;

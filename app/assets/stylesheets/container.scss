@@ -1,14 +1,10 @@
 $page-header-bg: white;
 
-#list-content {
-  border-right: 1px solid darken($soft-gray, 5%);
-  overflow-x: hidden;
-}
-
 #page-header {
   background-color: $page-header-bg;
   margin-left: -($grid-gutter-width / 2);
   margin-right: -($grid-gutter-width / 2);
+  margin-top: -($grid-gutter-width / 2);
   padding: 0 ($grid-gutter-width / 2) ($grid-gutter-width / 2);
   overflow: auto;
 
@@ -38,15 +34,10 @@ $page-header-bg: white;
   }
 }
 
-#info-content {
-  background: $soft-gray;
-  @include box-shadow(0 0 5px rgba(0, 0, 0, .12));
-}
-
 #tab-content {
   & > .nav {
     background-color: $page-header-bg;
-    margin-bottom: $line-height-computed;
+    margin-bottom: ($grid-gutter-width / 2);
     margin-left: -($grid-gutter-width / 2);
     margin-right: -($grid-gutter-width / 2);
     padding: 0 ($grid-gutter-width / 2);

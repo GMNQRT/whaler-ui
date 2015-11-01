@@ -1,0 +1,158 @@
+$image-card-height: 67px;
+$image-card-transition-duration: .2s;
+
+image-card, [image-card] {
+  display: block;
+  height: $image-card-height;
+  margin-bottom: 0;
+  border-left-width: 4px;
+  border-left-style: solid;
+  border-left-color: white;
+  cursor: pointer;
+  overflow: hidden;
+  padding-top: 10px;
+  @include transition(all ease-in $image-card-transition-duration);
+
+  &:hover {
+    border-left-color: fade-out($soft-gray, 0.6);
+    background-color: fade-out($soft-gray, 0.6);
+  }
+  &.image-active {
+    border-left-color: $brand-primary;
+
+    .image-state .state-icon {
+      background-color: $brand-primary;
+    }
+
+    .image-time {
+      color: $brand-primary;
+    }
+
+    .image-toggle-option {
+      color: $brand-primary;
+    }
+  }
+
+  .image-title {
+    margin-top: 0px;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 47px;
+    padding-right: 30px;
+    width: 100%;
+
+    @include text-overflow();
+
+    a {
+      color: $text-color;
+    }
+  }
+  .image-header {
+    height: 100%;
+  }
+  .image-body {
+    height: 100%;
+    border-bottom: 1px solid $soft-gray;
+    padding-left: 0;
+
+    header {
+      float: left;
+      width: 100%;
+    }
+
+    aside {
+      position: absolute;
+      right: 10px;
+      top: 5px;
+    }
+  }
+
+  .image-state {
+    height: 100%;
+    text-align: center;
+    padding: 0;
+
+    .state-icon {
+      background-color: $soft-gray;
+      border-radius: 100%;
+      height: 50px;
+      width: 50px;
+      // margin-top: 20px;
+      display: inline-block;
+      line-height: 50px;
+      color: #FFF;
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 22px;
+      @include transition(background-color ease-in .5s);
+
+      &.tilt {
+        background-color: $green;
+      }
+    }
+  }
+
+  .image-time {
+    float: right;
+    color: $text-soft;
+    font-weight: bold;
+    @include transition(color ease-in $image-card-transition-duration);
+  }
+
+  .image-toggle-option {
+    float: right;
+    color: $text-soft;
+    font-size: 20px;
+    clear: right;
+    @include transition(color ease-in $image-card-transition-duration);
+
+    &:hover {
+      color: fade-out($brand-primary, .3);
+    }
+  }
+
+  .leave-behinds {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0px;
+    z-index: 1;
+    transform: translateX(102%);
+    @include transition(transform ease-in $image-card-transition-duration);
+    @include box-shadow(none);
+
+    &:after {
+      content:'';
+      display:block;
+      position:absolute;
+      z-index: 2;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      pointer-events: none;
+      @include box-shadow(inset 0 1px 4px 0 rgba(0, 0, 0, 0.3));
+    }
+
+    &.show {
+      transform: translateX(0px);
+
+      & ~ .image-state, & ~ .image-body {
+        @include transition(transform ease-in $image-card-transition-duration);
+        transform: translateX(-100px);
+      }
+    }
+
+    .btn {
+      width: 80px;
+      float: right;
+      padding: 0;
+      height: $image-card-height;
+      line-height: $image-card-height;
+    }
+
+    .btn.btn-default {
+      background-color: $soft-gray;
+    }
+  }
+}

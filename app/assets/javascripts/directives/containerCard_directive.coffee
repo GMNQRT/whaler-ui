@@ -59,6 +59,9 @@ angular.module('whaler.directives').directive 'containerCard', [
           $scope.onRemove(container) if $scope.onRemove
 
       $scope.select = (container) ->
+        if ContainerService.containers[ContainerService.selectedContainer]
+          ContainerService.containers[ContainerService.selectedContainer].active = false
+        $scope.ngModel.active = true
         ContainerService.select(container)
         $scope.onSelect(container) if $scope.onSelect
 

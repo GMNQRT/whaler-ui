@@ -20,7 +20,7 @@ ContainerController::indexAction = () ->
 # Unbind from container channel
 ContainerController::unwatch = (container) ->
   @WebSocket.unsubscribe 'container.:container', container: container.info.Name.substr(1)
-  @containerChannel.destroy()
+  @containerChannel.destroy() if @containerChannel
   @prevContainer = @containerChannel = null
 
 
@@ -29,10 +29,10 @@ ContainerController::select = (container) ->
   @unwatch @prevContainer if @prevContainer
 
   @logs              = new Array()
-  @containersChannel = @WebSocket.subscribe("container.:container", container: container.info.Name.substr(1)) # Watch containers logs
+  @containerChannel = @WebSocket.subscribe("container.:container", container: container.info.Name.substr(1)) # Watch containers logs
   @prevContainer     = container
 
-  @containersChannel.bind 'log', (data) =>
+  @containerChannel.bind 'log', (data) =>
     @logs.push(data.message)
     @$scope.$apply()
   return

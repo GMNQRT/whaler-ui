@@ -4,7 +4,6 @@ angular.module('whaler.directives').directive 'containerList', [
     restrict: 'AE'
     transclude : true
     controller: ($scope) ->
-      console.log "here"
       $scope.$containers = ContainerService.containers
       ContainerService.bindTo $scope
     compile: ($el, $attrs) ->
@@ -40,35 +39,28 @@ angular.module('whaler.directives').directive 'containerCard', [
       onSelect: "&"
     controller: ($scope) ->
       $scope.start = (container) ->
-        ContainerService.start(container).then () ->
+        ContainerService.start(container).$promise.then () ->
           $scope.onStart(container) if $scope.onStart
 
       $scope.stop = (container) ->
-        ContainerService.stop(container).then () ->
+        ContainerService.stop(container).$promise.then () ->
           $scope.onStop(container) if $scope.onStop
 
       $scope.pause = (container) ->
-        ContainerService.pause(container).then () ->
+        ContainerService.pause(container).$promise.then () ->
           $scope.onPause(container) if $scope.onPause
 
       $scope.restart = (container) ->
-        ContainerService.restart(container).then () ->
+        ContainerService.restart(container).$promise.then () ->
           $scope.onRestart(container) if $scope.onRestart
 
       $scope.remove = (container) ->
-        ContainerService.remove(container).then () ->
+        ContainerService.remove(container).$promise.then () ->
           $scope.onRemove(container) if $scope.onRemove
 
       $scope.select = (container) ->
         ContainerService.select(container)
         $scope.onSelect(container) if $scope.onSelect
-
-      $scope.showOption = ($event) ->
-        $event.preventDefault()
-        $event.stopPropagation()
-        oldLeaveBehind.removeClass 'show' if oldLeaveBehind
-        oldLeaveBehind = $el.find('.leave-behinds').addClass 'show'
-        return
 
     compile: ($el) ->
       $el.attr 'ng-class', "{
@@ -87,6 +79,13 @@ angular.module('whaler.directives').directive 'containerCard', [
           return $scope.state = "running" if state.Running
           return $scope.state = "stopped"
         , true
+
+        $scope.showOption = ($event) ->
+          $event.preventDefault()
+          $event.stopPropagation()
+          oldLeaveBehind.removeClass 'show' if oldLeaveBehind
+          oldLeaveBehind = $el.find('.leave-behinds').addClass 'show'
+          return
 
         $scope.$watch (() -> $scope.ngModel?.tilt), (tilt) ->
           $timeout (() -> $scope.ngModel?.tilt = false), 1000 if tilt == true

@@ -14,7 +14,8 @@ ImageService::bindTo = (@$scope) ->
   @imagesChannel.bind 'event', (data) => @$scope.$apply(@updateImage.call(@, data)) if @images
 
   @$scope.$on '$destroy', () =>
-    @WebSocket.unsubscribe 'image'
+    @WebSocket.unsubscribe(@imagesChannel.name)
+    @imagesChannel = null
 
 
 # Subscribe to events fired by this service

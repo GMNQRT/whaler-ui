@@ -17,8 +17,8 @@ ContainerService::bindTo = (@$scope) ->
   @containersChannel.bind 'event', (data) => @$scope.$apply(@updateContainer.call(@, data)) if @containers
 
   @$scope.$on '$destroy', () =>
-    @WebSocket.unsubscribe 'container'
-
+    @WebSocket.unsubscribe(@containersChannel.name)
+    @containersChannel = null
 
 # Subscribe to events fired by this service
 ContainerService::subscribe = (event_name, callback) ->

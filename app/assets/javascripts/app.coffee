@@ -35,9 +35,11 @@ angular.module('whaler', [
       title: 'Containers'
 
     $routeProvider.when '/images',
-      templateUrl: '/partials/images'
+      templateUrl: '/partials/images/show'
       controller: 'ImageController'
       controllerAs: 'ctrl'
+      action: 'indexAction'
+      title: 'Images'
 
     $routeProvider.when '/login',
       templateUrl: '/partials/users/sign_in'

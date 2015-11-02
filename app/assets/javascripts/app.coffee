@@ -31,6 +31,7 @@ angular.module('whaler', [
       templateUrl: '/partials/containers/show'
       controller: 'ContainerController'
       controllerAs: 'ctrl'
+      reloadOnSearch: false
       action: 'indexAction'
       title: 'Containers'
 

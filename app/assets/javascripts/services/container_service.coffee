@@ -67,7 +67,9 @@ ContainerService::updateContainer = (data) ->
 ContainerService::select = (container) ->
   if @containers[@selectedContainer]
     return if container.id == @containers[@selectedContainer].id # Quit if same container is selected
+    @containers[@selectedContainer].active = false
   @selectedContainer = @containers.indexOf(container)
 
   if @containers[@selectedContainer]
+    @containers[@selectedContainer].active = true
     @notify 'select', @containers[@selectedContainer]

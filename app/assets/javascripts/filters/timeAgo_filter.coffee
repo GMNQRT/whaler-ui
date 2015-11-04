@@ -4,7 +4,7 @@ angular.module('whaler.filters').filter 'timeAgo', ['$interval', ($interval) ->
   fromNowFilter = (time) ->
     return unless time
     now = new Date()
-    cur = new Date(time)
+    cur = new Date(if typeof time is 'number' then time * 1000 else time)
 
     return "#{diff}y" if (diff = now.getYear() - cur.getYear()) > 0
     return "#{diff}m" if (diff = now.getMonth() - cur.getMonth()) > 0

@@ -37,19 +37,19 @@ angular.module('whaler.directives').directive 'imageCard', [
       onSelect: "&"
     controller: ($scope) ->
       $scope.start = (image) ->
-        ImageService.start(image).$promise.then () ->
+        ImageService.start(image).then () ->
           $scope.onStart(image) if $scope.onStart
 
       $scope.remove = (image) ->
-        ImageService.remove(image).$promise.then () ->
+        ImageService.remove(image).then () ->
           $scope.onRemove(image) if $scope.onRemove
 
       $scope.select = (image) ->
         if ImageService.images[ImageService.selectedImage]
           ImageService.images[ImageService.selectedImage].active = false
         $scope.ngModel.active = true
-        ImageService.select(image)
-        $scope.onSelect(image) if $scope.onSelect
+        ImageService.select(image)?.then (image_details) ->
+          $scope.onSelect(image_details) if $scope.onSelect
 
     compile: ($el) ->
       $el.attr 'ng-class', "{
@@ -80,7 +80,7 @@ angular.module('whaler.directives').directive 'imageCard', [
               <h2 class="image-title">{{ngModel.info.RepoTags[0]}}</h2>
             </header>
             <aside>
-              <span class="image-time">{{(ngModel.info.Created * 1000)|timeAgo}}</span>
+              <span class="image-time">{{ngModel.info.Created|timeAgo}}</span>
               <a class="image-toggle-option" ng-click="showOption($event)"><i class="fa fa-ellipsis-h"></i></a>
             </aside>
           </div>"""

@@ -1,7 +1,8 @@
 angular.module('whaler.services').service 'ImageService', [
+  '$q'
   'ImageFactory'
   'WebSocket'
-  ImageService = (@ImageFactory, @WebSocket) ->
+  ImageService = (@$q, @ImageFactory, @WebSocket) ->
     @images = @ImageFactory.query()
     return
 ]
@@ -29,22 +30,10 @@ ImageService::notify = (event_name, data...) ->
 
 ImageService::start = (image) ->
   return @unpause image if image.info.State.Paused
-  @ImageFactory.start { id: image.id }
-
-ImageService::stop = (image) ->
-  @ImageFactory.stop { id: image.id }
-
-ImageService::pause = (image) ->
-  @ImageFactory.pause { id: image.id }
-
-ImageService::unpause = (image) ->
-  @ImageFactory.unpause { id: image.id }
-
-ImageService::restart = (image) ->
-  @ImageFactory.restart { id: image.id }
+  @ImageFactory.start(id: image.id).$promise
 
 ImageService::remove = (image) ->
-  @ImageFactory.delete { id: image.id }
+  @ImageFactory.delete(id: image.id).$promise
 
 # Update images' informations through websocket
 ImageService::updateImage = (data) ->
@@ -67,4 +56,11 @@ ImageService::select = (image) ->
   @selectedImage = @images.indexOf(image)
 
   if @images[@selectedImage]
-    @notify 'select', @images[@selectedImage]
+    if @images[@selectedImage].info.ContainerConfig
+      @notify 'select', @images[@selectedImage]
+      @$q.resolve(@images[@selectedImage])
+    else
+      @ImageFactory.get(@images[@selectedImage], (image) =>
+        angular.merge @images[@selectedImage], image
+        @notify 'select', @images[@selectedImage]
+      ).$promise

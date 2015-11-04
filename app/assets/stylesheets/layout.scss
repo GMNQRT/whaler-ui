@@ -74,6 +74,11 @@ body {
 #list-content {
   border-right: 1px solid darken($soft-gray, 5%);
   overflow-x: hidden;
+
+  .btn-float {
+    bottom: 20px;
+    right: 20px;
+  }
 }
 
 #list-content + #main-content {

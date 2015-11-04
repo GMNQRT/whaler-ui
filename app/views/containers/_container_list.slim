@@ -1,3 +1,5 @@
-container-list
+container-list.container-fluid.scrollbar-small
   .row ng-repeat="container in $containers"
-    container-card.col-xs-12.p-a-0 ng-model="container" on-select="ctrl.select(container)"  
+    container-card.col-xs-12 ng-model="container" on-select="ctrl.select(container)"  
+  
+a.btn.btn-rounded.btn-accent.btn-float ng-click="ctrl.add()" +

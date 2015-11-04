@@ -1,6 +1,13 @@
 $container-card-height: 90px;
 $container-card-transition-duration: .2s;
 
+container-list {
+  display: block;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100%;
+}
+
 container-card, [container-card] {
   display: block;
   height: $container-card-height;

@@ -3,6 +3,12 @@ $text-color: fade-out(black, 0.13);
 $text-secondary: fade-out(black, 0.46);
 $text-soft: fade-out(black, 0.76);
 $brand-primary: #2196F3;
+$brand-accent: #FF4081;
+
+$btn-accent-color: white;
+$btn-accent-bg: $brand-accent;
+$btn-accent-border: darken($btn-accent-bg, 5%);
+
 
 $state-success-bg: $green;
 $state-danger-bg: $red;

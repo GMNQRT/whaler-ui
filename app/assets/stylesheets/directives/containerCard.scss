@@ -1,5 +1,5 @@
 $container-card-height: 90px;
-$container-card-transition-duration: .2s;
+$container-card-transition-duration: .4s;
 
 container-list {
   display: block;
@@ -75,6 +75,8 @@ container-card, [container-card] {
     border-bottom: 1px solid $soft-gray;
     padding-left: 0;
 
+    @include transition(transform ease-in $container-card-transition-duration);
+
     &:after {
       content: '';
       display: block;
@@ -101,6 +103,7 @@ container-card, [container-card] {
   .container-state {
     height: 100%;
     text-align: center;
+    @include transition(transform ease-in $container-card-transition-duration);
 
     .state-icon {
       background-color: $soft-gray;
@@ -145,9 +148,9 @@ container-card, [container-card] {
     position: absolute;
     top: 0;
     right: 0px;
-    z-index: 1;
-    transform: translateX(102%);
-    @include transition(transform ease-in $container-card-transition-duration);
+    z-index: 3;
+    @include translate(102%, 0);
+    @include transition(transform ease-in $container-card-transition-duration / 2);
     @include box-shadow(none);
 
     &:after {
@@ -164,11 +167,10 @@ container-card, [container-card] {
     }
 
     &.show {
-      transform: translateX(0px);
+      @include translate(0, 0);
 
       & ~ .container-state, & ~ .container-body {
-        @include transition(transform ease-in $container-card-transition-duration);
-        transform: translateX(-100px);
+        @include translate(-100px, 0);
       }
     }
 

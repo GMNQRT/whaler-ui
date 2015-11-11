@@ -10,18 +10,20 @@ angular.module('whaler.controllers').controller 'ContainerController', [
 ]
 
 ContainerController::indexAction = () ->
-  @$scope.$on '$destroy', @unwatch
-  @$scope.$on '$locationChangeSuccess', (event, newUrl, oldUrl) =>
-    @selectByHash() if @$location.hash()
+  prevHash = @$location.hash()
 
-  @selectByHash() if @$location.hash()
+  @select @selectByHash() if @$location.hash()
+
+  @$scope.$on '$destroy', @unwatch
+  @$scope.$on '$locationChangeSuccess', (event, newUrl, oldUrl) => # Select active card on history back
+    @select @selectByHash() if @$location.hash() != @prevContainer?.id
 
 
 # Select container by current hash in URL
 ContainerController::selectByHash = () ->
   for container in @ContainerService.containers when container.id == @$location.hash()
     @ContainerService.select container
-    return
+    return container
 
 
 # Unbind from container channel
@@ -32,7 +34,7 @@ ContainerController::unwatch = () ->
 
 # Display container informations on right pane
 ContainerController::select = (container) ->
-  @unwatch if @prevContainer
+  @unwatch() if @prevContainer || !container
 
   @logs             = new Array()
   @containerChannel = @WebSocket.subscribe("container.:container", container: container.info.Name.substr(1)) # Watch containers logs
@@ -42,4 +44,3 @@ ContainerController::select = (container) ->
   @containerChannel.bind 'log', (data) =>
     @logs.push(data.message)
     @$scope.$apply()
-  return

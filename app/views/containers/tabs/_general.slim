@@ -1,11 +1,5 @@
 .row
-  .col-xs-12.col-sm-8.p-sm-r-0
-    journal#journal
-      journal-heading.panel-title.text-uppercase Container logs
-      journal-body
-        journal-row ng-repeat="log in ctrl.logs track by $index" data="log"
-
-  .col-xs-12.col-sm-4
+  .col-xs-12.col-sm-4.p-sm-r-0
     .panel.panel-default
       .panel-heading
         h4.panel-title.text-uppercase Port mapping
@@ -19,7 +13,6 @@
                   ul.list-unstyled ng-repeat="port in liens"
                     li {{ port.HostIp }}:{{ port.HostPort }}
 
-  .col-xs-12.col-sm-4
     .panel.panel-default
       .panel-heading
         h4.panel-title.text-uppercase Volumes
@@ -30,3 +23,9 @@
               tr ng-repeat="(volumeName,hostDirectory) in ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Volumes"
                 th {{ volumeName }}
                 td {{ hostDirectory }}
+
+  .col-xs-12.col-sm-8
+    journal#journal
+      journal-heading.panel-title.text-uppercase Container logs
+      journal-body
+        journal-row ng-repeat="log in ctrl.logs track by $index" data="log"

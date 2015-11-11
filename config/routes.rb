@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
     resources :images
 
+
     resources :containers
 
     get '/users/sign_in' => 'sessions#new'
@@ -16,5 +17,6 @@ Rails.application.routes.draw do
     get '/users/sign_up' => 'registrations#new'
   end
 
+  resource :api_config
   get '*path' => 'application#layout' # Redirect all to application's entry point
 end

@@ -1,0 +1,24 @@
+#apiConfigForm
+  .row
+    aside.col-sm-6
+      h2 Welcome to Whaller
+      p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius delectus fugiat autem blanditiis quo, minus officiis consequuntur perferendis accusamus. Possimus mollitia minus, eaque quasi velit, sunt delectus perferendis veritatis deleniti.
+    .col-sm-6
+      .logo
+      .panel
+        .panel-body
+          = bootstrap_form_tag url: '', data: { 'ng-submit' => 'ctrl.send(ctrl.config, $event)' } do |f|
+            = f.text_field :scheme,
+              placeholder: 'Scheme ...',
+              skip_label: true,
+              data: { 'ng-model' => 'ctrl.config.scheme' }
+            = f.text_field :host,
+              placeholder: 'Host ...',
+              skip_label: true,
+              data: { 'ng-model' => 'ctrl.config.host' }
+            = f.text_field :port,
+              placeholder: 'Port ...',
+              skip_label: true,
+              data: { 'ng-model' => 'ctrl.config.port' }
+
+            button.btn.btn-primary.btn-block.m-b type="submit" Go

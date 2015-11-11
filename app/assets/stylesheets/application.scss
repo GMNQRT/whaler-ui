@@ -23,6 +23,7 @@ body.imageCtrl { @import "image"; }
 body.homeCtrl  { @import "home"; }
 body.sessionsCtrl { @import "sessions"; }
 body.containerCtrl { @import "container"; }
+body.apiconfigsCtrl { @import "api_configs"; }
 
 .current-place {
   color: #9e9e9e;

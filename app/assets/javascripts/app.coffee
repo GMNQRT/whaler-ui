@@ -27,6 +27,12 @@ angular.module('whaler', [
       action: 'getInfo'
       title: 'Dashboard'
 
+    $routeProvider.when '/hello',
+      templateUrl: '/api_config/new'
+      controller: 'ApiConfigsController'
+      controllerAs: 'ctrl'
+      title: 'Configuration'
+
     $routeProvider.when '/container',
       templateUrl: '/partials/containers/show'
       controller: 'ContainerController'
@@ -56,14 +62,17 @@ angular.module('whaler', [
 
     $routeProvider.otherwise '/'
 
-
-    APIProvider.scheme('http').url('192.168.59.103').port('3000')
-    WebSocketProvider.connect('192.168.59.103:3000/websocket')
     $resourceProvider.defaults.stripTrailingSlashes = true
     $locationProvider.html5Mode(true).hashPrefix('!')
     return
 ])
-.run(['$rootScope', '$route', '$location', ($rootScope, $route, $location) ->
+.run(['$rootScope', '$route', '$location', '$http', 'API', 'WebSocket', ($rootScope, $route, $location, $http, API, WebSocket) ->
+  $http.get('/api_config.json').then (response) ->
+    API.$provider.scheme(response.data.scheme).url(response.data.host).port(response.data.port)
+    WebSocket.$provider.url(response.data.host).port(response.data.port).connect()
+  , () ->
+    $location.path '/hello'
+
   $location.pushState = (url, params) ->
     angular.extend $route.current.pathParams, params
     $location.path(url)

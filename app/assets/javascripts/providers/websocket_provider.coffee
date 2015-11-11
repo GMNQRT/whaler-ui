@@ -1,23 +1,37 @@
 # Wrap WebSocketRails in an angular provider
 angular.module('whaler.provider').provider 'WebSocket', [ () ->
-  dispatcher = {}
+  config = {}
 
-  @connect =  (url) =>
-    dispatcher = new WebSocketRails(url)
+  @scheme = (scheme) =>
+    config.scheme = scheme
     return @
 
-  @$get = () ->
-    dispatcher: dispatcher
+  @url = (url) =>
+    config.url = url
+    return @
 
-    subscribe: (channel_name, data, success_callback, failure_callback) ->
+  @port = (port) =>
+    config.port = port
+    return @
+
+  @connect = () =>
+    @$get.dispatcher = new WebSocketRails("#{config.url}:#{config.port}/websocket")
+    return @
+
+  @$get = () =>
+    $provider: @
+
+    dispatcher: {}
+
+    subscribe: (channel_name, data, success_callback, failure_callback) =>
       subscribed_channel_name = channel_name.replace /:([^.]+)/g, (m, p1, offset, str) -> data[p1] || ""
 
-      dispatcher.subscribe subscribed_channel_name, success_callback, failure_callback
+      @$get.dispatcher.subscribe subscribed_channel_name, success_callback, failure_callback
 
-    unsubscribe: (channel_name, data) ->
+    unsubscribe: (channel_name, data) =>
       subscribed_channel_name = channel_name.replace /:([^.]+)/g, (m, p1, offset, str) -> data[p1] || ""
 
-      dispatcher.unsubscribe subscribed_channel_name
+      @$get.dispatcher.unsubscribe subscribed_channel_name
 
   @
 ]

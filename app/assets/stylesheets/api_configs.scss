@@ -1,0 +1,35 @@
+#topbar, #main-nav {
+  display: none;
+}
+
+#page-wrapper > .container-fluid {
+  height: 100vh;
+  max-width: 800px;
+  margin: auto;
+  display: table;
+}
+
+#page-wrapper {
+  overflow: hidden;
+}
+
+#apiConfigForm {
+  position: relative;
+  display: table-cell;
+  vertical-align: middle;
+
+  @media (min-width: $screen-sm-min) {
+    .logo {
+      position: absolute;
+      top: -33px;
+      left: 240px;
+      width: 400px;
+      height: 387px;
+      background-repeat: no-repeat;
+      background-image:  image-url("whale.png");
+    }
+  }
+  .panel {
+    position: relative;
+  }
+}

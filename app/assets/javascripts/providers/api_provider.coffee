@@ -1,13 +1,10 @@
 # Some helpers to build API's root url and resources' urls
 angular.module('whaler.provider').provider 'API', [ '$httpProvider', ($httpProvider) ->
-  config =
-    scheme: "http"
-    url: "localhost"
-    port: "3000"
+  config = {}
 
   $httpProvider.interceptors.push 'authInterceptor'
 
-  @scheme =  (scheme) =>
+  @scheme = (scheme) =>
     config.scheme = scheme
     return @
 
@@ -19,7 +16,9 @@ angular.module('whaler.provider').provider 'API', [ '$httpProvider', ($httpProvi
     config.port = port
     return @
 
-  @$get = [ '$http', '$cookies', ($http, $cookies) ->
+  @$get = [ '$http', '$cookies', ($http, $cookies) =>
+    $provider: @
+
     baseUrl: () ->
       "#{config.scheme}://#{config.url}:#{config.port}/"
 

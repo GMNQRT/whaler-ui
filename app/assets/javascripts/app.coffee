@@ -19,46 +19,49 @@ angular.module('whaler', [
   '$httpProvider'
   'APIProvider'
   'WebSocketProvider'
-  ($routeProvider, $locationProvider, $resourceProvider, $httpProvider, APIProvider, WebSocketProvider) ->
-    $routeProvider.when '/',
+  'RouterProvider'
+  ($routeProvider, $locationProvider, $resourceProvider, $httpProvider, APIProvider, WebSocketProvider, RouterProvider) ->
+    RouterProvider.when '/',
+      alias:       'root'
+      title:       'Dashboard'
       templateUrl: '/partials/dashboard'
-      controller: 'HomeController'
-      controllerAs: 'ctrl'
-      action: 'getInfo'
-      title: 'Dashboard'
+      controller:  'HomeController'
+      action:      'getInfo'
 
-    $routeProvider.when '/hello',
+    .when '/hello',
+      alias:       'configure'
+      title:       'Configuration'
       templateUrl: '/api_config/new'
-      controller: 'ApiConfigsController'
-      controllerAs: 'ctrl'
-      title: 'Configuration'
+      controller:  'ApiConfigsController'
+      , false
 
-    $routeProvider.when '/container',
-      templateUrl: '/partials/containers/show'
-      controller: 'ContainerController'
-      controllerAs: 'ctrl'
+    .when '/container',
+      alias:          'containers'
+      title:          'Containers'
+      templateUrl:    '/partials/containers/show'
+      controller:     'ContainerController'
+      action:         'indexAction'
       reloadOnSearch: false
-      action: 'indexAction'
-      title: 'Containers'
 
-    $routeProvider.when '/images',
+    .when '/images',
+      alias:       'images'
+      title:       'Images'
       templateUrl: '/partials/images/show'
-      controller: 'ImageController'
-      controllerAs: 'ctrl'
-      action: 'indexAction'
-      title: 'Images'
+      controller:  'ImageController'
+      action:      'indexAction'
 
-    $routeProvider.when '/login',
+    .when '/login',
+      alias:       'login'
       templateUrl: '/partials/users/sign_in'
-      controller: 'SessionsController'
-      controllerAs: 'ctrl'
-      action: 'showForm'
+      controller:  'SessionsController'
+      action:      'showForm'
+      , false
 
-    $routeProvider.when '/signout',
+    .when '/signout',
+      alias:       'signout'
+      controller:  'SessionsController'
+      action:      'signout'
       templateUrl: '/partials/users/sign_in'
-      controller: 'SessionsController'
-      controllerAs: 'ctrl'
-      action: 'signout'
 
     $routeProvider.otherwise '/'
 
@@ -66,12 +69,12 @@ angular.module('whaler', [
     $locationProvider.html5Mode(true).hashPrefix('!')
     return
 ])
-.run(['$rootScope', '$route', '$location', '$http', 'API', 'WebSocket', ($rootScope, $route, $location, $http, API, WebSocket) ->
+.run(['$rootScope', '$route', '$location', '$http', 'API', 'WebSocket', 'Router', ($rootScope, $route, $location, $http, API, WebSocket, Router) ->
   $http.get('/api_config.json').then (response) ->
     API.$provider.scheme(response.data.scheme).url(response.data.host).port(response.data.port)
     WebSocket.$provider.url(response.data.host).port(response.data.port).connect()
   , () ->
-    $location.path '/hello'
+    Router.redirectTo 'configure'
 
   $location.pushState = (url, params) ->
     angular.extend $route.current.pathParams, params

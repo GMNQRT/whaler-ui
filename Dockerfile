@@ -6,16 +6,16 @@ RUN apt-get update && apt-get install -y nodejs nodejs-legacy npm --no-install-r
 RUN npm install bower -g
 
 # Build whaler-ui project
-RUN mkdir /whaler-ui
-WORKDIR /whaler-ui
+RUN mkdir /usr/src/app/
+WORKDIR /usr/src/app/
 
 # Add and install Gemfile
-ADD ./Gemfile /whaler-ui/Gemfile
-ADD ./Gemfile.lock /whaler-ui/Gemfile.lock
-RUN bundle install
+ADD ./Gemfile /usr/src/app/Gemfile
+ADD ./Gemfile.lock /usr/src/app/Gemfile.lock
+# RUN bundle install
 
 # Add source code
-ADD . /whaler-ui
+ADD . /usr/src/app
 
 # Expose server port
 EXPOSE 3001

@@ -66,3 +66,23 @@ $page-header-bg: white;
     }
   }
 }
+
+#image-search-group {
+  &.is-empty:not(.has-focus) label {
+    top: 17px;
+  }
+  label {
+    left: 10px;
+    color: fade-out(black, 0.64);
+  }
+  input {
+    text-indent: 10px;
+    background-color: #EFEFEF;
+  }
+}
+
+#image-search-results {
+  max-height: calc(100vh - 184px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}

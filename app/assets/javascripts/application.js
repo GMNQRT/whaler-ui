@@ -20,6 +20,7 @@
 //= require angular-bootstrap/ui-bootstrap.min
 //= require angular-bootstrap/ui-bootstrap-tpls.min
 //= require bootstrap-sass-official/assets/javascripts/bootstrap-sprockets
+//= require rgbaster/rgbaster.min
 //= require ./app
 //= require_tree ./filters
 //= require_tree ./services

@@ -25,6 +25,7 @@ $input-padding-bottom: 15px;
   label {
     position: absolute;
     top: 0;
+    z-index: 2;
     font-size: $label-font-size;
     font-weight: 300;
     color: rgba(0, 0, 0, 0.4);

@@ -1,0 +1,16 @@
+.modal-body
+  form#image-search-form
+    #image-search-group.form-group
+      input#image-search-input.form-control[
+        name="search-input"
+        type="text"
+        ng-model="query"
+        label="Search images by name ..."
+        uib-typeahead="image for image in ctrl.getImages($viewValue)"
+      ]
+  #image-search-results.scrollbar-small
+    .col-xs-6.p-l-0 ng-repeat="image in ctrl.images"
+      image-search-card ng-model="image"
+
+footer.modal-footer.container-fluid
+  a.pull-right.btn.btn-primary-outline ng-click="$close()" Cancel

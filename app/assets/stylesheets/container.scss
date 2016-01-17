@@ -86,3 +86,7 @@ $page-header-bg: white;
   overflow-y: auto;
   overflow-x: hidden;
 }
+
+#journal journal-body {
+  max-height: 374px;
+}

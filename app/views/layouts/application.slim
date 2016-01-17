@@ -12,7 +12,7 @@ html ng-app="whaler"
   body class="{{ controller }}"  ng-controller="ApplicationController as app"
 
     #topbar.navbar.navbar-primary.navbar-fixed-top ng-if="controller && controller != 'sessionsCtrl'"
-      button.navbar-toggle.pull-left.m-l.show type="button" ng-click="app.toggleNav()"
+      button.navbar-toggle.pull-left.show type="button" ng-click="app.toggleNav()"
         span.sr-only Toggle navigation
         span.icon-bar
         span.icon-bar

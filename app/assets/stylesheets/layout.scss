@@ -96,12 +96,12 @@ body {
 .scrollbar-small::-webkit-scrollbar {
   width: 8px;
   height: 8px;
-  background: fade-out(black, 0.96);
+  background: fade-out(#737373, 0.96);
 }
 .scrollbar-small::-webkit-scrollbar-button {
   display: none;
 }
 
 .scrollbar-small::-webkit-scrollbar-thumb {
-  background: fade-out(black, 0.7);
+  background: #ECECEC;
 }

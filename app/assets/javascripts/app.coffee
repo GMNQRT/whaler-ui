@@ -2,6 +2,7 @@ angular.module('whaler', [
   'ngRoute'
   'ngResource'
   'ngCookies'
+  'ngMaterial'
   'templates'
   'whaler.filters'
   'whaler.provider'
@@ -17,10 +18,11 @@ angular.module('whaler', [
   '$locationProvider'
   '$resourceProvider'
   '$httpProvider'
+  '$mdIconProvider'
   'APIProvider'
   'WebSocketProvider'
   'RouterProvider'
-  ($routeProvider, $locationProvider, $resourceProvider, $httpProvider, APIProvider, WebSocketProvider, RouterProvider) ->
+  ($routeProvider, $locationProvider, $resourceProvider, $httpProvider, $mdIconProvider, APIProvider, WebSocketProvider, RouterProvider) ->
     RouterProvider.when '/',
       alias:       'root'
       title:       'Dashboard'
@@ -67,6 +69,7 @@ angular.module('whaler', [
 
     $resourceProvider.defaults.stripTrailingSlashes = true
     $locationProvider.html5Mode(true).hashPrefix('!')
+    $mdIconProvider.fontSet 'fa', 'fontawesome'
     return
 ])
 .run(['$rootScope', '$route', '$location', '$http', 'API', 'WebSocket', 'Router', ($rootScope, $route, $location, $http, API, WebSocket, Router) ->

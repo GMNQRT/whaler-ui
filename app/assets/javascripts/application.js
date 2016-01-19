@@ -19,6 +19,10 @@
 //= require angular-rails-templates
 //= require angular-bootstrap/ui-bootstrap.min
 //= require angular-bootstrap/ui-bootstrap-tpls.min
+//= require angular-aria/angular-aria.min
+//= require angular-animate/angular-animate.min
+//= require angular-messages/angular-messages.min
+//= require angular-material/angular-material.min
 //= require bootstrap-sass-official/assets/javascripts/bootstrap-sprockets
 //= require rgbaster/rgbaster.min
 //= require ./app

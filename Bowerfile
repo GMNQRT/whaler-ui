@@ -3,6 +3,8 @@ asset 'angular-route'
 asset 'angular-resource'
 asset 'angular-cookies'
 asset 'angular-bootstrap'
+asset 'angular-material'
 asset 'rgbaster'
 asset 'bootstrap-sass-official'
+
 # vim: ft=ruby

@@ -70,7 +70,9 @@
                 td {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.HostConfig.DnsSearch }}
               tr
                 th ExtraHosts
-                td {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.HostConfig.ExtraHosts }}
+                td
+                  ul
+                    li ng-repeat="ExtraHost in ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.HostConfig.ExtraHosts" {{ ExtraHost }}
               tr
                 th NetworkMode
                 td {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.HostConfig.NetworkMode }}

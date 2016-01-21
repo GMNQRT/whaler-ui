@@ -15,6 +15,19 @@
 
     #volumes.panel.panel-default
       .panel-heading
+        h4.panel-title.text-uppercase Working Directory
+      .panel-body
+        .row
+          table.table.table-hover.table-borderless.m-b-0
+            tbody
+              md-list
+                md-list-item
+                  = fa_icon :folder, class: 'md-avatar-icon'
+                  .md-list-item-text
+                    h3 {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.WorkingDir }}
+
+    #volumes.panel.panel-default
+      .panel-heading
         h4.panel-title.text-uppercase Volumes
       .panel-body
         .row

@@ -1,0 +1,32 @@
+.row
+  .col-xs-12.col-sm-6.p-sm-r-0
+    md-card
+      md-card-content
+        h2 Informations
+        p Autor: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Author}}
+        p Created: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Created}}
+        p Size: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Size}}
+        p VirtualSize: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.VirtualSize}}
+        p Labels:
+        ul
+          li ng-repeat="Label in ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Labels" {{ Label }}
+        p Comment: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Comment}}
+  .col-xs-12.col-sm-6.p-sm-r-0
+    md-card
+      md-card-content
+        h2 Commandes
+        ul
+          li ng-repeat="cmd in ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Config.Cmd" {{ cmd }}
+.row
+  .col-xs-6.col-sm-6.p-sm-r-0
+    md-card
+      md-card-content
+        h2 RepoTags
+        ul
+          li ng-repeat="RepoTag in ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.RepoTags" {{ RepoTag}}
+  .col-xs-6.col-sm-6.p-sm-r-0
+    md-card
+      md-card-content
+        h2 RepoDigests
+        ul
+          li ng-repeat="RepoDigest in ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.RepoDigests" {{ RepoDigest}}

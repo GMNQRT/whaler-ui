@@ -1,75 +1,12 @@
+header#page-header
+  h2 class="container-title" {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.RepoTags[0] }}
+  small {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.Image }}
+  
+.row
+  uib-tabset#tab-content.col-xs-12 type="pills"
+    uib-tab heading="General"  = render partial: 'images/tabs/general'
+    uib-tab heading="Network"  = render partial: 'images/tabs/network'
+    uib-tab heading="Advanced" = render partial: 'images/tabs/advanced'
+
 / pre
 /   | {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage] |json}}
-
-md-card
-  md-card-content
-    h2 Informations
-    p Autor: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Author}}
-    p Created: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Created}}
-    p Size: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Size}}
-    p VirtualSize: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.VirtualSize}}
-    p Labels:
-    ul
-      li ng-repeat="Label in ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Labels" {{ Label }}
-    p Comment: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Comment}}
-
-md-card
-  md-card-content
-    h2 RepoTags
-    ul
-      li ng-repeat="RepoTag in ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.RepoTags" {{ RepoTag}}
-
-md-card
-  md-card-content
-    h2 Connection Information
-    p url: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].connection.url}}
-    p options:
-    ul
-      li socket: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].connection.options.socket}}
-      li client_cert: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].connection.options.client_cert}}
-      li client_key: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].connection.options.client_key}}
-      li ssl_ca_file: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].connection.options.ssl_ca_file}}
-      li scheme: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].connection.options.scheme}}
-
-md-card
-  md-card-content
-    h2 Environement
-    ul
-      li ng-repeat="env in ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Config.Env" {{ env }}
-
-md-card
-  md-card-content
-    h2 Options
-    ul
-      li AttachStdin: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Config.AttachStdin}}
-      li AttachStdout: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Config.AttachStdout}}
-      li AttachStderr: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Config.AttachStderr}}
-      li Tty: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Config.Tty}}
-      li OpenStdin: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Config.OpenStdin}}
-      li StdinOnce: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Config.StdinOnce}}
-
-md-card
-  md-card-content
-    h2 Commandes
-    ul
-      li ng-repeat="cmd in ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Config.Cmd" {{ cmd }}
-
-/ "RepoDigests": [],
-/ "Config": {
-/   "Hostname": "03797203757d",
-/   "Domainname": "",
-/   "User": "",
-/   "ExposedPorts": {
-/     "3000/tcp": {}
-/   },
-/   "PublishService": "",
-/   "Image": "6cb66021a0f163935029f06c03ff5fef3873ed0280602f6838d1d50460fffeb9",
-/   "Volumes": null,
-/   "VolumeDriver": "",
-/   "WorkingDir": "/usr/src/app",
-/   "Entrypoint": null,
-/   "NetworkDisabled": false,
-/   "MacAddress": "",
-/   "OnBuild": [],
-/   "Labels": null
-/ },

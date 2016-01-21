@@ -1,0 +1,37 @@
+.row
+  .col-xs-6
+    md-card
+      md-card-content
+        h2 Connection Information
+        p url: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].connection.url}}
+        p options:
+        ul
+          li socket: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].connection.options.socket}}
+          li client_cert: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].connection.options.client_cert}}
+          li client_key: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].connection.options.client_key}}
+          li ssl_ca_file: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].connection.options.ssl_ca_file}}
+          li scheme: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].connection.options.scheme}}
+  .col-xs-6
+    md-card
+      md-card-content   
+        h2 Configuration
+        p Hostname: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Config.Hostname}}
+        p Domainname: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Config.Domainname}}
+        p User: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Config.User}}
+        p PublishService: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Config.PublishService}}
+        p Volumes:
+        ul
+          li ng-repeat="(VolumeName, Volume) in ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Config.Volumes" {{ VolumeName }}
+        p VolumeDriver: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Config.VolumeDriver}}
+        p WorkingDir: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Config.WorkingDir}}
+        p Entrypoint:
+        ul
+          li ng-repeat="EntrypointName in ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Config.Entrypoint" {{ EntrypointName }}
+        p NetworkDisabled: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Config.NetworkDisabled}}
+        p MacAddress: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Config.MacAddress}}
+        p OnBuild:
+        ul
+          li ng-repeat="OnBuildName in ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Config.OnBuild" {{ OnBuildName }}
+        p ExposedPorts:
+        ul
+          li ng-repeat="(Port, ExposedPort) in ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Config.ExposedPorts" {{ Port }}

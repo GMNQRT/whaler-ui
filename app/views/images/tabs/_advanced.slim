@@ -1,0 +1,18 @@
+.row
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    md-card
+      md-card-content
+        h2 Environement
+        ul
+          li ng-repeat="env in ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Config.Env" {{ env }}
+  .col-xs-12.col-sm-12.col-md-12.col-lg-12
+    md-card
+      md-card-content
+        h2 Options
+        ul
+          li AttachStdin: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Config.AttachStdin}}
+          li AttachStdout: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Config.AttachStdout}}
+          li AttachStderr: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Config.AttachStderr}}
+          li Tty: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Config.Tty}}
+          li OpenStdin: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Config.OpenStdin}}
+          li StdinOnce: {{ ctrl.ImageService.images[ctrl.ImageService.selectedImage].info.Config.StdinOnce}}

@@ -8,17 +8,16 @@
           .row
             .col-xs-6 Key
             .col-xs-6 Value
-          .row ng-repeat="env in ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.Env"
+          .row ng-repeat="(index, env) in ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.Env"
             .col-xs-6
               div.form-group
-                input#inputId.form-control type="text" name="{{ 'key_' + $index }}" ng-model="ctrl.env[$index]" label="Key" 
+                input#inputId.form-control type="text" name="{{ 'key_' + index }}" ng-model="env|envKey"
             .col-xs-5
               div.form-group
-                input#inputId.form-control type="text" name="{{ 'value_' + $index }}" ng-model="ctrl.env[$index]" label="Value" 
+                input#inputId.form-control type="text" name="{{ 'value_' + index }}" ng-model="env|envValue" 
             .col-xs-1
               .leave-behind
                 => fa_icon :trash
-
 .row
   .col-xs-12.col-sm-12.col-md-12.col-lg-12
     .panel.panel-default

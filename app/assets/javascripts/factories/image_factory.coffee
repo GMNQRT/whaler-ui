@@ -4,4 +4,5 @@ angular.module('whaler.factories').service 'ImageFactory', ['$resource', 'API', 
     format: 'json'
   ,
     search: { url: API.generateResourceUrl('image/search'), method:'GET', isArray: true }
+    delete: { url: API.generateResourceUrl('image/:id'), params: {id: '@id'}, method:'DELETE'}
 ]

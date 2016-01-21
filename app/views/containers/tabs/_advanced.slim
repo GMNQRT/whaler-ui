@@ -19,6 +19,49 @@
               .leave-behind
                 => fa_icon :trash
 .row
+  .col-xs-4.col-sm-4.col-md-4.col-lg-4
+    .panel.panel-default
+      .panel-heading
+        h4.text-uppercase Options
+      .panel-body
+        form name="form" novalidate=""
+          .row
+            table.table.table-hover.table-borderless.m-b-0
+              tbody
+                tr
+                  th Network Disabled
+                  td: toggle-switch ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.NetworkDisabled"
+                tr
+                  th Stdin Once
+                  td: toggle-switch ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.StdinOnce"
+                tr
+                  th Open Stdin
+                  td: toggle-switch ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.OpenStdin"
+                tr
+                  th Tty
+                  td: toggle-switch ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.Tty"
+                tr
+                  th Stderr
+                  td: toggle-switch ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.AttachStderr"
+                tr
+                  th Stdin
+                  td: toggle-switch ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.AttachStdin"
+                tr
+                  th Stdout
+                  td: toggle-switch ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config. AttachStdout"
+  .col-xs-8.col-sm-8.col-md-8.col-lg-8
+    .panel.panel-default
+      .panel-heading
+        h4.text-uppercase Labels
+      .panel-body
+        form name="form" novalidate=""
+          .row
+            table.table.table-hover.table-borderless.m-b-0
+              tbody
+                tr ng-repeat="(LabelName, Label) in ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.Labels" 
+                  th {{ LabelName|split:'.':3|capitalize }}
+                  td {{ Label }}
+.row
   .col-xs-12.col-sm-12.col-md-12.col-lg-12
     .panel.panel-default
       .panel-heading
@@ -53,9 +96,6 @@
                 th User
                 td {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.User }}
               tr
-                th Labels
-                td {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.Labels }}
-              tr
                 th MacAddress
                 td {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.MacAddress }}
         .row
@@ -70,42 +110,4 @@
               tr
                 th OnBuild
                 td {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.OnBuild }}
-        .row
-          table.table.table-hover.table-borderless.m-b-0
-            tbody
-              tr
-                th Volumes
-                td {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.Volumes }}
-              tr
-                th WorkingDir
-                td {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.WorkingDir }}
-        .row
-          table.table.table-hover.table-borderless.m-b-0
-            caption.p-l Booleen
-            tbody
-              tr
-                th Network Disabled
-                td: toggle-switch ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.NetworkDisabled"
-              tr
-                th Stdin Once
-                td: toggle-switch ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.StdinOnce"
-              tr
-                th Open Stdin
-                td: toggle-switch ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.OpenStdin"
-              tr
-                th Tty
-                td: toggle-switch ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.Tty"
 
-        .row
-          table.table.table-hover.table-borderless.m-b-0
-            caption.p-l Attachement
-            tbody
-              tr
-                th Stderr
-                td: toggle-switch ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.AttachStderr"
-              tr
-                th Stdin
-                td: toggle-switch ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.AttachStdin"
-              tr
-                th Stdout
-                td: toggle-switch ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.AttachStdout"

@@ -74,6 +74,7 @@ container-card, [container-card] {
     height: 100%;
     border-bottom: 1px solid $soft-gray;
     padding-left: 0;
+    outline: none;
 
     @include transition(transform ease-in $container-card-transition-duration);
 

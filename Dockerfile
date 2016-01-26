@@ -23,7 +23,7 @@ ENV GIT_DIR /usr/src/app/
 
 
 # Expose server port
-EXPOSE 3001
+EXPOSE 80
 
 # Start rails server
-CMD ruby bin/setup && rails server -b "0.0.0.0" -p 3001
+CMD ruby bin/setup && rails server -b "0.0.0.0" -p 80

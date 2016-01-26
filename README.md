@@ -17,4 +17,4 @@ bundle
 rails s
 ```
 
-now visit localhost:3001 and see if it works
+now visit localhost and see if it works

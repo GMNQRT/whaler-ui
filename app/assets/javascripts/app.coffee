@@ -37,12 +37,12 @@ angular.module('whaler', [
       controller:  'ApiConfigsController'
       , false
 
-    .when '/container',
+    .when '/container/:id?',
       alias:          'containers'
       title:          'Containers'
       templateUrl:    '/partials/containers/show'
       controller:     'ContainerController'
-      action:         'indexAction'
+      # action:         'indexAction'
       reloadOnSearch: false
 
     .when '/images',

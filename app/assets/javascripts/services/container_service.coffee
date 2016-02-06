@@ -1,33 +1,25 @@
 angular.module('whaler.services').service 'ContainerService', [
   '$rootScope'
   '$timeout'
-  '$routeParams'
   'ContainerFactory'
   'WebSocket'
-  ContainerService = (@$rootScope, @$timeout, @$routeParams, @ContainerFactory, @WebSocket) ->
-    @containers = @ContainerFactory.query()
+  ContainerService = (@$rootScope, @$timeout, @ContainerFactory, @WebSocket) ->
     return
 ]
 
-ContainerService::reload = () ->
-  @containers = @ContainerFactory.query()
-
-ContainerService::bindTo = (@$scope) ->
-  @containersChannel = @WebSocket.subscribe('container') unless @containersChannel # Watch containers events
-  @containersChannel.bind 'event', (data) => @$scope.$apply(@updateContainer.call(@, data)) if @containers
-
-  @$scope.$on '$destroy', () =>
-    @WebSocket.unsubscribe(@containersChannel.name)
-    @containersChannel = null
+ContainerService::getContainers = (force_reload = false) ->
+  if force_reload
+    return @containers = @ContainerFactory.query()
+  return @containers ||= @ContainerFactory.query()
 
 # Subscribe to events fired by this service
-ContainerService::subscribe = (event_name, callback) ->
-  handler = @$scope.$on("containerService.#{event_name}", callback)
-  @$scope.$on '$destroy', handler
+ContainerService::subscribe = ($scope, event_name, callback) ->
+  handler = @$rootScope.$on("containerService.#{event_name}", callback)
+  $scope.$on '$destroy', handler
   return handler
 
 ContainerService::notify = (event_name, data...) ->
-  @$scope.$emit "containerService.#{event_name}", data...
+  @$rootScope.$emit "containerService.#{event_name}", data...
 
 ContainerService::start = (container) ->
   return @unpause container if container.info.State.Paused
@@ -48,28 +40,26 @@ ContainerService::restart = (container) ->
 ContainerService::remove = (container) ->
   @ContainerFactory.delete { id: container.id }
 
-# Update containers' informations through websocket
-ContainerService::updateContainer = (data) ->
-  if data.event.status is 'create'
-    @containers.push data.container
+# Update containers' informations
+ContainerService::update = ($event, container) ->
+  if $event.status is 'create'
+    @containers.push container
   else
-    for container, i in @containers when container.id == data.event.id
-      if data.event.status is 'destroy'
+    for c, i in @containers when c.id == $event.id
+      if $event.status is 'destroy'
         @containers.splice i, 1
       else
-        @containers[i]      = data.container
-        @containers[i].tilt = true
-        @containers[@selectedContainer].active = true if @containers[@selectedContainer]?.id == container.id
+        @containers[i] = container
+        @notify 'tilt', @containers[i]
       return
   return
 
-# Display container informations on right pane
 ContainerService::select = (container) ->
-  if @containers[@selectedContainer]
-    return if container.id == @containers[@selectedContainer].id # Quit if same container is selected
-    @containers[@selectedContainer].active = false
-  @selectedContainer = @containers.indexOf(container)
+  oldIdx             = @selectedIdx
+  selectedIdx        = @containers.indexOf(container)
+  @selectedContainer = @containers[selectedIdx]
 
-  if @containers[@selectedContainer]
-    @containers[@selectedContainer].active = true
-    @notify 'select', @containers[@selectedContainer]
+  return null unless @selectedContainer
+  if @containers[oldIdx]?.id != @selectedContainer.id
+    @notify 'select', @selectedContainer
+  return @selectedContainer

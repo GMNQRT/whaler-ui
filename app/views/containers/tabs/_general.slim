@@ -7,7 +7,7 @@
         .row
           table.table.table-hover.table-borderless.m-b-0
             tbody
-              tr ng-repeat="(protocol,liens) in ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.NetworkSettings.Ports"
+              tr ng-repeat="(protocol,liens) in ctrl.selectedContainer.info.NetworkSettings.Ports"
                 th {{ protocol }}
                 td
                   ul.list-unstyled ng-repeat="port in liens"
@@ -24,7 +24,7 @@
                 md-list-item
                   = fa_icon :folder, class: 'md-avatar-icon'
                   .md-list-item-text
-                    h3 {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.WorkingDir }}
+                    h3 {{ ctrl.selectedContainer.info.Config.WorkingDir }}
 
     #volumes.panel.panel-default
       .panel-heading
@@ -34,7 +34,7 @@
           table.table.table-hover.table-borderless.m-b-0
             tbody
               md-list
-                md-list-item ng-repeat="(volumeName,hostDirectory) in ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Volumes"
+                md-list-item ng-repeat="(volumeName,hostDirectory) in ctrl.selectedContainer.info.Volumes"
                   = fa_icon :folder, class: 'md-avatar-icon'
                   .md-list-item-text
                     h3 {{ volumeName }}

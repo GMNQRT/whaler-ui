@@ -3,59 +3,54 @@ angular.module('whaler.controllers').controller 'ContainerController', [
   '$scope'
   '$q'
   '$uibModal'
-  'API'
   'WebSocket'
   'ContainerService'
-  ContainerController = (@$location, @$scope, @$q, @$uibModal, @API, @WebSocket, @ContainerService) ->
-    @logs = new Array()
+  ContainerController = (@$location, @$scope, @$q, @$uibModal, @WebSocket, @ContainerService) ->
+    @ContainerService.subscribe @$scope, 'select', ($event, container) =>
+      @unwatch @selectedContainer if @selectedContainer
+      @selectedContainer = container
+      @watch container
+
+    @$scope.$on '$destroy', () =>
+      @unwatch @selectedContainer if @selectedContainer
     return
 ]
 
 ContainerController::indexAction = () ->
-  prevHash = @$location.hash()
-
-  @selectByHash().then @select.bind(@) if @$location.hash()
-
-  @$scope.$on '$destroy', @unwatch
-  @$scope.$on '$locationChangeSuccess', (event, newUrl, oldUrl) => # Select active card on history back
-    @selectByHash().then @select.bind(@) if @$location.hash() != @prevContainer?.id
-
-
-# Select container by current hash in URL
-ContainerController::selectByHash = () ->
-  deferred = @$q.defer()
-  @ContainerService.containers.$promise.then (containers) =>
-    for container in containers when container.id == @$location.hash()
-      @ContainerService.select container
-      return deferred.resolve container
-  , deferred.reject
-
-  return deferred.promise
-
-# Unbind from container channel
-ContainerController::unwatch = () ->
-  @WebSocket.unsubscribe(@containerChannel.name) if @containerChannel
-  @prevContainer = @containerChannel = null
+  # @containers = @ContainerService.getContainers()
+  # prevHash    = @$location.hash()
+  #
+  # @ContainerService.bindTo @$scope
+  # @selectByHash() if @$location.hash()
+  #
+  # @$scope.$on '$destroy', @unwatch
+  # @$scope.$on '$locationChangeSuccess', (event, newUrl, oldUrl) => # Select active card on history back
+  #   @selectByHash() if @$location.hash() != @selectedContainer?.id
 
 
-# Display container informations on right pane
-ContainerController::select = (container) ->
-  @unwatch() if @prevContainer || !container
-  return unless container
+# # Select container by current hash in URL
+# ContainerController::selectByHash = () ->
+#   deferred = @$q.defer()
+#   @containers.$promise.then (containers) =>
+#     for container in containers when container.id == @$location.hash()
+#       @select container
+#       return deferred.resolve container
+#   , deferred.reject
+#
+#   return deferred.promise
+#
+#
+#
 
-  @logs             = new Array()
-  @containerChannel = @WebSocket.subscribe("container.:container", container: container.info.Name.substr(1)) # Watch containers logs
-  @prevContainer    = container
+# Bind to container channel
+ContainerController::watch = (container) ->
+  @logs              = new Array()
+  @containerChannel  = @WebSocket.subscribe("container.:container", container: container.info.Name.substr(1)) # Watch containers logs
 
-  @$location.hash(container.id)
   @containerChannel.bind 'log', (data) =>
     @logs.push(data.message)
     @$scope.$apply()
 
-ContainerController::add = () ->
-  @$uibModal.open
-    controller: 'Container.AddModalController as ctrl'
-    templateUrl: '/partials/containers/new'
-    size: 'lg'
-
-  return
+# Unbind to container channel
+ContainerController::unwatch = (container) ->
+  @WebSocket.unsubscribe("container.:container", container: container.info.Name.substr(1)) if @containerChannel

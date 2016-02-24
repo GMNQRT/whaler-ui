@@ -100,3 +100,31 @@ $page-header-bg: white;
     text-overflow: ellipsis;
   }
 }
+
+
+#searchPane {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 9;
+  padding-top: $navbar-height;
+  background-color: rgba(0, 0, 0, 0.3);
+
+  .container {
+    background-color: $soft-gray;
+    height: 100%;
+    overflow: auto;
+  }
+
+  .results {
+    height: 100%;
+    overflow: auto;
+    padding-bottom: 20px;
+
+    .image-card {
+      height: 140px;
+    }
+  }
+}

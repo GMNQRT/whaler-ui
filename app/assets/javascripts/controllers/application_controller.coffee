@@ -1,6 +1,7 @@
 angular.module('whaler.controllers').controller 'ApplicationController', [
+  'SearchService',
   'API',
-  ApplicationController = (@API) ->
+  ApplicationController = (@SearchService, @API) ->
     @isCollapsed = false
     return
 ]

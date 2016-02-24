@@ -52,10 +52,5 @@ ListController::select = (container) ->
 ListController::stop = (container) ->
   @ContainerService.stop container
 
-# ListController::add = () ->
-#   @$uibModal.open
-#     controller: 'Container.AddModalController as ctrl'
-#     templateUrl: '/partials/containers/new'
-#     size: 'lg'
-#
-#   return
+ListController::add = () ->
+  @showSearchPane = true

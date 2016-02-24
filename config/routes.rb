@@ -8,7 +8,11 @@ Rails.application.routes.draw do
     resources :images
 
 
-    resources :containers
+    resources :containers do
+      collection do
+        get 'search'
+      end
+    end
 
     get '/users/sign_in' => 'sessions#new'
 

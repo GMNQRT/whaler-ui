@@ -18,6 +18,9 @@ body {
   }
 
   #searchForm {
+    max-width: 512px;
+    margin-left: auto;
+    margin-right: auto;
     padding: 0 12px;
     @include navbar-vertical-align(36px);
 

@@ -29,6 +29,8 @@
   .p-#{$prefix}l { padding-left: $gutter !important; }
   .p-#{$prefix}r { padding-right: $gutter !important; }
   .p-#{$prefix}x { padding-left: $gutter !important; padding-right: $gutter !important; }
+
+  .m-#{$prefix}x-auto { margin-right: auto !important; margin-left: auto !important; }
 }
 
 @include responsive-spacing();

@@ -1,47 +1,42 @@
-.row
-  .col-xs-12.col-sm-4.p-sm-r-0
-    .panel.panel-default
-      .panel-heading
-        h4.panel-title.text-uppercase Port mapping
-      .panel-body
-        .row
-          table.table.table-hover.table-borderless.m-b-0
-            tbody
-              tr ng-repeat="(protocol,liens) in ctrl.selectedContainer.info.NetworkSettings.Ports"
-                th {{ protocol }}
-                td
-                  ul.list-unstyled ng-repeat="port in liens"
-                    li {{ port.HostIp }}:{{ port.HostPort }}
-
-    #volumes.panel.panel-default
-      .panel-heading
-        h4.panel-title.text-uppercase Working Directory
-      .panel-body
-        .row
-          table.table.table-hover.table-borderless.m-b-0
-            tbody
-              md-list
-                md-list-item
-                  = fa_icon :folder, class: 'md-avatar-icon'
-                  .md-list-item-text
-                    h3 {{ ctrl.selectedContainer.info.Config.WorkingDir }}
-
-    #volumes.panel.panel-default
-      .panel-heading
-        h4.panel-title.text-uppercase Volumes
-      .panel-body
-        .row
-          table.table.table-hover.table-borderless.m-b-0
-            tbody
-              md-list
-                md-list-item ng-repeat="(volumeName,hostDirectory) in ctrl.selectedContainer.info.Volumes"
-                  = fa_icon :folder, class: 'md-avatar-icon'
-                  .md-list-item-text
-                    h3 {{ volumeName }}
-                    p {{ hostDirectory  }}
-
-  .col-xs-12.col-sm-8
+.row.m-b
+  .col-xs-12
     journal#journal
       journal-heading.panel-title.text-uppercase Container logs
       journal-body
         journal-row ng-repeat="log in ctrl.logs track by $index" data="log"
+
+.row
+  .col-xs-6
+    md-card
+      md-card-header
+        md-card-header-text
+          h4.md-title Port mapping
+      md-card-content
+        .row
+          table.table.table-hover.table-borderless.m-b-0
+            thead
+              tr
+                th DOCKER PORT
+                th IP:PORT
+            tbody
+              tr ng-repeat="(protocol,liens) in ctrl.selectedContainer.info.NetworkSettings.Ports"
+                td {{ protocol }}
+                td
+                  ul.list-unstyled ng-repeat="port in liens"
+                    li {{ port.HostIp }}:{{ port.HostPort }}
+  .col-xs-6
+    md-card#volumes
+      md-card-header
+        md-card-header-text
+          h4.md-title Volumes
+      md-card-content
+        .row
+          table.table.table-hover.table-borderless.m-b-0
+            thead
+              tr
+                th VOLUME NAME
+                th HOST DIRECTORY
+            tbody
+              tr ng-repeat="(volumeName,hostDirectory) in ctrl.selectedContainer.info.Volumes" 
+                td.text-overflow {{ volumeName }}
+                td.text-overflow {{ hostDirectory }}

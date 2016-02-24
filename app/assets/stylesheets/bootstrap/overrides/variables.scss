@@ -1,4 +1,5 @@
 $body-bg: white;
+
 $text-color: fade-out(black, 0.13);
 $text-secondary: fade-out(black, 0.46);
 $text-soft: fade-out(black, 0.76);
@@ -13,15 +14,22 @@ $btn-accent-border: darken($btn-accent-bg, 5%);
 $state-success-bg: $green;
 $state-danger-bg: $red;
 
-$navbar-height: 58px;
+$navbar-height: 48px;
 $navbar-margin-bottom: 0;
 $navbar-default-bg: white;
 $navbar-default-toggle-icon-bar-bg: white;
 
 $nav-link-hover-bg: fade-out(black, 0.88);
 
-$font-family-sans-serif: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-$font-size-base: 13px;
+$font-family-sans-serif: Roboto, "Helvetica Neue", sans-serif;
+$font-size-base: 12px;
+$font-size-small: ceil(($font-size-base * 0.95));
+$font-size-h1: floor(($font-size-base * 1));
+$font-size-h2: floor(($font-size-base * 1.33));
+$font-size-h3: floor(($font-size-base * 1.17));
+$font-size-h4: floor(($font-size-base * 1));
+$font-size-h5: floor(($font-size-base * 0.83));
+$font-size-h6: floor(($font-size-base * 0.91));
 
 $left-menu-width: 250px;
 $collapsed-left-menu-width: 52px;
@@ -40,7 +48,6 @@ $panel-border-radius: 0;
 $btn-default-color: inherit;
 
 $panel-default-heading-bg: white;
-$font-size-small: ceil(($font-size-base * 0.8));
 
 // Cards
 $card-spacer-x:            1.25rem !default;

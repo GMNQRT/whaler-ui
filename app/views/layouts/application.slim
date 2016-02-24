@@ -12,16 +12,18 @@ html ng-app="whaler"
   body class="{{ controller }}"  ng-controller="ApplicationController as app"
 
     #topbar.navbar.navbar-primary.navbar-fixed-top ng-if="controller && controller != 'sessionsCtrl'"
-      button.navbar-toggle.pull-left.show type="button" ng-click="app.toggleNav()"
-        span.sr-only Toggle navigation
-        span.icon-bar
-        span.icon-bar
-        span.icon-bar
-      p.title {{ title }}
-      form#searchForm.navbar-form.navbar-right.pull-right role="search"
-        .form-group
-          input.form-control type="text" placeholder="Search"
-          = fa_icon('search', class: 'pull-left')
+      .container-fluid
+        .navbar-header
+          button.navbar-toggle.show.pull-left type="button" ng-click="app.toggleNav()"
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          p.title {{ title }}
+        form#searchForm.navbar-form.navbar-right role="search"
+          .search-container
+            = fa_icon :search
+            input type="text" placeholder="Search"
 
     #page-wrapper
       nav#main-nav ng-if="controller && controller != 'sessionsCtrl'"
@@ -30,4 +32,4 @@ html ng-app="whaler"
       / footer#footer.container
       /   .row
       /     .col-xs-12
-      /       p.text-right Copyright © Whaler 2014 - 2015
+      /       p.text-right Copyright © Whaler 2014 - 2016

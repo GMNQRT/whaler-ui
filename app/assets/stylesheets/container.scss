@@ -92,14 +92,6 @@ $page-header-bg: white;
 }
 
 #volumes {
-  h3 {
-    font-size: 15px;
-    font-weight: bold;
-
-    & + p {
-      font-size: 0.9em;
-    }
-  }
   md-list-item, .md-list-item-text {
     overflow: hidden;
   }

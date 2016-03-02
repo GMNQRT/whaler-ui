@@ -3,22 +3,23 @@ angular.module('whaler.controllers').controller 'Container.SearchController', [
   '$timeout'
   'SearchService',
   'ImageFactory'
-  SearchController = ($scope, @$timeout, @SearchService, @ImageFactory) ->
+  SearchController = ($scope, $timeout, @SearchService, @ImageFactory) ->
+    debounce = null
+
     $scope.$watch (() => return @SearchService.query), (term) =>
-      @getImages term
+      @images = [] if term.length < 2
+      $timeout.cancel debounce
+      if term.length > 2
+        debounce = $timeout () =>
+          @getImages @SearchService.query if @SearchService.query.length > 2
+        , 700
     return
 ]
 
 SearchController::getImages = (query) ->
-  if query.length < 2
-    @images = []
-  else
-    @query = query
-    @$timeout.cancel @queryTimeout if @queryTimeout
-    @queryTimeout =  @$timeout () =>
-      @ImageFactory.search term: query, (results) =>
-        @images = results
-    , 700
+  @query = query
+  @ImageFactory.search term: query, (results) =>
+    @images = results
 
 
 SearchController::run = (image) ->

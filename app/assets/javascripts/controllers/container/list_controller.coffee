@@ -5,7 +5,8 @@ angular.module('whaler.controllers').controller 'Container.ListController', [
   '$location'
   '$uibModal'
   'ContainerService'
-  ListController = ($scope, $document, WebSocket, @$location, @$uibModal, @ContainerService) ->
+  'SearchService'
+  ListController = ($scope, $document, WebSocket, @$location, @$uibModal, @ContainerService, @SearchService) ->
     containersChannel  = WebSocket.subscribe('container') unless containersChannel # Subscribe to containers events
     @containers        = @ContainerService.getContainers(true)
 
@@ -53,4 +54,6 @@ ListController::stop = (container) ->
   @ContainerService.stop container
 
 ListController::add = () ->
-  @showSearchPane = true
+  @SearchService.showPane '/partials/containers/search'
+  angular.element('input', '#searchForm').focus()
+  return

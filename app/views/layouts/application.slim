@@ -20,18 +20,18 @@ html ng-app="whaler"
             span.icon-bar
             span.icon-bar
           p.title {{ title }}
-        form#searchForm.navbar-form role="search"
+        form#searchForm.navbar-form role="search" ng-class="{ 'search-hasFocus': app.search.hasFocus }"
           .search-container
             = fa_icon :search
-            input type="text" placeholder="Search" ng-model="app.SearchService.query"
+            input type="text" placeholder="Search" ng-model="app.SearchService.query"  ng-focus="app.setSearchFocus(true)" ng-blur="app.setSearchFocus(false)"
 
     #page-wrapper
       nav#main-nav ng-if="controller && controller != 'sessionsCtrl'"
         = render_navigation expand_all: true, renderer: :bootstrap
       main.container-fluid ng-view=""
-    #searchPane
-      .container.scrollbar-small ng-include="'/partials/containers/search'"
-      / footer#footer.container
-      /   .row
-      /     .col-xs-12
-      /       p.text-right Copyright © Whaler 2014 - 2016
+
+    search-pane#searchPane
+    / footer#footer.container
+    /   .row
+    /     .col-xs-12
+    /       p.text-right Copyright © Whaler 2014 - 2016

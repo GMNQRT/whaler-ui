@@ -1,10 +1,10 @@
-div ng-controller="Container.SearchController as searchCtrl"
+.scrollbar-small.container ng-controller="Container.SearchController as searchCtrl"
   p.text-center.md-title.m-t ng-show="searchCtrl.query"
-   span ng-pluralize="" count="searchCtrl.images.length" when="{\
-    '0': 'No result found',\
-    'one': '1 result for {{ searchCtrl.query }}',\
-    'other': '{} results for {{ searchCtrl.query }}'\
-  }"
+    span ng-pluralize="" count="searchCtrl.images.length" when="{\
+      '0': 'No result found',\
+      'one': '1 result for {{ searchCtrl.query }}',\
+      'other': '{} results for {{ searchCtrl.query }}'\
+    }"
   .results
     .col-xs-4 ng-repeat="image in searchCtrl.images"
       md-card.image-card

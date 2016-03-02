@@ -23,4 +23,5 @@ SearchController::getImages = (query) ->
 
 
 SearchController::run = (image) ->
-  image.$loading = @ImageFactory.run image
+  image.$loading = @ImageFactory.run image, () =>
+    @SearchService.hidePane()

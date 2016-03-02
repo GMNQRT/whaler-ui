@@ -43,7 +43,7 @@ ContainerService::remove = (container) ->
 # Update containers' informations
 ContainerService::update = ($event, container) ->
   if $event.status is 'create'
-    @containers.push container
+    @containers.unshift container
   else
     for c, i in @containers when c.id == $event.id
       if $event.status is 'destroy'

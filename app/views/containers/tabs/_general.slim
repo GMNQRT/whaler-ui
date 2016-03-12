@@ -40,3 +40,17 @@
               tr ng-repeat="(volumeName,hostDirectory) in ctrl.selectedContainer.info.Volumes" 
                 td.text-overflow {{ volumeName }}
                 td.text-overflow {{ hostDirectory }}
+              tr
+                td
+                  md-input-container.md-block
+                    label Volume name
+                    input type="text" ng-model="newVolume.name" required=""
+                td
+                  md-input-container.md-block
+                    label Host directory
+                    input type="text" ng-model="newVolume.hostDirectory" required=""
+      
+      md-card-actions layout="column"
+        md-button ng-click="ctrl.mountVolume(newVolume)" Mount new volume
+
+pre {{ ctrl.selectedContainer|json}}

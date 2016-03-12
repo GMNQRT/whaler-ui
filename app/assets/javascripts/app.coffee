@@ -70,9 +70,14 @@ angular.module('whaler', [
     $resourceProvider.defaults.stripTrailingSlashes = true
     $locationProvider.html5Mode(true).hashPrefix('!')
     $mdIconProvider.fontSet 'fa', 'fontawesome'
+    $httpProvider.defaults.headers.patch =
+      'Content-Type': 'application/json;charset=utf-8'
+
+
     return
 ])
 .run(['$rootScope', '$route', '$location', '$http', 'API', 'WebSocket', 'Router', ($rootScope, $route, $location, $http, API, WebSocket, Router) ->
+
   $http.get('/api_config.json').then (response) ->
     API.$provider.scheme(response.data.scheme).url(response.data.host).port(response.data.port)
     WebSocket.$provider.url(response.data.host).port(response.data.port).connect()

@@ -50,7 +50,7 @@ ContainerService::update = ($event, container) ->
         @containers.splice i, 1
       else
         @containers[i] = container
-        @notify 'tilt', @containers[i]
+        @notify 'update', @containers[i]
       return
   return
 

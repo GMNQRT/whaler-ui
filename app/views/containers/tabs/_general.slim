@@ -47,13 +47,13 @@
                 td
                   md-input-container.md-block
                     label Volume name
-                    input type="text" ng-model="newVolume.name" required=""
+                    input type="text" ng-model="ctrl.models.volume.name" required=""
                 td
                   md-input-container.md-block
                     label Host directory
-                    input type="text" ng-model="newVolume.hostDirectory" required=""
+                    input type="text" ng-model="ctrl.models.volume.hostDirectory" required=""
       
       md-card-actions layout="column"
-        md-button ng-click="ctrl.mountVolume(newVolume)" Mount new volume
+        md-button ng-click="ctrl.mountVolume(ctrl.models.volume)" Mount new volume
 
 pre {{ ctrl.selectedContainer|json}}

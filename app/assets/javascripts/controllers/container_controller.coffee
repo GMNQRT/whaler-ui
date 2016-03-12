@@ -9,6 +9,10 @@ angular.module('whaler.controllers').controller 'ContainerController', [
   'ContainerFactory'
   ContainerController = (@$location, @$scope, @$q, @$uibModal, @WebSocket, @ContainerService, @SearchService, @ContainerFactory) ->
     @SearchService.setDefaultTpl '/partials/containers/search'
+
+    @models =
+      volume: {}
+
     @ContainerService.subscribe @$scope, 'update', ($event, container) =>
       @selectedContainer = container
     @ContainerService.subscribe @$scope, 'select', ($event, container) =>
@@ -36,10 +40,9 @@ ContainerController::unwatch = (container) ->
   @WebSocket.unsubscribe("container.:container", container: container.info.Name.substr(1)) if @containerChannel
 
 
-ContainerController::mountVolume = (newVolume) ->
-  if @selectedContainer.info.HostConfig.Binds
-    @selectedContainer.info.HostConfig.Binds.push "#{newVolume.name}:#{newVolume.hostDirectory}"
-  else
-    @selectedContainer.info.HostConfig.Binds = ["#{newVolume.name}:#{newVolume.hostDirectory}"]
-  @ContainerFactory.update { id: @selectedContainer.id }, @selectedContainer
-  # @ContainerFactory.update { id: @selectedContainer.id }, Binds: ["#{newVolume.name}:#{newVolume.hostDirectory}"]
+ContainerController::mountVolume = (volume) ->
+  if volume.name and volume.hostDirectory
+    binding = ["#{volume.name}:#{volume.hostDirectory}"].concat @selectedContainer.info.HostConfig.Binds || []
+    @ContainerFactory.binds { id: @selectedContainer.id }, data: { Binds: binding }, () =>
+      @models.volume = {}
+      @selectedContainer.info.HostConfig.Binds = binding

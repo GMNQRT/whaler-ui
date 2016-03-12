@@ -1,9 +1,12 @@
-.row.m-b
+.row
   .col-xs-12
-    journal#journal
-      journal-heading.panel-title.text-uppercase Container logs
-      journal-body
-        journal-row ng-repeat="log in ctrl.logs track by $index" data="log"
+    md-card.journal-container
+      md-card-header.journal-heading
+        md-card-header-text
+          h4.md-title Container logs
+      md-card-content.p-a-0
+        journal#journal
+          journal-row ng-repeat="log in ctrl.logs track by $index" data="log"
 
 .row
   .col-xs-6

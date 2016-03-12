@@ -1,12 +1,12 @@
 .row
   .col-xs-6
-    .panel.panel-default
-      .panel-heading
-        h4 Container settings
-      .panel-body.p-y-0
+    md-card
+      md-card-header
+        md-card-header-text
+          h4.md-title Network settings
+      md-card-content
         .row
           table.table.table-hover.table-borderless.m-b-0
-            caption.p-l IP
             tbody
               tr
                 th.col-xs-6 Bridge
@@ -24,9 +24,15 @@
                 th Prefix Length
                 td {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.NetworkSettings.IPPrefixLen }}
 
-        .row.m-t
+                
+  .col-xs-6
+    md-card
+      md-card-header
+        md-card-header-text
+          h4.md-title Network settings - IPv6
+      md-card-content
+        .row
           table.table.table-hover.table-borderless.m-b-0
-            caption.p-l IPv6
             tbody
               tr
                 th.col-xs-6 Gateway
@@ -44,21 +50,12 @@
                 th Link Local Prefix Length
                 td {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.NetworkSettings.LinkLocalIPv6PrefixLen }}
                 
-        .row.m-t
-          table.table.table-hover.table-borderless.m-b-0
-            caption.p-l Port Mapping <small>{{ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.NetworkSettings.PortMapping}}</small>
-            tbody
-              tr ng-repeat="(protocol,liens) in ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.NetworkSettings.Ports"
-                th {{ protocol }}
-                td
-                  ul.list-unstyled ng-repeat="port in liens"
-                    li {{ port.HostIp }}:{{ port.HostPort }}
-
   .col-xs-6
-    .panel.panel-default
-      .panel-heading
-        h4 Host settings
-      .panel-body.p-y-0  
+    md-card
+      md-card-header
+        md-card-header-text
+          h4.md-title Host settings
+      md-card-content
         .row
           table.table.table-hover.table-borderless.m-b-0
             tbody
@@ -79,4 +76,4 @@
               tr
                 th PublishAllPorts
                 td
-                  toggle-switch ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.HostConfig.PublishAllPorts"
+                  md-switch ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.HostConfig.PublishAllPorts"

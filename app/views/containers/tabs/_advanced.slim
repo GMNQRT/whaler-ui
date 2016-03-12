@@ -1,9 +1,10 @@
 .row
-  .col-xs-12.col-sm-12.col-md-12.col-lg-12
-    .panel.panel-default
-      .panel-heading
-        h4.text-uppercase Environment Variables
-      .panel-body
+  .col-xs-6
+    md-card
+      md-card-header
+        md-card-header-text
+          h4.md-title Environment Variables
+      md-card-content
         form name="form" novalidate=""
           .row
             .col-xs-6 Key
@@ -19,54 +20,57 @@
               .leave-behind
                 => fa_icon :trash
 .row
-  .col-xs-4.col-sm-4.col-md-4.col-lg-4
-    .panel.panel-default
-      .panel-heading
-        h4.text-uppercase Options
-      .panel-body
-        form name="form" novalidate=""
-          .row
-            table.table.table-hover.table-borderless.m-b-0
-              tbody
-                tr
-                  th Network Disabled
-                  td: toggle-switch ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.NetworkDisabled"
-                tr
-                  th Stdin Once
-                  td: toggle-switch ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.StdinOnce"
-                tr
-                  th Open Stdin
-                  td: toggle-switch ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.OpenStdin"
-                tr
-                  th Tty
-                  td: toggle-switch ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.Tty"
-                tr
-                  th Stderr
-                  td: toggle-switch ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.AttachStderr"
-                tr
-                  th Stdin
-                  td: toggle-switch ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.AttachStdin"
-                tr
-                  th Stdout
-                  td: toggle-switch ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config. AttachStdout"
-  .col-xs-8.col-sm-8.col-md-8.col-lg-8
-    .panel.panel-default
-      .panel-heading
-        h4.text-uppercase Labels
-      .panel-body
-        form name="form" novalidate=""
-          .row
-            table.table.table-hover.table-borderless.m-b-0
-              tbody
-                tr ng-repeat="(LabelName, Label) in ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.Labels" 
-                  th {{ LabelName|split:'.':3|capitalize }}
-                  td {{ Label }}
+  .col-xs-6
+    md-card
+      md-card-header
+        md-card-header-text
+          h4.md-title Options
+      md-card-content
+        .row
+          form name="form" novalidate=""
+            md-list
+              md-list-item
+                p.md-label Network Disabled
+                md-switch aria-label="Network Disabled" ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.NetworkDisabled"
+              md-list-item
+                p.md-label Stdin Once
+                md-switch aria-label="Stdin Once" ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.StdinOnce"
+              md-list-item
+                p.md-label Open Stdin
+                md-switch aria-label="Open Stdin" ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.OpenStdin"
+              md-list-item
+                p.md-label Tty
+                md-switch aria-label="Tty" ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.Tty"
+              md-list-item
+                p.md-label Stderr
+                md-switch aria-label="Stderr" ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.AttachStderr"
+              md-list-item
+                p.md-label Stdin
+                md-switch aria-label="Stdin" ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.AttachStdin"
+              md-list-item
+                p.md-label Stdout
+                md-switch aria-label="Stdout" ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.AttachStdout"
+  
+  .col-xs-6
+    md-card
+      md-card-header
+        md-card-header-text
+          h4.md-title Labels
+      md-card-content
+        .row
+          form name="form" novalidate=""
+              table.table.table-hover.table-borderless.m-b-0
+                tbody
+                  tr ng-repeat="(LabelName, Label) in ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.Labels" 
+                    th {{ LabelName|split:'.':3|capitalize }}
+                    td {{ Label }}
 .row
-  .col-xs-12.col-sm-12.col-md-12.col-lg-12
-    .panel.panel-default
-      .panel-heading
-        h4 Settings
-      .panel-body
+  .col-xs-12
+    md-card
+      md-card-header
+        md-card-header-text
+          h4.md-title Settings
+      md-card-content
         .row
           table.table.table-hover.table-borderless.m-b-0
             caption.p-l CPU
@@ -110,4 +114,3 @@
               tr
                 th OnBuild
                 td {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.OnBuild }}
-

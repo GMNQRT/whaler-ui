@@ -3,8 +3,6 @@
     aside.col-sm-6
       h2 Welcome to Whaler
       p Hi ! This is your first connection to Whaler. Whaler has default settings that you can change if it's necessary. You can configure the scheme, the Ip and the port that your Whaler-api uses.
-      br 
-      p (This message wouldn't be visible to your next connection)
     .col-sm-6
       .logo
       .panel
@@ -24,3 +22,5 @@
               data: { 'ng-model' => 'ctrl.config.port' }
 
             button.btn.btn-primary.btn-block.m-b type="submit" Go
+            small.f-10.text-muted.pull-right
+             | (This page will not be displayed again to your next connection)

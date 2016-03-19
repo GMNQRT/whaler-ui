@@ -33,7 +33,7 @@
         md-card-header-text
           h4.md-title Volumes
       md-card-content
-        .row
+        form.row name="ctrl.forms.volumes" novalidate=""
           table.table.table-hover.table-borderless.m-b-0
             thead
               tr
@@ -55,5 +55,3 @@
       
       md-card-actions layout="column"
         md-button ng-click="ctrl.mountVolume(ctrl.models.volume)" Mount new volume
-
-pre {{ ctrl.selectedContainer|json}}

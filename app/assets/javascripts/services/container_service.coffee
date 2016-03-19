@@ -43,14 +43,13 @@ ContainerService::remove = (container) ->
 # Update containers' informations
 ContainerService::update = ($event, container) ->
   if $event.status is 'create'
-    @containers.unshift container
+    @containers.unshift new @ContainerFactory(container)
   else
     for c, i in @containers when c.id == $event.id
       if $event.status is 'destroy'
         @containers.splice i, 1
       else
-        @containers[i] = container
-        @notify 'update', @containers[i]
+        @notify 'update', angular.merge(@containers[i], container)
       return
   return
 

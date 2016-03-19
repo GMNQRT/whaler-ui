@@ -42,7 +42,7 @@ ContainerController::unwatch = (container) ->
 
 ContainerController::mountVolume = (volume) ->
   if volume.name and volume.hostDirectory
-    binding = ["#{volume.name}:#{volume.hostDirectory}"].concat @selectedContainer.info.HostConfig.Binds || []
-    @ContainerFactory.binds { id: @selectedContainer.id }, data: { Binds: binding }, () =>
+    binding = { Binds: ["#{volume.name}:#{volume.hostDirectory}"].concat(@selectedContainer.info.HostConfig.Binds || []) }
+    @ContainerFactory.binds @selectedContainer, data: binding, () =>
       @models.volume = {}
-      @selectedContainer.info.HostConfig.Binds = binding
+      @forms.volumes.$setUntouched()

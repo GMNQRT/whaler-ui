@@ -19,10 +19,11 @@ angular.module('whaler', [
   '$resourceProvider'
   '$httpProvider'
   '$mdIconProvider'
+  '$mdThemingProvider'
   'APIProvider'
   'WebSocketProvider'
   'RouterProvider'
-  ($routeProvider, $locationProvider, $resourceProvider, $httpProvider, $mdIconProvider, APIProvider, WebSocketProvider, RouterProvider) ->
+  ($routeProvider, $locationProvider, $resourceProvider, $httpProvider, $mdIconProvider, $mdThemingProvider, APIProvider, WebSocketProvider, RouterProvider) ->
     RouterProvider.when '/',
       alias:       'root'
       title:       'Dashboard'
@@ -70,10 +71,10 @@ angular.module('whaler', [
     $resourceProvider.defaults.stripTrailingSlashes = true
     $locationProvider.html5Mode(true).hashPrefix('!')
     $mdIconProvider.fontSet 'fa', 'fontawesome'
+    $mdThemingProvider.theme('default').primaryPalette('blue')
+
     $httpProvider.defaults.headers.patch =
       'Content-Type': 'application/json;charset=utf-8'
-
-
     return
 ])
 .run(['$rootScope', '$route', '$location', '$http', 'API', 'WebSocket', 'Router', ($rootScope, $route, $location, $http, API, WebSocket, Router) ->

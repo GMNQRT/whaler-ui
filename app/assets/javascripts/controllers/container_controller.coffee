@@ -40,6 +40,12 @@ ContainerController::unwatch = (container) ->
   @WebSocket.unsubscribe("container.:container", container: container.info.Name.substr(1)) if @containerChannel
 
 
+ContainerController::unmountVolume = (volume)->
+  index = @selectedContainer.info.HostConfig.Binds.indexOf(volume)
+  if index >= 0
+    (bindsCpy = @selectedContainer.info.HostConfig.Binds.slice(0)).splice index, 1
+    @ContainerFactory.binds @selectedContainer, data: { Binds: bindsCpy }
+
 ContainerController::mountVolume = (volume) ->
   if volume.name and volume.hostDirectory
     binding = { Binds: ["#{volume.name}:#{volume.hostDirectory}"].concat(@selectedContainer.info.HostConfig.Binds || []) }

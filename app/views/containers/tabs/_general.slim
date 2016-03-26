@@ -34,24 +34,27 @@
           h4.md-title Volumes
       md-card-content
         form.row name="ctrl.forms.volumes" novalidate=""
-          table.table.table-hover.table-borderless.m-b-0
-            thead
-              tr
-                th VOLUME NAME
-                th HOST DIRECTORY
-            tbody
-              tr ng-repeat="(volumeName,hostDirectory) in ctrl.selectedContainer.info.Volumes" 
-                td.text-overflow {{ volumeName }}
-                td.text-overflow {{ hostDirectory }}
-              tr
-                td
-                  md-input-container.md-block
-                    label Volume name
-                    input type="text" ng-model="ctrl.models.volume.name" required=""
-                td
-                  md-input-container.md-block
-                    label Host directory
-                    input type="text" ng-model="ctrl.models.volume.hostDirectory" required=""
+          md-list
+            md-list-item ng-repeat="volume in ctrl.selectedContainer.info.HostConfig.Binds"
+              md-checkbox
+              .md-list-item-text.p-r layout="row" flex="grow"
+                .text-overflow.text-bold.p-r flex="50" {{ volume.split(':')[0] }}  
+                .text-overflow.p-r flex="50" {{ volume.split(':')[1] }}
+              md-menu.md-secondary md-position-mode="target-right target"
+                md-button.md-icon-button ng-click="$mdOpenMenu($event)" aria-label="More"
+                  i.material-icons md-menu-origin="" more_vert
+                md-menu-content
+                  md-menu-item
+                    md-button ng-click="ctrl.unmountVolume(volume)" Remove volume
+            md-list-item  
+              .col-xs-6
+                md-input-container.md-block
+                  label Volume name
+                  input type="text" ng-model="ctrl.models.volume.name" required=""
+              .col-xs-6
+                md-input-container.md-block
+                  label Host directory
+                  input type="text" ng-model="ctrl.models.volume.hostDirectory" required=""
       
       md-card-actions layout="column"
-        md-button ng-click="ctrl.mountVolume(ctrl.models.volume)" Mount new volume
+        md-button.md-raised.md-primary ng-click="ctrl.mountVolume(ctrl.models.volume)" Mount new volume

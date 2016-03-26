@@ -142,13 +142,6 @@ body {
   background: #ECECEC;
 }
 
-td.text-overflow {
-  max-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 #searchPane > div {
   position: fixed;
   top: 0;

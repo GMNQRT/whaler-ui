@@ -17,68 +17,67 @@
 
         
 .row
-  .col-xs-12.col-sm-6.col-md-4
-    .panel.panel-default
-      .panel-heading
-        h2.panel-title Virtual Machine
-      .panel-body.p-x-0
-        table.table.table-hover.table-borderless.m-b-0
-          tr
-            th
-              = image_tag("icons/coding-html.svg", class: "m-r")
-              | Os
-            td {{ ctrl.values.version.Os }}
-          tr
-            th
-              = image_tag("icons/cpu-chip.svg", class: "m-r")
-              | Arch
-            td {{ ctrl.values.version.Arch }}
-          tr
-            th
-              = image_tag("icons/cpu-processor.svg", class: "m-r")
-              | Number CPU
-            td {{ ctrl.values.info.NCPU }}
-          tr
-            th
-              = image_tag("icons/memory-sd-card.svg", class: "m-r")
-              | Total memory
-            td {{ ctrl.values.info.MemTotal }} Octets
-          tr
-            th
-              = image_tag("icons/chessboard.svg", class: "m-r")
-              | Go version
-            td {{ ctrl.values.version.GoVersion }}
-          tr
-            th
-              = image_tag("icons/conveyor-belt.svg", class: "m-r")
-              | Go Number thread
-            td {{ ctrl.values.info.NGoroutines}}
+  .col-xs-12.col-sm-6.col-md-6
+    md-card
+      md-card-header
+        md-card-header-text
+          h4.md-title Virtual Machine
+      md-card-content
+        md-list
+          md-list-item
+            = image_tag("icons/coding-html.svg", class: "md-avatar")
+            p.text-bold Os
+            p {{ ctrl.values.version.Os }}
+          md-list-item
+            = image_tag("icons/cpu-chip.svg", class: "md-avatar")
+            p.text-bold Arch
+            p {{ ctrl.values.version.Arch }}
+          md-list-item
+            = image_tag("icons/cpu-processor.svg", class: "md-avatar")
+            p.text-bold Number CPU
+            p {{ ctrl.values.info.NCPU }}
+          md-list-item
+            = image_tag("icons/memory-sd-card.svg", class: "md-avatar")
+            p.text-bold Total memory
+            p {{ ctrl.values.info.MemTotal }} Octets
+          md-list-item
+            = image_tag("icons/chessboard.svg", class: "md-avatar")
+            p.text-bold Go version
+            p {{ ctrl.values.version.GoVersion }}
+          md-list-item
+            = image_tag("icons/conveyor-belt.svg", class: "md-avatar")
+            p.text-bold Go Number thread
+            p {{ ctrl.values.info.NGoroutines}}
 
-  .col-xs-12.col-sm-6.col-md-4
-    .panel.panel-default
-      .panel-heading
-        h2.panel-title Core
-      .panel-body
-        table.table.table-borderless.m-b-0
-          tr
-            th Name
-            td {{ ctrl.values.info.Name}}
-          tr
-            th Version
-            td {{ ctrl.values.info.KernelVersion}}
 
-    .panel.panel-default
-      .panel-heading
-        h2.panel-title Docker
-      .panel-body
-        table.table.table-borderless.m-b-0
-          tr
-            th Client API version
-            td {{ ctrl.values.version.ApiVersion }}
-          tr
-            th Client version
-            td {{ ctrl.values.version.Version }}
-          tr
-            th Git commit
-            td {{ ctrl.values.version.GitCommit }}
+  .col-xs-12.col-sm-6.col-md-6
+    md-card
+      md-card-header
+        md-card-header-text
+          h4.md-title Core
+      md-card-content
+        md-list
+          md-list-item
+            p Name
+            p {{ ctrl.values.info.Name}}
+          md-list-item
+            p Version
+            p {{ ctrl.values.info.KernelVersion}}
+
+            
+    md-card
+      md-card-header
+        md-card-header-text
+          h4.md-title Docker
+      md-card-content
+        md-list
+          md-list-item
+            p Client API version
+            p {{ ctrl.values.version.ApiVersion }}
+          md-list-item
+            p Client version
+            p {{ ctrl.values.version.Version }}
+          md-list-item
+            p Git commit
+            p {{ ctrl.values.version.GitCommit }}
   

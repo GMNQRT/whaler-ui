@@ -44,8 +44,14 @@ body.apiconfigsCtrl { @import "api_configs"; }
   @include box-shadow(inset 0px 0px 5px rgba(0, 0, 0, 0.08));
 }
 
-.btn-rounded {
-  border-radius: 100%;
+.text-bold {
+  font-weight: bold;
+}
+
+.text-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .btn-float {

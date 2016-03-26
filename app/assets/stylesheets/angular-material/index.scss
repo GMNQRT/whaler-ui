@@ -3,3 +3,9 @@
 
 // Default bootstrap
 @import "angular-material/angular-material.scss";
+
+
+// Fix list-item content Overflow
+md-list-item, md-list-item .md-list-item-inner {
+  max-width: 100%;
+}

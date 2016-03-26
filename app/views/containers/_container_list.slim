@@ -26,4 +26,4 @@ di ng-controller="Container.ListController as listCtrl"
         small.container-image {{ container.info.Config.Image }}
       md-divider ng-if="!$last"
 
-  a.btn.btn-rounded.btn-accent.btn-float ng-click="listCtrl.add()" +
+  md-button.md-fab.md-accent.btn-float ng-click="listCtrl.add()" +

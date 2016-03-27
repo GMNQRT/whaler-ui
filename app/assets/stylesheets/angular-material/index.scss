@@ -9,3 +9,10 @@
 md-list-item, md-list-item .md-list-item-inner {
   max-width: 100%;
 }
+
+.text-lowercase {
+  text-transform: lowercase;
+}
+.md-text-warn {
+  color: #DD2C00;
+}

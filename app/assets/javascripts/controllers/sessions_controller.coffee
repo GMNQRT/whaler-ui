@@ -3,6 +3,7 @@ angular.module('whaler.controllers').controller 'SessionsController', [
   'API',
   SessionsController = (@$location, @API) ->
     @credentials = {}
+    @loginForm   = {}
 
     return
 ]
@@ -13,10 +14,14 @@ SessionsController::showForm = () ->
 
 SessionsController::login = (credentials, $event) ->
   $event.preventDefault()
-  @API.login(credentials).then () =>
-    @$location.path '/'
+  delete @loginForm.$error.credentials
+  if @loginForm.$valid
+    @API.login(credentials)
+      .then () =>
+        @$location.path '/'
+      .catch () =>
+        @loginForm.$error.credentials = true
 
 
 SessionsController::signout = () ->
   @API.logout()
-

@@ -5,23 +5,29 @@
       p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius delectus fugiat autem blanditiis quo, minus officiis consequuntur perferendis accusamus. Possimus mollitia minus, eaque quasi velit, sunt delectus perferendis veritatis deleniti.
     .col-sm-6
       .logo
-      .panel
-        .panel-body
-          = bootstrap_form_tag url: '', data: { 'ng-submit' => 'ctrl.login(ctrl.credentials, $event)' } do |f|
-            = f.text_field :email,
-              placeholder: 'Email ...',
-              skip_label: true,
-              class: 'm-t',
-              data: { 'ng-model' => 'ctrl.credentials.email' }
-            = f.password_field :password,
-              placeholder: 'Password ...',
-              skip_label: true,
-              data: { 'ng-model' => 'ctrl.credentials.password' }
+      md-card
+        md-card-content
+          form name="ctrl.loginForm" novalidate="" ng-submit="ctrl.login(ctrl.credentials, $event)"
+            md-input-container.md-block
+              label E-mail
+              input type="email" name="email" ng-model="ctrl.credentials.email" required=""
+              ng-messages for="ctrl.loginForm.email.$error" role="alert"
+                ng-message when="required" You must enter a value
+                ng-message when="email" Invalid e-mail adresse
 
-            button.btn.btn-primary.btn-block.m-b type="submit" Sign in
-            a href="#"
-              small Forgot password?
+            md-input-container.md-block
+              label Password
+              input type="password" name="password" ng-model="ctrl.credentials.password" required=""
+              ng-messages for="ctrl.loginForm.password.$error" role="alert"
+                ng-message when="required" You must enter a value
+            
+            md-card-actions
+              md-button.md-raised.md-primary type="submit" Sign in
+              a.m-l href="#"
+                small Forgot password?
+            
+            .md-text-warn.form-errors ng-messages="ctrl.loginForm.$error" role="alert"
+              ng-message when="credentials" Invalid account e-mail or password
 
-          p.text-muted.text-center
-            small Do not have an account?
-          a.btn.btn-default.btn-block.btn-sm href="#" Create an account
+      p.text-center
+        md-button.md-primary.text-lowercase Create an account

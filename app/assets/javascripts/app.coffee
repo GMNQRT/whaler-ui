@@ -2,6 +2,7 @@ angular.module('whaler', [
   'ngRoute'
   'ngResource'
   'ngCookies'
+  'ngMessages'
   'ngMaterial'
   'templates'
   'whaler.filters'

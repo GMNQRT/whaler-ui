@@ -11,6 +11,7 @@
 
 #page-wrapper {
   overflow: hidden;
+  padding-left: 0px;
 }
 
 #loginForm {
@@ -26,15 +27,18 @@
   @media (min-width: $screen-sm-min) {
     .logo {
       position: absolute;
-      top: -33px;
+      top: -45px;
       left: 240px;
       width: 400px;
-      height: 387px;
+      height: 391px;
       background-repeat: no-repeat;
       background-image:  image-url("whale.png");
+      z-index: 1;
+      pointer-events: none;
     }
   }
-  .panel {
-    position: relative;
+
+  .form-errors {
+    margin-top: 10px;
   }
 }

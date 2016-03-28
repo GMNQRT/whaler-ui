@@ -9,52 +9,68 @@
           journal-row ng-repeat="log in ctrl.logs track by $index" data="log"
 
 .row
-  .col-xs-6
+  .col-xs-12.col-md-6
     md-card
       md-card-header
-        md-card-header-text
-          h4.md-title Port mapping
+        .list-header.p-r
+          md-checkbox aria-label="Select All"
+          .text-overflow flex="40" Container port
+          .text-overflow flex="40" Host port
+          .text-overflow flex="20" Protocol
       md-card-content
-        .row
-          table.table.table-hover.table-borderless.m-b-0
-            thead
-              tr
-                th DOCKER PORT
-                th IP:PORT
-            tbody
-              tr ng-repeat="(protocol,liens) in ctrl.selectedContainer.info.NetworkSettings.Ports"
-                td {{ protocol }}
-                td
-                  ul.list-unstyled ng-repeat="port in liens"
-                    li {{ port.HostIp }}:{{ port.HostPort }}
-  .col-xs-6
+        md-list              
+          md-list-item ng-repeat="binding in ctrl.selectedContainer.info.HostConfig.PortBindings | portBindingsFormat track by $index"
+            md-checkbox aria-label="Select"
+            .md-list-item-text.p-r layout="row" flex="grow"
+              .text-overflow flex="40" {{ binding.container.port }}  
+              .text-overflow flex="40" {{ binding.host.port }}
+              .text-overflow flex="20" {{ binding.container.protocol }}
+            md-menu.md-secondary md-position-mode="target-right target"
+              md-button.md-icon-button ng-click="$mdOpenMenu($event)" aria-label="More"
+                i.material-icons md-menu-origin="" more_vert
+              md-menu-content
+                md-menu-item
+                  md-button ng-click="ctrl.unbindPort(port)" Remove volume
+      md-card-actions layout="column"
+        form name="ctrl.forms.ports" novalidate="" layout="row"
+          md-input-container.md-block flex="40"
+            label Container port
+            input type="text" ng-model="ctrl.models.port.container" required=""
+          md-input-container.md-block flex="40"
+            label Host port
+            input type="text" ng-model="ctrl.models.port.host" required=""
+          md-input-container.md-block flex="20"
+            label Protocol
+            md-select ng-model="ctrl.models.port.protocol" required=""  
+              md-option ng-repeat="protocol in ['tcp', 'udp']" value="{{protocol}}" {{ protocol }}
+        md-button.md-raised.md-primary ng-click="ctrl.bindPort(ctrl.models.port)" Bind new port
+
+  .col-xs-12.col-md-6
     md-card#volumes
       md-card-header
-        md-card-header-text
-          h4.md-title Volumes
+        .list-header.p-r
+          md-checkbox aria-label="Select All"
+          .text-overflow flex="50" Volume name
+          .text-overflow flex="50" Host directory
       md-card-content
-        form.row name="ctrl.forms.volumes" novalidate=""
-          md-list
-            md-list-item ng-repeat="volume in ctrl.selectedContainer.info.HostConfig.Binds"
-              md-checkbox
-              .md-list-item-text.p-r layout="row" flex="grow"
-                .text-overflow.text-bold.p-r flex="50" {{ volume.split(':')[0] }}  
-                .text-overflow.p-r flex="50" {{ volume.split(':')[1] }}
-              md-menu.md-secondary md-position-mode="target-right target"
-                md-button.md-icon-button ng-click="$mdOpenMenu($event)" aria-label="More"
-                  i.material-icons md-menu-origin="" more_vert
-                md-menu-content
-                  md-menu-item
-                    md-button ng-click="ctrl.unmountVolume(volume)" Remove volume
-            md-list-item  
-              .col-xs-6
-                md-input-container.md-block
-                  label Volume name
-                  input type="text" ng-model="ctrl.models.volume.name" required=""
-              .col-xs-6
-                md-input-container.md-block
-                  label Host directory
-                  input type="text" ng-model="ctrl.models.volume.hostDirectory" required=""
-      
+        md-list
+          md-list-item ng-repeat="volume in ctrl.selectedContainer.info.HostConfig.Binds"
+            md-checkbox aria-label="Select"
+            .md-list-item-text.p-r layout="row" flex="grow"
+              .text-overflow.text-bold flex="50" {{ volume.split(':')[0] }}  
+              .text-overflow flex="50" {{ volume.split(':')[1] }}
+            md-menu.md-secondary md-position-mode="target-right target"
+              md-button.md-icon-button ng-click="$mdOpenMenu($event)" aria-label="More"
+                i.material-icons md-menu-origin="" more_vert
+              md-menu-content
+                md-menu-item
+                  md-button ng-click="ctrl.unmountVolume(volume)" Remove volume
       md-card-actions layout="column"
+        form name="ctrl.forms.volumes" novalidate="" layout="row"
+          md-input-container.md-block flex="50"
+            label Volume name
+            input type="text" ng-model="ctrl.models.volume.name" required=""
+          md-input-container.md-block flex="50"
+            label Host directory
+            input type="text" ng-model="ctrl.models.volume.hostDirectory" required=""
         md-button.md-raised.md-primary ng-click="ctrl.mountVolume(ctrl.models.volume)" Mount new volume

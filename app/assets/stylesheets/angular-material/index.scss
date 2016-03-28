@@ -9,10 +9,35 @@
 md-list-item, md-list-item .md-list-item-inner {
   max-width: 100%;
 }
+// Fix width for layout-row in list-item
+// md-list-item .layout-row {
+//   width: 100%;
+// }
 
 .text-lowercase {
   text-transform: lowercase;
 }
 .md-text-warn {
   color: #DD2C00;
+}
+
+
+md-card-header .list-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  padding: 0px 4px;
+  flex: 1 1 auto;
+  text-transform: uppercase;
+  font-weight: bold;
+  overflow: hidden;
+
+  md-checkbox {
+    width: 24px;
+    margin-left: 3px;
+    margin-right: 29px;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
 }

@@ -52,6 +52,7 @@ body.apiconfigsCtrl { @import "api_configs"; }
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  padding-right: $grid-gutter-width;
 }
 
 .btn-float {

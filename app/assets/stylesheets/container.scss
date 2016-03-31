@@ -1,5 +1,13 @@
 $page-header-bg: white;
 
+#list-content + #main-content {
+  padding: 0;
+}
+
+#containerTab md-tabs-wrapper {
+  background-color: $page-header-bg;
+}
+
 #page-header {
   background-color: $page-header-bg;
   margin-left: -($grid-gutter-width / 2);

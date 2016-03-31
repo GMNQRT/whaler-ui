@@ -1,21 +1,7 @@
-header#page-header
-  .pull-right.header-actions
-    .btn-group
-      a.btn.btn-default.ng-cloak ng-show="ctrl.selectedContainer.info.State.Running === false || ctrl.selectedContainer.info.State.Paused" ng-click="ctrl.start(ctrl.selectedContainer)"
-        => fa_icon :play
-      a.btn.btn-default.ng-cloak ng-show="ctrl.selectedContainer.info.State.Running || ctrl.selectedContainer.info.State.Paused" ng-click="ctrl.stop(ctrl.selectedContainer)"
-        => fa_icon :stop
-      a.btn.btn-default.ng-cloak ng-show="ctrl.selectedContainer.info.State.Running && ctrl.selectedContainer.info.State.Paused === false" ng-click="ctrl.pause(ctrl.selectedContainer)"
-        => fa_icon :pause
-      a.btn.btn-default.ng-cloak ng-show="ctrl.selectedContainer.info.State.Running || ctrl.selectedContainer.info.State.Paused" ng-click="ctrl.restart(ctrl.selectedContainer)"
-        => fa_icon :undo
-      a.btn.btn-default.ng-cloak ng-show="ctrl.selectedContainer.info.State.Running && ctrl.selectedContainer.info.State.Paused === false" ng-click="ctrl.exec(ctrl.selectedContainer)"
-        => fa_icon :terminal
-  h2 class="container-title" {{ ctrl.selectedContainer.info.Name|limitTo:ctrl.selectedContainer.info.Name.length:1 }}
-  small {{ ctrl.selectedContainer.info.Config.Image }}
-  
-.row
-  uib-tabset#tab-content.col-xs-12 type="pills"
-    uib-tab heading="General"  = render partial: 'containers/tabs/general'
-    uib-tab heading="Network"  = render partial: 'containers/tabs/network'
-    uib-tab heading="Advanced" = render partial: 'containers/tabs/advanced'
+md-tabs#containerTab md-selected="selectedIndex" md-dynamic-height="true" md-center-tabs="true"
+  md-tab label="General"
+    md-tab-body = render partial: 'containers/tabs/general'
+  md-tab label="Network"
+    md-tab-body = render partial: 'containers/tabs/network'
+  md-tab label="Advanced"
+    md-tab-body = render partial: 'containers/tabs/advanced'

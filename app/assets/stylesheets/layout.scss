@@ -15,6 +15,10 @@ body {
     line-height: 18px;
     float: left;
     @include navbar-vertical-align(18px);
+
+    i {
+      vertical-align: middle;
+    }
   }
 
   #searchForm {
@@ -22,7 +26,7 @@ body {
     margin-left: auto;
     margin-right: auto;
     padding: 0 12px;
-    @include navbar-vertical-align(36px);
+    @include navbar-vertical-align(31px);
 
     .search-container {
       background: rgba(255,255,255,0.16);

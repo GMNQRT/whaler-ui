@@ -4,10 +4,11 @@ angular.module('whaler.controllers').controller 'ContainerController', [
   '$q'
   '$uibModal'
   'WebSocket'
+  'TitleService'
   'ContainerService'
   'SearchService'
   'ContainerFactory'
-  ContainerController = (@$location, @$scope, @$q, @$uibModal, @WebSocket, @ContainerService, @SearchService, @ContainerFactory) ->
+  ContainerController = (@$location, @$scope, @$q, @$uibModal, @WebSocket, @TitleService, @ContainerService, @SearchService, @ContainerFactory) ->
     @SearchService.setDefaultTpl '/partials/containers/search'
 
     @checks =
@@ -22,6 +23,7 @@ angular.module('whaler.controllers').controller 'ContainerController', [
     @ContainerService.subscribe @$scope, 'select', ($event, container) =>
       @unwatch @selectedContainer if @selectedContainer
       @selectedContainer = container
+      @TitleService.setTitle 'Container', @selectedContainer.info.Name.substr(1)
       @watch container
 
 

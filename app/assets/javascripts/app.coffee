@@ -2,6 +2,7 @@ angular.module('whaler', [
   'ngRoute'
   'ngResource'
   'ngCookies'
+  'ngSanitize'
   'ngMessages'
   'ngMaterial'
   'templates'
@@ -94,7 +95,7 @@ angular.module('whaler', [
     $rootScope.controller = data.controller.toLowerCase().replace(/controller/, 'Ctrl') if data.controller?
 
   $rootScope.$on '$viewContentLoaded', (event) ->
-    $rootScope.title = $route.current.title
+    # $rootScope.title = $route.current.title
     if $route.current.controllerAs and $route.current.action
       if $route.current.scope[$route.current.controllerAs][$route.current.action]
         $route.current.scope[$route.current.controllerAs][$route.current.action]()

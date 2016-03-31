@@ -1,7 +1,8 @@
 angular.module('whaler.controllers').controller 'ApplicationController', [
   'SearchService',
+  'TitleService'
   'API',
-  ApplicationController = (@SearchService, @API) ->
+  ApplicationController = (@SearchService, @TitleService, @API) ->
     @isCollapsed = false
     @search = { hasFocus: false }
     return

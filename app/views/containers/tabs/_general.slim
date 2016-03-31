@@ -1,3 +1,26 @@
+/ md-toolbar
+/   .md-toolbar-tools
+/     h2
+/       | {{ ctrl.selectedContainer.info.Name|limitTo:ctrl.selectedContainer.info.Name.length:1 }}
+/       small {{ ctrl.selectedContainer.info.Config.Image }}
+/       
+/     span flex=""
+/     md-button class="md-icon-button" aria-label="Favorite"
+/       md-icon md-svg-icon="img/icons/favorite.svg" style="color: greenyellow;"
+/     md-button class="md-icon-button" aria-label="More"
+/       md-icon md-svg-icon="img/icons/more_vert.svg"
+  / .btn-group
+  /   a.btn.btn-default.ng-cloak ng-show="ctrl.selectedContainer.info.State.Running === false || ctrl.selectedContainer.info.State.Paused" ng-click="ctrl.start(ctrl.selectedContainer)"
+  /     => fa_icon :play
+  /   a.btn.btn-default.ng-cloak ng-show="ctrl.selectedContainer.info.State.Running || ctrl.selectedContainer.info.State.Paused" ng-click="ctrl.stop(ctrl.selectedContainer)"
+  /     => fa_icon :stop
+  /   a.btn.btn-default.ng-cloak ng-show="ctrl.selectedContainer.info.State.Running && ctrl.selectedContainer.info.State.Paused === false" ng-click="ctrl.pause(ctrl.selectedContainer)"
+  /     => fa_icon :pause
+  /   a.btn.btn-default.ng-cloak ng-show="ctrl.selectedContainer.info.State.Running || ctrl.selectedContainer.info.State.Paused" ng-click="ctrl.restart(ctrl.selectedContainer)"
+  /     => fa_icon :undo
+  /   a.btn.btn-default.ng-cloak ng-show="ctrl.selectedContainer.info.State.Running && ctrl.selectedContainer.info.State.Paused === false" ng-click="ctrl.exec(ctrl.selectedContainer)"
+  /     => fa_icon :terminal
+
 .row
   .col-xs-12
     md-card.journal-container

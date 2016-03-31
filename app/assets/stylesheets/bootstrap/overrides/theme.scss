@@ -25,15 +25,11 @@
 }
 
 .navbar-toggle {
-  margin-left: -7px;
+  margin-left: -12px;
+  padding: 7px 10px;
 }
-.navbar-toggle .icon-bar {
-  width: 17px;
-  background-color: $navbar-default-toggle-icon-bar-bg;
-
-  & + .icon-bar {
-    margin-top: 3px;
-  }
+.navbar-toggle md-icon {
+  color: $navbar-default-toggle-icon-bar-bg;
 }
 
 .gray-bg {

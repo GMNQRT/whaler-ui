@@ -14,11 +14,13 @@ angular.module('whaler.controllers').controller 'Container.ListController', [
       hash = @$location.hash()
       for container in containers when container.id == @$location.hash()
         return @ContainerService.select container
+      return @ContainerService.select containers[0] if containers.length
 
     $scope.$on '$locationChangeSuccess', (event, newUrl, oldUrl) => # Select active card on history back
       if @ContainerService.selectedContainer?.id != (hash = @$location.hash())
         for container in @containers when container.id == hash
           return @ContainerService.select container
+        return @ContainerService.select @containers[0] if @containers.length
 
     $document.bind 'click', swipeLeftHandler = (() -> if @swipedContainer # hide leavebehinds on outside click
       @swipedContainer = null

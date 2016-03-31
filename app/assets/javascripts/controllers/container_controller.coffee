@@ -47,35 +47,55 @@ ContainerController::unwatch = (container) ->
 ContainerController::unmountVolume = (volume)->
   index = @selectedContainer.info.HostConfig.Binds.indexOf(volume)
   if index >= 0
-    (bindsCpy = @selectedContainer.info.HostConfig.Binds.slice(0)).splice index, 1
-    @ContainerFactory.binds @selectedContainer, data: { Binds: bindsCpy }
+    hostConfigData = angular.copy @selectedContainer.info.HostConfig
+
+    hostConfigData.Binds.splice index, 1
+    @ContainerFactory.binds { id: @selectedContainer.id }, data: hostConfigData
 
 # Mount volume to container
 ContainerController::mountVolume = (volume) ->
   if volume.name and volume.hostDirectory
-    binding = { Binds: ["#{volume.name}:#{volume.hostDirectory}"].concat(@selectedContainer.info.HostConfig.Binds || []) }
-    @ContainerFactory.binds @selectedContainer, data: binding, () =>
+    hostConfigData          = angular.copy @selectedContainer.info.HostConfig
+    hostConfigData.Binds || = []
+
+    hostConfigData.Binds.push "#{volume.name}:#{volume.hostDirectory}"
+    @ContainerFactory.binds { id: @selectedContainer.id }, data: hostConfigData, () =>
       @models.volume = {}
       @forms.volumes.$setUntouched()
 
 # Bind port to container
-ContainerController::bindPort = (port) ->
-  if port.container and port.host and port.protocol
-    key = "#{port.container}/#{port.protocol}"
+ContainerController::bindPort = (portBinding) ->
+  if portBinding.container and portBinding.host and portBinding.protocol
+    key                            = "#{portBinding.container}/#{portBinding.protocol}"
+    hostConfigData                 = angular.copy @selectedContainer.info.HostConfig
+    hostConfigData.PortBindings || = {}
 
-    if @selectedContainer.info.HostConfig.PortBindings is null
-      binding = PortBindings: { "#{key}": [{ HostPort: port.host }] }
+    if hostConfigData.PortBindings[key]
+      hostConfigData.PortBindings[key].push { HostPort: portBinding.host }
     else
-      binding = PortBindings:  angular.copy @selectedContainer.info.HostConfig.PortBindings
+      hostConfigData.PortBindings[key] = [{ HostPort: portBinding.host }]
 
-      if binding.PortBindings[key]
-        binding.PortBindings[key].push { HostPort: port.host }
-      else
-        binding.PortBindings[key] = [{ HostPort: port.host }]
-
-    @ContainerFactory.binds @selectedContainer, data: binding, () =>
+    @ContainerFactory.binds { id: @selectedContainer.id }, { data: hostConfigData }, () =>
       @models.port = { host: "", container: "", protocol: "" }
       @forms.ports.$setUntouched()
+
+# Bind port to container
+ContainerController::unbindPort = (portBinding) ->
+  if portBinding.container and portBinding.host and portBinding.container.protocol
+    key = "#{portBinding.container.port}/#{portBinding.container.protocol}"
+
+    if @selectedContainer.info.HostConfig.PortBindings and @selectedContainer.info.HostConfig.PortBindings[key]
+      index = do () =>
+        for binding, index in @selectedContainer.info.HostConfig.PortBindings[key] when binding.HostIp == portBinding.host.ip and binding.HostPort == portBinding.host.port
+          return index
+        return -1
+    if index >= 0
+      hostConfigData = angular.copy @selectedContainer.info.HostConfig
+      if hostConfigData.PortBindings[key].length == 1
+        delete hostConfigData.PortBindings[key]
+      else
+        hostConfigData.PortBindings[key].splice index, 1
+      @ContainerFactory.binds { id: @selectedContainer.id }, { data: hostConfigData }
 
 
 # Check if at least one checkbox is checked

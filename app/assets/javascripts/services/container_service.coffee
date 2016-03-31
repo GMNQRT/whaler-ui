@@ -49,7 +49,7 @@ ContainerService::update = ($event, container) ->
       if $event.status is 'destroy'
         @containers.splice i, 1
       else
-        @notify 'update', angular.merge(@containers[i], container)
+        @notify 'update', @containers[i] = container
       return
   return
 

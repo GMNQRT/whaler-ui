@@ -10,6 +10,9 @@ angular.module('whaler.controllers').controller 'ContainerController', [
   ContainerController = (@$location, @$scope, @$q, @$uibModal, @WebSocket, @ContainerService, @SearchService, @ContainerFactory) ->
     @SearchService.setDefaultTpl '/partials/containers/search'
 
+    @checks =
+      volume: []
+      port: []
     @models =
       volume: { name: "", hostDirectory: "" }
       port: { host: "", container: "", protocol: "" }
@@ -73,3 +76,31 @@ ContainerController::bindPort = (port) ->
     @ContainerFactory.binds @selectedContainer, data: binding, () =>
       @models.port = { host: "", container: "", protocol: "" }
       @forms.ports.$setUntouched()
+
+
+# Check if at least one checkbox is checked
+ContainerController::isIndeterminate = (checkList, itemsList) ->
+  return checkList.length != 0 and checkList.length != itemsList?.length
+
+# Check if all checkboxes are checked
+ContainerController::isAllChecked = (checkList, itemsList) ->
+  return checkList.length == itemsList?.length > 0
+
+# Check if this checkbox is checked
+ContainerController::isChecked = (item, checkList) ->
+  return checkList.indexOf(item) > -1
+
+# Toggle checkbox state
+ContainerController::toggle = (item, checkList) ->
+  if (idx = checkList.indexOf(item)) > -1
+    checkList.splice idx, 1
+  else
+    checkList.push item
+
+# Toggle checkboxes states
+ContainerController::toggleAll = (checkList, itemsList) ->
+  if checkList.length == itemsList?.length
+    checkList.splice(0)
+  else if itemsList?.length
+    checkList.splice(0)
+    checkList.push item for item in itemsList

@@ -13,14 +13,14 @@
     md-card
       md-card-header
         .list-header.p-r
-          md-checkbox aria-label="Select All"
+          md-checkbox aria-label="Select All" md-indeterminate="ctrl.isIndeterminate(ctrl.checks.port, portBindings)" ng-checked="ctrl.isAllChecked(ctrl.checks.port, portBindings)" ng-click="ctrl.toggleAll(ctrl.checks.port, portBindings)"
           .text-overflow flex="40" Container port
           .text-overflow flex="40" Host port
           .text-overflow flex="20" Protocol
       md-card-content
         md-list              
-          md-list-item ng-repeat="binding in ctrl.selectedContainer.info.HostConfig.PortBindings | portBindingsFormat track by $index"
-            md-checkbox aria-label="Select"
+          md-list-item ng-repeat="binding in portBindings = (ctrl.selectedContainer.info.HostConfig.PortBindings | portBindingsFormat) track by $index"
+            md-checkbox aria-label="Select" ng-checked="ctrl.isChecked(binding, ctrl.checks.port)" ng-click="ctrl.toggle(binding, ctrl.checks.port)"
             .md-list-item-text.p-r layout="row" flex="grow"
               .text-overflow flex="40" {{ binding.container.port }}  
               .text-overflow flex="40" {{ binding.host.port }}
@@ -49,13 +49,13 @@
     md-card#volumes
       md-card-header
         .list-header.p-r
-          md-checkbox aria-label="Select All"
+          md-checkbox aria-label="Select All" md-indeterminate="ctrl.isIndeterminate(ctrl.checks.volume, binds)" ng-checked="ctrl.isAllChecked(ctrl.checks.volume, binds)" ng-click="ctrl.toggleAll(ctrl.checks.volume, binds)"
           .text-overflow flex="50" Volume name
           .text-overflow flex="50" Host directory
       md-card-content
         md-list
-          md-list-item ng-repeat="volume in ctrl.selectedContainer.info.HostConfig.Binds"
-            md-checkbox aria-label="Select"
+          md-list-item ng-repeat="volume in binds = ctrl.selectedContainer.info.HostConfig.Binds"
+            md-checkbox aria-label="Select" ng-checked="ctrl.isChecked(volume, ctrl.checks.volume)" ng-click="ctrl.toggle(volume, ctrl.checks.volume)"
             .md-list-item-text.p-r layout="row" flex="grow"
               .text-overflow.text-bold flex="50" {{ volume.split(':')[0] }}  
               .text-overflow flex="50" {{ volume.split(':')[1] }}

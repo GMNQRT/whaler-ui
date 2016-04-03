@@ -1,7 +1,4 @@
 .row
-  .col-xs-12
-    pre {{ctrl.selectedContainer.info.HostConfig.Links|json}}
-    pre {{links|json}}
   .col-xs-12.col-sm-4 ng-repeat="(category, link) in links = (ctrl.selectedContainer.info.HostConfig.Links | linksFormat)"
     md-card
       md-card-header

@@ -14,6 +14,12 @@
         md-card-content
           | {{image.info.description }}
         md-card-actions
-          md-button aria-label="Run" ng-click="searchCtrl.run(image)" ng-switch="image.$loading.$resolved" ng-disabled="image.$loading.$resolved == false"
-            md-progress-circular.m-x-auto md-mode="indeterminate" md-diameter="40" ng-switch-when="false"
-            span ng-switch-default="" Run
+          div layout-gt-sm="row"
+            md-input-container class="md-block" flex-gt-sm=""
+              md-select placeholder="latest" ng-model="image.tag" md-on-open="searchCtrl.loadTags(image)"
+                md-option ng-value="tag" ng-repeat="tag in image.tags" {{ tag.name }}
+                
+            md-input-container class="md-block" flex-gt-sm=""
+              md-button aria-label="Run" ng-click="searchCtrl.run(image)" ng-switch="image.$loading.$resolved" ng-disabled="image.$loading.$resolved == false"
+                md-progress-circular.m-x-auto md-mode="indeterminate" md-diameter="40" ng-switch-when="false"
+                span ng-switch-default="" Run

@@ -52,8 +52,14 @@ ListController::select = (container) ->
   @ContainerService.select container
   @$location.hash container.id
 
+ListController::start = (container) ->
+  @ContainerService.start container
+
 ListController::stop = (container) ->
   @ContainerService.stop container
+
+ListController::remove = (container) ->
+  @ContainerService.remove container
 
 ListController::add = () ->
   @SearchService.showPane '/partials/containers/search'

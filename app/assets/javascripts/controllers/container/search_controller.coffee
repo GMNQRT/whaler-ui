@@ -23,5 +23,8 @@ SearchController::getImages = (query) ->
 
 
 SearchController::run = (image) ->
-  image.$loading = @ImageFactory.run image, () =>
+  image.$loading = @ImageFactory.run { id: image.id, tag: image.tag.name }, () =>
     @SearchService.hidePane()
+
+SearchController::loadTags = (image) ->
+  image.tags = @ImageFactory.tags image: image.id unless image.tags

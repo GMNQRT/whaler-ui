@@ -142,3 +142,23 @@ $container-card-transition-duration: .4s;
     }
   }
 }
+
+
+.autocomplete-container-template .container-card {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  height: 100%;
+
+  .state-icon {
+    padding: 8px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-right: 16px;
+    border-radius: 50%;
+    box-sizing: content-box;
+  }
+  &:after {
+    margin-top: -5px;
+  }
+}

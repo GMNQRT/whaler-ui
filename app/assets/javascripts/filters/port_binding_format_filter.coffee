@@ -1,5 +1,5 @@
 angular.module('whaler.filters').filter 'portBindingsFormat', [() ->
-  (input) ->
+  (input) =>
     output = []
     if input
       for ContainerPort, HostConfig of input

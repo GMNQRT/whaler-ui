@@ -1,4 +1,65 @@
 .row
+  .col-xs-12
+    pre {{ctrl.selectedContainer.info.HostConfig.Links|json}}
+    pre {{links|json}}
+  .col-xs-12.col-sm-4 ng-repeat="(category, link) in links = (ctrl.selectedContainer.info.HostConfig.Links | linksFormat)"
+    md-card
+      md-card-header
+        .list-header {{ category }}
+      md-card-content
+        md-list
+          md-list-item.container-card ng-repeat="(containerName, alias) in link" ng-init="container = (containerName | containerBy:'info.Name')"
+            i.state-icon.md-avatar-icon {{ container.info.Name|limitTo:1:1 }}
+            .md-list-item-text
+              h3.md-subhead.container-title {{ container.info.Name|limitTo:container.info.Name.length:1 }}
+              small.container-image {{ container.info.Config.Image }}
+
+      md-card-actions layout="column"
+        md-autocomplete[
+            flex=""
+            required=""
+            md-input-name="autocompleteField"
+            md-selected-item="ctrl.selectedLinkContainers[category]"
+            md-search-text="ctrl.searchLinkContainerTexts[category]"
+            md-selected-item-change="ctrl.addLinkContainer(ctrl.selectedLinkContainers[category], category)"
+            md-items="container in ctrl.searchContainer(ctrl.searchLinkContainerTexts[category])"
+            md-item-text="container.info.Name|limitTo:container.info.Name.length:1"
+            md-menu-class="autocomplete-container-template"
+            placeholder="Pick a container"]
+          md-item-template
+            .container-card
+              i.state-icon.md-avatar-icon {{ container.info.Name|limitTo:1:1 }}
+              .container-title md-highlight-text="ctrl.searchLinkContainerTexts[category]" {{ container.info.Name|limitTo:container.info.Name.length:1 }}
+          md-not-found No matches found.
+
+  .col-xs-12.col-sm-4 ng-repeat="category in ctrl.newLinkCategories"
+    md-card
+      md-card-header
+        .list-header {{ category }}
+      md-card-actions layout="column"
+        md-autocomplete[
+            flex=""
+            required=""
+            md-input-name="newAutocompleteField"
+            md-selected-item="selectedLinkContainer"
+            md-search-text="searchLinkContainerText"
+            md-selected-item-change="ctrl.addLinkContainer(selectedLinkContainer, category)"
+            md-items="container in ctrl.searchContainer(searchLinkContainerText)"
+            md-item-text="container.info.Name|limitTo:container.info.Name.length:1"
+            md-menu-class="autocomplete-container-template"
+            placeholder="Pick a container"]
+          md-item-template
+            .container-card
+              i.state-icon.md-avatar-icon {{ container.info.Name|limitTo:1:1 }}
+              .container-title md-highlight-text="ctrl.searchLinkContainerText" {{ container.info.Name|limitTo:container.info.Name.length:1 }}
+          md-not-found No matches found.
+  
+  .col-xs-12.col-sm-4
+    md-button.md-raised.md-primary ng-click="ctrl.addLinkCategory('new category')"
+      md-icon add
+      | Add a category
+ 
+.row
   .col-xs-6
     md-card
       md-card-header

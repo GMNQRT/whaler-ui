@@ -12,9 +12,11 @@ angular.module('whaler.controllers').controller 'ContainerController', [
     @SearchService.setDefaultTpl '/partials/containers/search'
 
     @checks =
+      link: []
       volume: []
       port: []
     @models =
+      link: { container: null, alias: "" }
       volume: { name: "", hostDirectory: "" }
       port: { host: "", container: "", protocol: "" }
 
@@ -126,3 +128,27 @@ ContainerController::toggleAll = (checkList, itemsList) ->
   else if itemsList?.length
     checkList.splice(0)
     checkList.push item for item in itemsList
+
+# Search for a container by it's name
+ContainerController::searchContainer = (query) ->
+  @ContainerService.containers.filter (container) ->
+    container.info.Name.substr(1).indexOf(query) >= 0
+
+
+# Link container with currently selected container
+ContainerController::addLinkContainer = (container, category) ->
+  if container
+    value                   = "#{container.info.Name}:#{@selectedContainer.info.Name}/#{category}@#{container.info.Name.substr(1)}"
+    hostConfigData          = angular.copy @selectedContainer.info.HostConfig
+    hostConfigData.Links || = []
+
+    if hostConfigData.Links.indexOf(value) < 0
+      hostConfigData.Links.push value
+      hostConfigData.Links.push "#{container.info.Name}:#{@selectedContainer.info.Name}#{container.info.Name}"
+      @ContainerFactory.binds { id: @selectedContainer.id }, { data: hostConfigData }
+    @selectedLinkContainers[category] = null
+    @searchLinkContainerTexts[category] = null
+
+ContainerController::addLinkCategory = (name) ->
+  @newLinkCategories || = []
+  @newLinkCategories.push "#{name} #{@newLinkCategories.length + 1}"

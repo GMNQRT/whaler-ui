@@ -15,7 +15,7 @@ div#navbar-current-actions ng-show="ctrl.selectedContainer"
     md-icon.material-icons' refresh
     / | refresh
 
-md-tabs#containerTab md-selected="selectedIndex" md-dynamic-height="true"
+md-tabs#containerTab md-selected="ctrl.selectedTab" md-dynamic-height="true"
   md-tab label="General"
     md-tab-body = render partial: 'containers/tabs/general'
   md-tab label="Network"

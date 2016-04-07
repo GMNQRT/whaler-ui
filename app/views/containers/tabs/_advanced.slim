@@ -5,7 +5,7 @@ section
       md-card
         md-card-header
           .list-header {{ category }}
-        md-card-content ng-show="links.length"
+        md-card-content
           md-list
             md-list-item.container-card ng-repeat="(containerName, alias) in link" ng-init="container = (containerName | containerBy:'info.Name')"
               i.state-icon.md-avatar-icon {{ container.info.Name|limitTo:1:1 }}
@@ -35,6 +35,8 @@ section
       md-card
         md-card-header
           .list-header {{ category }}
+        md-card-content
+          md-list
         md-card-actions layout="column"
           md-autocomplete[
               flex=""

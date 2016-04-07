@@ -10,22 +10,21 @@ angular.module('whaler.controllers').controller 'ContainerController', [
   'ContainerFactory'
   ContainerController = (@$location, @$scope, @$q, @$uibModal, @WebSocket, @TitleService, @ContainerService, @SearchService, @ContainerFactory) ->
     @SearchService.setDefaultTpl '/partials/containers/search'
-
-    @checks =
-      link: []
-      volume: []
-      port: []
-    @models =
-      link: { container: null, alias: "" }
-      volume: { name: "", hostDirectory: "" }
-      port: { host: "", container: "", protocol: "" }
+    @initCheck()
+    @initModels()
 
     @ContainerService.subscribe @$scope, 'update', ($event, container) =>
       @selectedContainer = container
+      @initCheck()
+      @initModels()
+      @selectedTab = 0
     @ContainerService.subscribe @$scope, 'select', ($event, container) =>
       @unwatch @selectedContainer if @selectedContainer
       @selectedContainer = container
       @TitleService.setTitle 'Container', @selectedContainer.info.Name.substr(1)
+      @initCheck()
+      @initModels()
+      @selectedTab = 0
       @watch container
 
 
@@ -33,6 +32,19 @@ angular.module('whaler.controllers').controller 'ContainerController', [
       @unwatch @selectedContainer if @selectedContainer
     return
 ]
+
+ContainerController::initCheck = () ->
+  @checks =
+    link: []
+    volume: []
+    port: []
+
+ContainerController::initModels = () ->
+  @newLinkCategories = []
+  @models =
+    link: { container: null, alias: "" }
+    volume: { name: "", hostDirectory: "" }
+    port: { host: "", container: "", protocol: "" }
 
 # Bind to container channel
 ContainerController::watch = (container) ->
@@ -150,5 +162,4 @@ ContainerController::addLinkContainer = (container, category) ->
     @searchLinkContainerTexts[category] = null
 
 ContainerController::addLinkCategory = (name) ->
-  @newLinkCategories || = []
   @newLinkCategories.push "#{name} #{@newLinkCategories.length + 1}"

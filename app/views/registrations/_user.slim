@@ -1,0 +1,30 @@
+pre ng-if="!registrationsCtrl.newUserForm && registrationsCtrl.notice" {{ registrationsCtrl.notice | json }}
+md-card ng-if="!registrationsCtrl.newUserForm  && registrationsCtrl.selectedRegistrations"
+  md-card-header
+    md-card-header-text
+      h4.md-title User {{ "#" + registrationsCtrl.selectedRegistrations.id }}
+  md-card-content
+    md-list 
+      md-list-item
+        p.text-bold Create at
+        p {{ registrationsCtrl.selectedRegistrations.created_at | date:'medium' }}
+      md-list-item
+        p.text-bold Updated at
+        p {{ registrationsCtrl.selectedRegistrations.updated_at | date:'medium' }}
+  md-card-actions layout="column"
+    form novalidate="" layout="column"
+      md-input-container.md-block
+        label Firstname
+        input type="text" ng-model="registrationsCtrl.selectedRegistrations.first_name"  required=""
+      md-input-container.md-block
+        label Lastname
+        input type="text" ng-model="registrationsCtrl.selectedRegistrations.last_name" required=""
+      md-input-container.md-block
+        label Email
+        input type="text" ng-model="registrationsCtrl.selectedRegistrations.email" required=""
+      md-input-container.md-block
+        label Role
+        md-select ng-model="registrationsCtrl.selectedRegistrations.role" required=""  
+          md-option ng-repeat="protocol in ['User', 'Admin']" value="{{ protocol }}" {{ protocol }}
+    md-button.md-raised.md-primary ng-click="registrationsCtrl.editUser(registrationsCtrl.selectedRegistrations)" Edit User
+    md-button.md-raised.md-warn ng-click="registrationsCtrl.deleteUser(registrationsCtrl.selectedRegistrations)" Delete User

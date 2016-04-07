@@ -21,6 +21,7 @@ html ng-app="whaler"
             / span.icon-bar
             / span.icon-bar
           p.title ng-bind-html="app.TitleService.getTitle()"
+
         form#searchForm.navbar-form role="search" ng-class="{ 'search-hasFocus': app.search.hasFocus }"
           .search-container
             = fa_icon :search

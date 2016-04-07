@@ -1,0 +1,28 @@
+md-card ng-if="registrationsCtrl.newUserForm"
+  md-card-header
+    md-card-header-text
+      h4.md-title New User
+  md-card-content
+    p Create a new user.
+  md-card-actions layout="column"
+    form novalidate="" layout="column"
+      md-input-container.md-block
+        label Firstname
+        input type="text" ng-model="registrationsCtrl.newUser.first_name"  required=""
+      md-input-container.md-block
+        label Lastname
+        input type="text" ng-model="registrationsCtrl.newUser.last_name" required=""
+      md-input-container.md-block
+        label Email
+        input type="text" ng-model="registrationsCtrl.newUser.email" required=""
+      md-input-container.md-block
+        label Role
+        md-select ng-model="registrationsCtrl.newUser.role" required=""  
+          md-option ng-repeat="protocol in ['User', 'Admin']" value="{{ protocol }}" {{ protocol }}
+      md-input-container.md-block
+        label Password
+        input type="password" ng-model="registrationsCtrl.newUser.password" required=""
+      md-input-container.md-block
+        label Password Confirmation
+        input type="password" ng-model="registrationsCtrl.newUser.password_confirmation" required=""
+    md-button.md-raised.md-primary ng-click="registrationsCtrl.createUser(registrationsCtrl.newUser)" Create User

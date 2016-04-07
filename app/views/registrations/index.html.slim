@@ -1,0 +1,15 @@
+div ng-controller="RegistrationsController as registrationsCtrl"
+  .col-xs-12.col-sm-6.col-md-3.p-a-0.full-screen-height#list-content
+    md-list.user-list
+      md-list-item.user-card[
+        ng-repeat="user in ctrl.users"
+        ng-click="registrationsCtrl.getUser(user)"
+      ]
+        i.state-icon.md-avatar-icon {{ user.first_name|limitTo:1:0 }}
+        .md-list-item-text
+          h3.md-subhead.user-title {{ user.first_name }} {{ user.last_name }}
+          small.user-image {{ user.email }}
+        md-divider ng-if="!$last"
+
+  .col-xs-12.col-sm-6.col-md-9.scrollbar-small.full-screen-height#main-content
+    pre {{ registrationsCtrl.selectedRegistrations | json }}

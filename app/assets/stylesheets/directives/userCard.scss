@@ -1,0 +1,121 @@
+$user-card-height: 72px;
+$user-card-transition-duration: .4s;
+
+.user-list {
+  display: block;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100%;
+  padding: 0 0 $user-card-height;
+}
+
+.user-card {
+  height: $user-card-height;
+  cursor: pointer;
+  overflow: hidden;
+  @include transition(all ease-in $user-card-transition-duration);
+
+  &:hover {
+    border-left-color: fade-out($soft-gray, 0.6);
+    background-color: fade-out($soft-gray, 0.6);
+  }
+  &.user-active {
+    border-left-color: $brand-primary;
+
+    .state-icon {
+      color: white;
+      background-color: $brand-primary;
+    }
+
+    .user-time {
+      color: $brand-primary;
+    }
+
+    .user-toggle-option {
+      color: $brand-primary;
+    }
+  }
+
+  md-divider {
+    border-top-color: rgba(0, 0, 0, 0.05);
+  }
+  .md-list-item-inner .md-secondary {
+    top: 25%;
+    color: $text-soft;
+  }
+  .user-title {
+    margin: 0;
+    @include text-overflow();
+  }
+  .user-image {
+    color: #B5B4B4;
+    @include text-overflow();
+  }
+
+  .state-icon {
+    background-color: $soft-gray;
+    height: 26px;
+    width: 26px;
+    line-height: 26px;
+    text-align: center;
+    color: #D3D3D5;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-style: normal;
+    @include transition(background-color ease-in .5s);
+
+    &.tilt {
+      background-color: $green;
+    }
+  }
+
+  &.user-swiped .leave-behinds {
+    right: 0px;
+  }
+  .leave-behinds {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: -100%;
+    z-index: 3;
+    @include transition(right ease-in $user-card-transition-duration / 2);
+    @include box-shadow(none);
+
+    &.show {
+      @include translate(0, 0);
+
+      & ~ .user-state, & ~ .user-body {
+        @include translate(-100px, 0);
+      }
+    }
+
+    .btn {
+      width: 80px;
+      float: right;
+      padding: 0;
+      height: $user-card-height;
+      line-height: $user-card-height;
+    }
+
+    .btn.btn-default {
+      background-color: $soft-gray;
+    }
+  }
+}
+
+
+.autocomplete-user-template .user-card {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  height: 100%;
+
+  .state-icon {
+    padding: 8px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-right: 16px;
+    border-radius: 50%;
+    box-sizing: content-box;
+  }
+}

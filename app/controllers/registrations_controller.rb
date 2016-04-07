@@ -1,5 +1,9 @@
 class RegistrationsController < ApplicationController
 
+  # GET /users
+  def index    
+  end
+
   # GET /users/sign_up
   def new
   end

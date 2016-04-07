@@ -21,6 +21,7 @@
 @import "directives/imageSearchCard";
 @import "directives/journal";
 @import "directives/toggleSwitch";
+@import "directives/userCard";
 
 body.imageCtrl { @import "image"; }
 body.homeCtrl  { @import "home"; }

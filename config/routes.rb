@@ -19,6 +19,8 @@ Rails.application.routes.draw do
     get '/users/sign_out' => 'registrations#new'
 
     get '/users/sign_up' => 'registrations#new'
+
+    get '/users' => 'registrations#index'
   end
 
   resource :api_config

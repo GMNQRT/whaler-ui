@@ -68,6 +68,11 @@ angular.module('whaler', [
       action:      'signout'
       templateUrl: '/partials/users/sign_in'
 
+    .when '/users',
+      alias:       'users'
+      controller:  'RegistrationsController'
+      templateUrl: '/partials/users'
+
     $routeProvider.otherwise '/'
 
     $resourceProvider.defaults.stripTrailingSlashes = true

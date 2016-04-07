@@ -4,6 +4,14 @@ $page-header-bg: white;
   padding: 0;
 }
 
+#navbar-current-actions {
+  position: absolute;
+  top: 0;
+  right: 0;
+  line-height: 48px;
+  z-index: $zindex-navbar-fixed;
+}
+
 #containerTab md-tabs-wrapper {
   background-color: $page-header-bg;
 }

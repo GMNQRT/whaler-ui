@@ -1,4 +1,21 @@
-md-tabs#containerTab md-selected="selectedIndex" md-dynamic-height="true" md-center-tabs="true"
+div#navbar-current-actions ng-show="ctrl.selectedContainer"
+  md-button.p-x-0.m-x-0.md-icon-button ng-show="!ctrl.selectedContainer.info.State.Running && !ctrl.selectedContainer.info.State.Paused" ng-click="ctrl.ContainerService.remove(ctrl.selectedContainer)"
+    md-icon.material-icons' delete
+    / | remove
+  md-button.p-x-0.m-x-0.md-icon-button ng-show="!ctrl.selectedContainer.info.State.Running" ng-click="ctrl.ContainerService.start(ctrl.selectedContainer)"
+    md-icon.material-icons' play_arrow
+    / | run
+  md-button.p-x-0.m-x-0.md-icon-button ng-show="ctrl.selectedContainer.info.State.Running || ctrl.selectedContainer.info.State.Paused" ng-click="ctrl.ContainerService.stop(ctrl.selectedContainer)"
+    md-icon.material-icons' stop
+    / | stop
+  md-button.p-x-0.m-x-0.md-icon-button ng-show="ctrl.selectedContainer.info.State.Running" ng-click="ctrl.ContainerService.pause(ctrl.selectedContainer)"
+    md-icon.material-icons' pause
+    / | pause
+  md-button.p-x-0.m-x-0.md-icon-button ng-show="ctrl.selectedContainer.info.State.Running || ctrl.selectedContainer.info.State.Paused" ng-click="ctrl.ContainerService.restart(ctrl.selectedContainer)"
+    md-icon.material-icons' refresh
+    / | refresh
+
+md-tabs#containerTab md-selected="selectedIndex" md-dynamic-height="true"
   md-tab label="General"
     md-tab-body = render partial: 'containers/tabs/general'
   md-tab label="Network"

@@ -1,79 +1,59 @@
-.row
-  .col-xs-6
-    md-card
-      md-card-header
-        md-card-header-text
-          h4.md-title Network settings
-      md-card-content
-        .row
-          table.table.table-hover.table-borderless.m-b-0
-            tbody
-              tr
-                th.col-xs-6 Bridge
-                td {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.NetworkSettings.Bridge }}
-              tr
-                th.col-xs-6 Mac Address
-                td {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.NetworkSettings.MacAddress }}
-              tr
-                th.col-xs-6 Gateway
-                td {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.NetworkSettings.Gateway }}
-              tr
-                th Address
-                td {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.NetworkSettings.IPAddress }}
-              tr
-                th Prefix Length
-                td {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.NetworkSettings.IPPrefixLen }}
-
+section
+  md-subheader.text-bold Network settings
+  md-list
+    md-list-item
+      p.md-list-item-header flex="30" Bridge
+      p {{ ctrl.selectedContainer.info.NetworkSettings.Bridge }}
+    md-list-item
+      p.md-list-item-header flex="30" Mac Address
+      p {{ ctrl.selectedContainer.info.NetworkSettings.MacAddress }}
+    md-list-item
+      p.md-list-item-header flex="30" Gateway
+      p {{ ctrl.selectedContainer.info.NetworkSettings.Gateway }}
+    md-list-item
+      p.md-list-item-header flex="30" Address
+      p {{ ctrl.selectedContainer.info.NetworkSettings.IPAddress }}
+    md-list-item
+      p.md-list-item-header flex="30" Prefix Length
+      p {{ ctrl.selectedContainer.info.NetworkSettings.IPPrefixLen }}
+        
+section
+  md-subheader.text-bold Network settings - IPv6
+  md-list
+    md-list-item
+      p.md-list-item-header flex="30" Gateway
+      p {{ ctrl.selectedContainer.info.NetworkSettings.IPv6Gateway }}
+    md-list-item
+      p.md-list-item-header flex="30" Address
+      p {{ ctrl.selectedContainer.info.NetworkSettings.GlobalIPv6Address }}
+    md-list-item
+      p.md-list-item-header flex="30" Prefix Length
+      p {{ ctrl.selectedContainer.info.NetworkSettings.GlobalIPv6PrefixLen }}
+    md-list-item
+      p.md-list-item-header flex="30" Link Local Address
+      p {{ ctrl.selectedContainer.info.NetworkSettings.LinkLocalIPv6Address }}
+    md-list-item
+      p.md-list-item-header flex="30" Link Local Prefix Length
+      p {{ ctrl.selectedContainer.info.NetworkSettings.LinkLocalIPv6PrefixLen }}
                 
-  .col-xs-6
-    md-card
-      md-card-header
-        md-card-header-text
-          h4.md-title Network settings - IPv6
-      md-card-content
-        .row
-          table.table.table-hover.table-borderless.m-b-0
-            tbody
-              tr
-                th.col-xs-6 Gateway
-                td {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.NetworkSettings.IPv6Gateway }}
-              tr
-                th Address
-                td {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.NetworkSettings.GlobalIPv6Address }}
-              tr
-                th Prefix Length
-                td {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.NetworkSettings.GlobalIPv6PrefixLen }}
-              tr
-                th Link Local Address
-                td {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.NetworkSettings.LinkLocalIPv6Address }}
-              tr
-                th Link Local Prefix Length
-                td {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.NetworkSettings.LinkLocalIPv6PrefixLen }}
-                
-  .col-xs-6
-    md-card
-      md-card-header
-        md-card-header-text
-          h4.md-title Host settings
-      md-card-content
-        .row
-          table.table.table-hover.table-borderless.m-b-0
-            tbody
-              tr
-                th Dns
-                td {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.HostConfig.Dns }}
-              tr
-                th DnsSearch
-                td {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.HostConfig.DnsSearch }}
-              tr
-                th ExtraHosts
-                td
-                  ul
-                    li ng-repeat="ExtraHost in ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.HostConfig.ExtraHosts" {{ ExtraHost }}
-              tr
-                th NetworkMode
-                td {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.HostConfig.NetworkMode }}
-              tr
-                th PublishAllPorts
-                td
-                  md-switch ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.HostConfig.PublishAllPorts"
+section
+  md-subheader.text-bold Host settings
+  md-list
+    md-card-content
+      md-list-item
+        p.md-list-item-header flex="30" Dns
+        p {{ ctrl.selectedContainer.info.HostConfig.Dns }}
+      md-list-item
+        p.md-list-item-header flex="30" DnsSearch
+        p {{ ctrl.selectedContainer.info.HostConfig.DnsSearch }}
+      md-list-item
+        p.md-list-item-header flex="30" ExtraHosts
+        div
+          ul
+            li ng-repeat="ExtraHost in ctrl.selectedContainer.info.HostConfig.ExtraHosts" {{ ExtraHost }}
+      md-list-item
+        p.md-list-item-header flex="30" NetworkMode
+        p {{ ctrl.selectedContainer.info.HostConfig.NetworkMode }}
+      md-list-item
+        p.md-list-item-header flex="30" PublishAllPorts
+        md-switch ng-aria="Publish all ports" ng-model="ctrl.selectedContainer.info.HostConfig.PublishAllPorts"

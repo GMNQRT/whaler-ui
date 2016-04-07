@@ -1,174 +1,142 @@
-.row
-  .col-xs-12.col-sm-4 ng-repeat="(category, link) in links = (ctrl.selectedContainer.info.HostConfig.Links | linksFormat)"
-    md-card
-      md-card-header
-        .list-header {{ category }}
-      md-card-content
-        md-list
-          md-list-item.container-card ng-repeat="(containerName, alias) in link" ng-init="container = (containerName | containerBy:'info.Name')"
-            i.state-icon.md-avatar-icon {{ container.info.Name|limitTo:1:1 }}
-            .md-list-item-text
-              h3.md-subhead.container-title {{ container.info.Name|limitTo:container.info.Name.length:1 }}
-              small.container-image {{ container.info.Config.Image }}
-
-      md-card-actions layout="column"
-        md-autocomplete[
-            flex=""
-            required=""
-            md-input-name="autocompleteField"
-            md-selected-item="ctrl.selectedLinkContainers[category]"
-            md-search-text="ctrl.searchLinkContainerTexts[category]"
-            md-selected-item-change="ctrl.addLinkContainer(ctrl.selectedLinkContainers[category], category)"
-            md-items="container in ctrl.searchContainer(ctrl.searchLinkContainerTexts[category])"
-            md-item-text="container.info.Name|limitTo:container.info.Name.length:1"
-            md-menu-class="autocomplete-container-template"
-            placeholder="Pick a container"]
-          md-item-template
-            .container-card
+section
+  md-subheader.text-bold Linked containers
+  div layout="row" layout-wrap="" 
+    div flex="20" ng-repeat="(category, link) in links = (ctrl.selectedContainer.info.HostConfig.Links | linksFormat)"
+      md-card
+        md-card-header
+          .list-header {{ category }}
+        md-card-content ng-show="links.length"
+          md-list
+            md-list-item.container-card ng-repeat="(containerName, alias) in link" ng-init="container = (containerName | containerBy:'info.Name')"
               i.state-icon.md-avatar-icon {{ container.info.Name|limitTo:1:1 }}
-              .container-title md-highlight-text="ctrl.searchLinkContainerTexts[category]" {{ container.info.Name|limitTo:container.info.Name.length:1 }}
-          md-not-found No matches found.
+              .md-list-item-text
+                h3.md-subhead.container-title {{ container.info.Name|limitTo:container.info.Name.length:1 }}
+                small.container-image {{ container.info.Config.Image }}
 
-  .col-xs-12.col-sm-4 ng-repeat="category in ctrl.newLinkCategories"
-    md-card
-      md-card-header
-        .list-header {{ category }}
-      md-card-actions layout="column"
-        md-autocomplete[
-            flex=""
-            required=""
-            md-input-name="newAutocompleteField"
-            md-selected-item="selectedLinkContainer"
-            md-search-text="searchLinkContainerText"
-            md-selected-item-change="ctrl.addLinkContainer(selectedLinkContainer, category)"
-            md-items="container in ctrl.searchContainer(searchLinkContainerText)"
-            md-item-text="container.info.Name|limitTo:container.info.Name.length:1"
-            md-menu-class="autocomplete-container-template"
-            placeholder="Pick a container"]
-          md-item-template
-            .container-card
-              i.state-icon.md-avatar-icon {{ container.info.Name|limitTo:1:1 }}
-              .container-title md-highlight-text="ctrl.searchLinkContainerText" {{ container.info.Name|limitTo:container.info.Name.length:1 }}
-          md-not-found No matches found.
+        md-card-actions layout="column"
+          md-autocomplete[
+              flex=""
+              required=""
+              md-input-name="autocompleteField"
+              md-selected-item="ctrl.selectedLinkContainers[category]"
+              md-search-text="ctrl.searchLinkContainerTexts[category]"
+              md-selected-item-change="ctrl.addLinkContainer(ctrl.selectedLinkContainers[category], category)"
+              md-items="container in ctrl.searchContainer(ctrl.searchLinkContainerTexts[category])"
+              md-item-text="container.info.Name|limitTo:container.info.Name.length:1"
+              md-menu-class="autocomplete-container-template"
+              placeholder="Pick a container"]
+            md-item-template
+              .container-card
+                i.state-icon.md-avatar-icon {{ container.info.Name|limitTo:1:1 }}
+                .container-title md-highlight-text="ctrl.searchLinkContainerTexts[category]" {{ container.info.Name|limitTo:container.info.Name.length:1 }}
+            md-not-found No matches found.
+
+    div flex="20" ng-repeat="category in ctrl.newLinkCategories"
+      md-card
+        md-card-header
+          .list-header {{ category }}
+        md-card-actions layout="column"
+          md-autocomplete[
+              flex=""
+              required=""
+              md-input-name="newAutocompleteField"
+              md-selected-item="selectedLinkContainer"
+              md-search-text="searchLinkContainerText"
+              md-selected-item-change="ctrl.addLinkContainer(selectedLinkContainer, category)"
+              md-items="container in ctrl.searchContainer(searchLinkContainerText)"
+              md-item-text="container.info.Name|limitTo:container.info.Name.length:1"
+              md-menu-class="autocomplete-container-template"
+              placeholder="Pick a container"]
+            md-item-template
+              .container-card
+                i.state-icon.md-avatar-icon {{ container.info.Name|limitTo:1:1 }}
+                .container-title md-highlight-text="ctrl.searchLinkContainerText" {{ container.info.Name|limitTo:container.info.Name.length:1 }}
+            md-not-found No matches found.
   
-  .col-xs-12.col-sm-4
-    md-button.md-raised.md-primary ng-click="ctrl.addLinkCategory('new category')"
-      md-icon add
-      | Add a category
+    div flex="20" layout="row" layout-align="start center"
+      md-button.md-raised.md-primary ng-click="ctrl.addLinkCategory('new category')"
+        md-icon add
+        | Add a category
  
-.row
-  .col-xs-6
-    md-card
-      md-card-header
-        md-card-header-text
-          h4.md-title Environment Variables
-      md-card-content
-        form name="form" novalidate=""
-          .row
-            .col-xs-6 Key
-            .col-xs-6 Value
-          .row ng-repeat="(index, env) in ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.Env"
-            .col-xs-6
-              div.form-group
-                input#inputId.form-control type="text" name="{{ 'key_' + index }}" ng-model="env|envKey"
-            .col-xs-5
-              div.form-group
-                input#inputId.form-control type="text" name="{{ 'value_' + index }}" ng-model="env|envValue" 
-            .col-xs-1
-              .leave-behind
-                => fa_icon :trash
-.row
-  .col-xs-6
-    md-card
-      md-card-header
-        md-card-header-text
-          h4.md-title Options
-      md-card-content
-        .row
-          form name="form" novalidate=""
-            md-list
-              md-list-item
-                p.md-label Network Disabled
-                md-switch aria-label="Network Disabled" ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.NetworkDisabled"
-              md-list-item
-                p.md-label Stdin Once
-                md-switch aria-label="Stdin Once" ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.StdinOnce"
-              md-list-item
-                p.md-label Open Stdin
-                md-switch aria-label="Open Stdin" ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.OpenStdin"
-              md-list-item
-                p.md-label Tty
-                md-switch aria-label="Tty" ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.Tty"
-              md-list-item
-                p.md-label Stderr
-                md-switch aria-label="Stderr" ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.AttachStderr"
-              md-list-item
-                p.md-label Stdin
-                md-switch aria-label="Stdin" ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.AttachStdin"
-              md-list-item
-                p.md-label Stdout
-                md-switch aria-label="Stdout" ng-model="ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.AttachStdout"
+section
+  md-subheader.text-bold Environment Variables
+  form name="form" novalidate=""
+    .list-header layout="row" layout-align="start center"
+      / md-checkbox aria-label="Select All" md-indeterminate="ctrl.isIndeterminate(ctrl.checks.port, portBindings)" ng-checked="ctrl.isAllChecked(ctrl.checks.port, portBindings)" ng-click="ctrl.toggleAll(ctrl.checks.port, portBindings)"
+      .text-overflow flex="" Key
+      .text-overflow flex="" Value
+    div layout="row" ng-repeat="env in ctrl.selectedContainer.info.Config.Env | envFormat"
+      md-input-container class="md-block" flex=""
+        label Key
+        input type="text" ng-model="env.key" required=""
+      md-input-container class="md-block" flex=""
+        label Value
+        input type="text" ng-model="env.value" required=""  
+
+section
+  md-subheader.text-bold Options
+  form name="optionsForm" novalidate=""
+    md-list
+      md-list-item
+        p.md-list-item-header flex="30" Network Disabled
+        md-switch aria-label="Network Disabled" ng-model="ctrl.selectedContainer.info.Config.NetworkDisabled"
+      md-list-item
+        p.md-list-item-header flex="30" Stdin Once
+        md-switch aria-label="Stdin Once" ng-model="ctrl.selectedContainer.info.Config.StdinOnce"
+      md-list-item
+        p.md-list-item-header flex="30" Open Stdin
+        md-switch aria-label="Open Stdin" ng-model="ctrl.selectedContainer.info.Config.OpenStdin"
+      md-list-item
+        p.md-list-item-header flex="30" Tty
+        md-switch aria-label="Tty" ng-model="ctrl.selectedContainer.info.Config.Tty"
+      md-list-item
+        p.md-list-item-header flex="30" Stderr
+        md-switch aria-label="Stderr" ng-model="ctrl.selectedContainer.info.Config.AttachStderr"
+      md-list-item
+        p.md-list-item-header flex="30" Stdin
+        md-switch aria-label="Stdin" ng-model="ctrl.selectedContainer.info.Config.AttachStdin"
+      md-list-item
+        p.md-list-item-header flex="30" Stdout
+        md-switch aria-label="Stdout" ng-model="ctrl.selectedContainer.info.Config.AttachStdout"
   
-  .col-xs-6
-    md-card
-      md-card-header
-        md-card-header-text
-          h4.md-title Labels
-      md-card-content
-        .row
-          form name="form" novalidate=""
-              table.table.table-hover.table-borderless.m-b-0
-                tbody
-                  tr ng-repeat="(LabelName, Label) in ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.Labels" 
-                    th {{ LabelName|split:'.':3|capitalize }}
-                    td {{ Label }}
-.row
-  .col-xs-12
-    md-card
-      md-card-header
-        md-card-header-text
-          h4.md-title Settings
-      md-card-content
-        .row
-          table.table.table-hover.table-borderless.m-b-0
-            caption.p-l CPU
-            tbody
-              tr
-                th Cpu setting
-                td {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.Cpuset }}
-              tr
-                th Cpu Shares
-                td {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.CpuShares }}
-        .row
-          table.table.table-hover.table-borderless.m-b-0
-            tbody
-              tr
-                th Pid
-                td {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.State.Pid }}
-              tr
-                th Domainname
-                td {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.Domainname }}
-              tr
-                th Entrypoint
-                td {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.Entrypoint }}
-        .row
-          table.table.table-hover.table-borderless.m-b-0
-            tbody
-              tr
-                th User
-                td {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.User }}
-              tr
-                th MacAddress
-                td {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.MacAddress }}
-        .row
-          table.table.table-hover.table-borderless.m-b-0
-            tbody
-              tr
-                th Memory
-                td {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.Memory }}
-              tr
-                th MemorySwap
-                td {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.MemorySwap }}
-              tr
-                th OnBuild
-                td {{ ctrl.ContainerService.containers[ctrl.ContainerService.selectedContainer].info.Config.OnBuild }}
+section
+  md-subheader.text-bold Labels
+  form name="labelsForm" novalidate=""
+    md-list
+      md-list-item ng-repeat="(LabelName, Label) in ctrl.selectedContainer.info.Config.Labels" 
+        p.md-list-item-header flex="30"  {{ LabelName|split:'.':3|capitalize }}
+        p {{ Label }}
+
+section
+  md-subheader.text-bold Settings
+  md-list
+    md-list-item
+      p.md-list-item-header flex="30" Cpu setting
+      p {{ ctrl.selectedContainer.info.Config.Cpuset }}
+    md-list-item
+      p.md-list-item-header flex="30" Cpu Shares
+      p {{ ctrl.selectedContainer.info.Config.CpuShares }}
+    md-list-item
+      p.md-list-item-header flex="30" Pid
+      p {{ ctrl.selectedContainer.info.State.Pid }}
+    md-list-item
+      p.md-list-item-header flex="30" Domainname
+      p {{ ctrl.selectedContainer.info.Config.Domainname }}
+    md-list-item
+      p.md-list-item-header flex="30" Entrypoint
+      p {{ ctrl.selectedContainer.info.Config.Entrypoint.join(' ') }}
+    md-list-item
+      p.md-list-item-header flex="30" User
+      p {{ ctrl.selectedContainer.info.Config.User }}
+    md-list-item
+      p.md-list-item-header flex="30" MacAddress
+      p {{ ctrl.selectedContainer.info.Config.MacAddress }}
+    md-list-item
+      p.md-list-item-header flex="30" Memory
+      p {{ ctrl.selectedContainer.info.Config.Memory }}
+    md-list-item
+      p.md-list-item-header flex="30" MemorySwap
+      p {{ ctrl.selectedContainer.info.Config.MemorySwap }}
+    md-list-item
+      p.md-list-item-header flex="30" OnBuild
+      p {{ ctrl.selectedContainer.info.Config.OnBuild }}

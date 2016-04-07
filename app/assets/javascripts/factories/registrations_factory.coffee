@@ -3,5 +3,5 @@ angular.module('whaler.factories').service 'RegistrationsFactory', ['$resource',
     id: '@id'
     format: 'json'
    ,
-    updateUser: { url: API.generateResourceUrl('admin_registrations/:id'), params: { id: '@id' }, method:'PUT' }
+    update: { url: API.generateResourceUrl('admin_registrations/:id'), params: { id: '@id' }, method:'PUT' }
 ]

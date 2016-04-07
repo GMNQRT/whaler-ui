@@ -1,30 +1,44 @@
-pre ng-if="!registrationsCtrl.newUserForm && registrationsCtrl.notice" {{ registrationsCtrl.notice | json }}
-md-card ng-if="!registrationsCtrl.newUserForm  && registrationsCtrl.selectedRegistrations"
+md-card
   md-card-header
     md-card-header-text
-      h4.md-title User {{ "#" + registrationsCtrl.selectedRegistrations.id }}
+      h4.md-title User {{ "#" + ctrl.selectedUser.id }}
   md-card-content
-    md-list 
-      md-list-item
-        p.text-bold Create at
-        p {{ registrationsCtrl.selectedRegistrations.created_at | date:'medium' }}
-      md-list-item
-        p.text-bold Updated at
-        p {{ registrationsCtrl.selectedRegistrations.updated_at | date:'medium' }}
-  md-card-actions layout="column"
-    form novalidate="" layout="column"
-      md-input-container.md-block
-        label Firstname
-        input type="text" ng-model="registrationsCtrl.selectedRegistrations.first_name"  required=""
-      md-input-container.md-block
-        label Lastname
-        input type="text" ng-model="registrationsCtrl.selectedRegistrations.last_name" required=""
-      md-input-container.md-block
-        label Email
-        input type="text" ng-model="registrationsCtrl.selectedRegistrations.email" required=""
-      md-input-container.md-block
-        label Role
-        md-select ng-model="registrationsCtrl.selectedRegistrations.role" required=""  
-          md-option ng-repeat="protocol in ['User', 'Admin']" value="{{ protocol }}" {{ protocol }}
-    md-button.md-raised.md-primary ng-click="registrationsCtrl.editUser(registrationsCtrl.selectedRegistrations)" Edit User
-    md-button.md-raised.md-warn ng-click="registrationsCtrl.deleteUser(registrationsCtrl.selectedRegistrations)" Delete User
+    form novalidate=""
+      md-list ng-show="ctrl.selectedUser.id"
+        md-list-item
+          p.text-bold Create at
+          p {{ ctrl.selectedUser.created_at | date:'medium' }}
+        md-list-item
+          p.text-bold Updated at
+          p {{ ctrl.selectedUser.updated_at | date:'medium' }}
+      div layout="row"
+        md-input-container.md-block flex=""
+          label Firstname
+          input type="text" ng-model="ctrl.selectedUser.first_name"  required=""
+      div layout="row"
+        md-input-container.md-block flex=""
+          label Lastname
+          input type="text" ng-model="ctrl.selectedUser.last_name" required=""
+      div layout="row"
+        md-input-container.md-block flex=""
+          label Email
+          input type="text" ng-model="ctrl.selectedUser.email" required=""
+      div layout="row"
+        md-input-container.md-block flex=""
+          label Role
+          md-select ng-model="ctrl.selectedUser.role" required=""  
+            md-option ng-repeat="protocol in ['User', 'Admin']" value="{{ protocol }}" {{ protocol }}
+      div layout="row" ng-hide="ctrl.selectedUser.id"
+        md-input-container.md-block flex=""
+          label Password
+          input type="password" ng-model="ctrl.selectedUser.password" required=""
+      div layout="row" ng-hide="ctrl.selectedUser.id"
+        md-input-container.md-block flex=""
+          label Password Confirmation
+          input type="password" ng-model="ctrl.selectedUser.password_confirmation" required=""
+        
+    md-card-actions layout="row" layout-align="end center"
+      md-button.md-raised.md-primary ng-show="ctrl.selectedUser.id" ng-click="ctrl.editUser(ctrl.selectedUser)" Edit User
+      md-button.md-raised.md-warn ng-show="ctrl.selectedUser.id" ng-click="ctrl.deleteUser(ctrl.selectedUser)" Delete User
+      md-button.md-raised.md-primary ng-hide="ctrl.selectedUser.id" ng-click="ctrl.createUser(ctrl.selectedUser)" Create User
+      

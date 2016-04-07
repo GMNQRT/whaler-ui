@@ -13,13 +13,163 @@
               h3.md-title {{ image.info.name }}
         md-card-content
           | {{image.info.description }}
-        md-card-actions
-          div layout-gt-sm="row"
-            md-input-container class="md-block" flex-gt-sm=""
-              md-select placeholder="latest" ng-model="image.tag" md-on-open="searchCtrl.loadTags(image)"
-                md-option ng-value="tag" ng-repeat="tag in image.tags" {{ tag.name }}
-                
-            md-input-container class="md-block" flex-gt-sm=""
-              md-button aria-label="Run" ng-click="searchCtrl.run(image)" ng-switch="image.$loading.$resolved" ng-disabled="image.$loading.$resolved == false"
-                md-progress-circular.m-x-auto md-mode="indeterminate" md-diameter="40" ng-switch-when="false"
-                span ng-switch-default="" Run
+        md-card-actions layout-gt-sm="row" layout-align="end center"
+          md-input-container class="md-block"
+            md-button.md-raised.md-primary aria-label="Run" ng-click="searchCtrl.run(image)" ng-switch="image.$loading.$resolved" ng-disabled="image.$loading.$resolved == false"
+              md-progress-circular.m-x-auto md-mode="indeterminate" md-diameter="40" ng-switch-when="false"
+              span ng-switch-default="" Create container
+  
+
+script type="text/ng-template" id="newContainerForm.tmpl.html"
+  md-dialog
+    form#newContainerForm name="newContainerForm" novalidate=""
+      md-toolbar
+        .md-toolbar-tools
+          h2 Create container
+          span flex=""
+          md-button.md-icon-button ng-click="newCtrl.cancel()"
+            i.material-icons aria-label="Close dialog" close
+      md-dialog-content.container.scrollbar-small
+        section
+          md-subheader Basic Settings
+          div layout-gt-xs="row"
+            md-input-container class="md-block" flex=""
+              label Tags
+              md-select placeholder="latest" ng-model="newCtrl.container.tag" md-on-open="newCtrl.loadTags()"
+                md-option ng-value="tag" ng-repeat="tag in newCtrl.image.tags" {{ tag.name }}
+
+        section
+          md-subheader Basic Settings
+          div layout-gt-xs="row"
+            md-input-container class="md-block" flex=""
+              label Container name
+              input ng-model="newCtrl.container.name"
+
+        section
+          md-subheader Container config
+          div layout-gt-xs="row"
+            md-input-container class="md-block" flex=""
+              label Workingdir
+              input ng-model="newCtrl.container.workingdir"
+          div layout-gt-xs="row"
+            md-input-container class="md-block" flex=""
+              label Entrypoint
+              input ng-model="newCtrl.container.entrypoint"
+          div layout-gt-xs="row"
+            md-input-container class="md-block" flex=""
+              label Command
+              input ng-model="newCtrl.container.command"
+          div layout-gt-xs="row" layout-align="end center"
+
+        section
+          md-subheader Network
+          / Expose port
+          .table-input-container class="md-block" flex="" md-no-float=""
+            label Expose port
+            .table-input
+              .list-header layout-gt-sm="row" layout-align="start center"
+                md-checkbox.m-b-0 aria-label="Select All" md-indeterminate="newCtrl.isIndeterminate(newCtrl.checks.port, portBindings)" ng-checked="newCtrl.isAllChecked(newCtrl.checks.port, portBindings)" ng-click="newCtrl.toggleAll(newCtrl.checks.port, portBindings)"
+                .text-overflow flex="" Port
+                .text-overflow flex="" Protocol
+                md-menu.md-secondary md-position-mode="target-right target"
+                  md-button.md-icon-button ng-click="$mdOpenMenu($event)" aria-label="More"
+                    i.material-icons md-menu-origin="" more_vert
+                  md-menu-content
+                    md-menu-item
+                      md-button ng-click="newCtrl.unExposeAllPorts(newCtrl.container)" Remove all
+              div layout-gt-sm="row" ng-repeat="binding in newCtrl.container.exposedPorts"
+                md-checkbox aria-label="Select" ng-checked="newCtrl.isChecked(binding, newCtrl.checks.port)" ng-click="newCtrl.toggle(binding, newCtrl.checks.port)"
+                md-input-container class="md-block" flex=""
+                  label Port
+                  input type="text" ng-model="binding.port" required=""
+                md-input-container.md-block flex-gt-sm=""
+                  label Protocol
+                  md-select ng-model="binding.protocol" required=""  
+                    md-option ng-repeat="protocol in ['tcp', 'udp']" value="{{protocol}}" {{ protocol }}
+                md-menu.md-secondary md-position-mode="target-right target"
+                  md-button.md-icon-button ng-click="$mdOpenMenu($event)" aria-label="More"
+                    i.material-icons md-menu-origin="" more_vert
+                  md-menu-content
+                    md-menu-item
+                      md-button ng-click="newCtrl.unexposePort(container, binding)" Remove volume
+            div layout-gt-sm="row" layout-align="center center"    
+              md-button.md-primary ng-click="newCtrl.exposePort(newCtrl.container)"
+                md-icon add
+                | Expose new port
+          / Map port
+          .table-input-container class="md-block" flex="" md-no-float=""
+            label Map port
+            .table-input
+              .list-header layout-gt-sm="row" layout-align="start center"
+                md-checkbox.m-b-0 aria-label="Select All" md-indeterminate="newCtrl.isIndeterminate(newCtrl.checks.port, portBindings)" ng-checked="newCtrl.isAllChecked(newCtrl.checks.port, portBindings)" ng-click="newCtrl.toggleAll(newCtrl.checks.port, portBindings)"
+                .text-overflow flex="" Container port
+                .text-overflow flex="" Host port
+                .text-overflow flex="" Protocol
+                md-menu.md-secondary md-position-mode="target-right target"
+                  md-button.md-icon-button ng-click="$mdOpenMenu($event)" aria-label="More"
+                    i.material-icons md-menu-origin="" more_vert
+                  md-menu-content
+                    md-menu-item
+                      md-button ng-click="newCtrl.unbindAllPorts(newCtrl.container)" Remove all
+              div layout-gt-sm="row" ng-repeat="binding in newCtrl.container.portBindings"
+                md-checkbox aria-label="Select" ng-checked="newCtrl.isChecked(binding, newCtrl.checks.port)" ng-click="newCtrl.toggle(binding, newCtrl.checks.port)"
+                md-input-container class="md-block" flex=""
+                  label Container port
+                  input type="text" ng-model="binding.container" required=""
+                md-input-container.md-block flex-gt-sm=""
+                  label Host port
+                  input type="text" ng-model="binding.host" required=""
+                md-input-container.md-block flex-gt-sm=""
+                  label Protocol
+                  md-select ng-model="binding.protocol" required=""  
+                    md-option ng-repeat="protocol in ['tcp', 'udp']" value="{{protocol}}" {{ protocol }}
+                md-menu.md-secondary md-position-mode="target-right target"
+                  md-button.md-icon-button ng-click="$mdOpenMenu($event)" aria-label="More"
+                    i.material-icons md-menu-origin="" more_vert
+                  md-menu-content
+                    md-menu-item
+                      md-button ng-click="newCtrl.unbindPort(container, binding)" Remove volume
+            div layout-gt-sm="row" layout-align="center center"    
+              md-button.md-primary ng-click="newCtrl.bindPort(newCtrl.container)"
+                md-icon add
+                | Bind new port
+
+        section
+          md-subheader Volumes
+          .table-input-container class="md-block" flex="" md-no-float=""
+            label Mount Volume
+            .table-input
+              .list-header layout-gt-sm="row" layout-align="start center"
+                md-checkbox.m-b-0 aria-label="Select All" md-indeterminate="newCtrl.isIndeterminate(newCtrl.checks.volume, binds)" ng-checked="newCtrl.isAllChecked(newCtrl.checks.volume, binds)" ng-click="newCtrl.toggleAll(newCtrl.checks.volume, binds)"
+                .text-overflow flex="" Volume name
+                .text-overflow flex="" Host directory
+                md-menu.md-secondary md-position-mode="target-right target"
+                  md-button.md-icon-button ng-click="$mdOpenMenu($event)" aria-label="More"
+                    i.material-icons md-menu-origin="" more_vert
+                  md-menu-content
+                    md-menu-item
+                      md-button ng-click="newCtrl.unmountAllVolumes(newCtrl.container)" Remove all
+              div layout-gt-sm="row" ng-repeat="volume in newCtrl.container.binds"
+                md-checkbox aria-label="Select" ng-checked="newCtrl.isChecked(volume, newCtrl.checks.volume)" ng-click="newCtrl.toggle(volume, newCtrl.checks.volume)"
+                md-input-container class="md-block" flex=""
+                  label Volume name
+                  input type="text" ng-model="volume.name" required=""
+                md-input-container class="md-block" flex=""
+                  label Host directory
+                  input type="text" ng-model="volume.hostDirectory" required=""
+                md-menu.md-secondary md-position-mode="target-right target"
+                  md-button.md-icon-button ng-click="$mdOpenMenu($event)" aria-label="More"
+                    i.material-icons md-menu-origin="" more_vert
+                  md-menu-content
+                    md-menu-item
+                      md-button ng-click="newCtrl.unmountVolume(newCtrl.container, volume)" Remove volume      
+            div layout-gt-sm="row" layout-align="center center"    
+              md-button.md-primary ng-click="newCtrl.mountVolume(newCtrl.container)"
+                md-icon.md-fab add
+                | Mount new volume
+
+    md-dialog-actions layout-gt-sm="row" layout-align="end center"
+      md-button.md-primary.md-block aria-label="Cancel" ng-click="newCtrl.cancel()" Cancel
+      md-button.md-primary.md-raised.md-block aria-label="Create" ng-click="newCtrl.create(newCtrl.container)" Create
+
+                  

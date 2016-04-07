@@ -1,16 +1,85 @@
-.modal-body
-  form#image-search-form
-    #image-search-group.form-group
-      input#image-search-input.form-control[
-        name="search-input"
-        type="text"
-        ng-model="query"
-        label="Search images by name ..."
-        uib-typeahead="image for image in ctrl.getImages($viewValue)"
-      ]
-  #image-search-results.scrollbar-small
-    .col-xs-6.p-l-0 ng-repeat="image in ctrl.images"
-      image-search-card ng-model="image"
+.scrollbar-small.container
+  form#newContainerForm.col-xs-12.col-sm-push-2.col-sm-8.p-t name="newContainerForm" novalidate=""
+    section
+      md-subheader Basic Settings
+      div layout-gt-xs="row"
+        md-input-container class="md-block" flex-gt-xs=""
+          label Container name
+          input ng-model="container.name"
+      div layout-gt-xs="row"
+        md-input-container class="md-block" flex-gt-xs=""
+          md-autocomplete[
+              flex=""
+              required=""
+              md-input-name="autocompleteField"
+              md-selected-item="container.image"
+              md-items="image in searchCtrl.getImages(searchImageText)"
+              md-search-text="searchImageText"
+              md-floating-label="Pick an image"]
+            md-item-template
+              div {{ image|json }}
+            md-not-found No matches found.
+            
+        md-input-container class="md-block" flex-gt-sm=""
+          label Tag
+          md-select ng-model="container.tag"
+            md-option ng-repeat="state in states" value="{{state.abbrev}}" {{ state.abbrev }}
+    section
+      md-subheader Container config
+      div layout-gt-xs="row"
+        md-input-container class="md-block" flex-gt-xs=""
+          label Entrypoint
+          input ng-model="container.entrypoint"
+      div layout-gt-xs="row"
+        md-input-container class="md-block" flex-gt-xs=""
+          label Command
+          input ng-model="container.command"
+      div layout-gt-xs="row" layout-align="end center"
+    section
+        md-subheader Network
+        div layout-gt-xs="row"
+          md-input-container class="md-block" flex-gt-xs=""
+            label Entrypoint
+            input ng-model="container.entrypoint"
+        div layout-gt-xs="row"
+          md-input-container class="md-block" flex-gt-xs=""
+            label Command
+            input ng-model="container.command"
+        div layout-gt-xs="row" layout-align="end center"
+    section
+        md-subheader Volumes
+        .list-header.p-r
+          md-checkbox aria-label="Select All" md-indeterminate="ctrl.isIndeterminate(ctrl.checks.volume, binds)" ng-checked="ctrl.isAllChecked(ctrl.checks.volume, binds)" ng-click="ctrl.toggleAll(ctrl.checks.volume, binds)"
+          .text-overflow flex="50" Volume name
+          .text-overflow flex="50" Host directory
+          md-list
+            md-list-item ng-repeat="volume in binds = ctrl.selectedContainer.info.HostConfig.Binds"
+              md-checkbox aria-label="Select" ng-checked="ctrl.isChecked(volume, ctrl.checks.volume)" ng-click="ctrl.toggle(volume, ctrl.checks.volume)"
+              .md-list-item-text.p-r layout="row" flex="grow"
+                .text-overflow.text-bold flex="50" {{ volume.split(':')[0] }}  
+                .text-overflow flex="50" {{ volume.split(':')[1] }}
+              md-menu.md-secondary md-position-mode="target-right target"
+                md-button.md-icon-button ng-click="$mdOpenMenu($event)" aria-label="More"
+                  i.material-icons md-menu-origin="" more_vert
+                md-menu-content
+                  md-menu-item
+                    md-button ng-click="ctrl.unmountVolume(volume)" Remove volume
+        md-card-actions layout="column"
+          form name="ctrl.forms.volumes" novalidate="" layout="row"
+            md-input-container.md-block flex="50"
+              label Volume name
+              input type="text" ng-model="ctrl.models.volume.name" required=""
+            md-input-container.md-block flex="50"
+              label Host directory
+              input type="text" ng-model="ctrl.models.volume.hostDirectory" required=""
+          md-button.md-raised.md-primary ng-click="ctrl.mountVolume(ctrl.models.volume)" Mount new volume
+            
+            
+            
+            
+        div layout-gt-xs="row" layout-align="end center"
+          md-button.md-primary.md-raised.md-block aria-label="Create" ng-click="searchCtrl.create(container)" Create
 
-footer.modal-footer.container-fluid
-  a.pull-right.btn.btn-primary-outline ng-click="$close()" Cancel
+    section
+      pre {{ container|json }}
+      pre {{ searchCtrl.images|json }}

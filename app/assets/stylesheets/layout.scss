@@ -1,5 +1,8 @@
 body {
-  padding-top: $navbar-height + 4px;
+  padding-top: ($navbar-height + 6px) * 2;
+  @media (min-width: $screen-sm-min) {
+    padding-top: $navbar-height + 6px;
+  }
 }
 
 #topbar {
@@ -85,7 +88,7 @@ body {
 // Left bar for navigation
 #main-nav {
   position: fixed;
-  padding-top: $navbar-height;
+  padding-top: ($navbar-height + 6px) * 2;
   top: 0;
   left: 0;
   height: 100vh;
@@ -93,6 +96,9 @@ body {
   background-color: $soft-gray;
   text-align: center;
 
+  @media (min-width: $screen-sm-min) {
+    padding-top: $navbar-height + 6px;
+  }
   .nav > li > a > span {
     display: none;
   }
@@ -153,8 +159,12 @@ body {
   width: 100%;
   height: 100vh;
   z-index: 20;
-  padding-top: $navbar-height;
+  padding-top: ($navbar-height * 2) + 6px;
   background-color: rgba(0, 0, 0, 0.3);
+
+  @media (min-width: $screen-sm-min) {
+    padding-top: $navbar-height + 6px;
+  }
 
   .container {
     background-color: $soft-gray;

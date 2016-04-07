@@ -1,9 +1,10 @@
 angular.module('whaler.controllers').controller 'Container.SearchController', [
   '$scope',
   '$timeout'
+  '$mdDialog'
   'SearchService',
   'ImageFactory'
-  SearchController = ($scope, $timeout, @SearchService, @ImageFactory) ->
+  SearchController = ($scope, $timeout, @$mdDialog, @SearchService, @ImageFactory) ->
     debounce = null
 
     $scope.$watch (() => return @SearchService.query), (term) =>
@@ -23,8 +24,12 @@ SearchController::getImages = (query) ->
 
 
 SearchController::run = (image) ->
-  image.$loading = @ImageFactory.run { id: image.id, tag: image.tag.name }, () =>
-    @SearchService.hidePane()
-
-SearchController::loadTags = (image) ->
-  image.tags = @ImageFactory.tags image: image.id unless image.tags
+  @$mdDialog.show({
+    controller: 'Container.NewController as newCtrl',
+    templateUrl: 'newContainerForm.tmpl.html',
+    parent: angular.element(document.body),
+    bindToController: true
+    locals:
+      image: image
+    clickOutsideToClose:true
+  })

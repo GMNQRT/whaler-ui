@@ -1,29 +1,28 @@
-di ng-controller="Container.ListController as listCtrl"
-  md-list.container-list.scrollbar-small
-    md-list-item.container-card[
-      ng-repeat="container in listCtrl.ContainerService.containers track by $index"
-      ng-click="listCtrl.select(container)"
-      md-swipe-left="listCtrl.swipeLeft(container)"
-      ng-class="{
-        'container-swiped': listCtrl.isSwipedLeft(container),
-        'container-active': listCtrl.isActive(container),
-        'container-success': container.info.State.Running,
-        'container-warning': container.info.State.Paused,
-        'container-danger': container.info.State.Dead
-      }"
-    ]
-      i.state-icon.md-avatar-icon {{ container.info.Name|limitTo:1:1 }}
-      aside.leave-behinds.btn-group role="group"
-        a.btn.btn-danger.col-xs-3 ng-show="!container.info.State.Running && !container.info.State.Paused" ng-click="listCtrl.remove(container)" Remove
-        a.btn.btn-success.col-xs-3 ng-show="!container.info.State.Running" ng-click="listCtrl.start(container)": i.fa.fa-play
-        a.btn.btn-danger.col-xs-3 ng-show="container.info.State.Running || container.info.State.Paused" ng-click="listCtrl.stop(container)": i.fa.fa-stop
-        a.btn.btn-warning.col-xs-3 ng-show="container.info.State.Running" ng-click="listCtrl.pause(container)": i.fa.fa-pause
-        a.btn.btn-default.col-xs-3 ng-show="container.info.State.Running || container.info.State.Paused" ng-click="listCtrl.restart(container)": i.fa.fa-undo
-      .md-list-item-text
-        .md-secondary
-          small.container-time {{ container.info.Created|timeAgo }}
-        h3.md-subhead.container-title {{ container.info.Name|limitTo:container.info.Name.length:1 }}
-        small.container-image {{ container.info.Config.Image }}
-      md-divider ng-if="!$last"
+md-list.container-list.scrollbar-small ng-controller="Container.ListController as listCtrl"
+  md-list-item.container-card[
+    ng-repeat="container in listCtrl.ContainerService.containers track by $index"
+    ng-click="listCtrl.select(container)"
+    md-swipe-left="listCtrl.swipeLeft(container)"
+    ng-class="{
+      'container-swiped': listCtrl.isSwipedLeft(container),
+      'container-active': listCtrl.isActive(container),
+      'container-success': container.info.State.Running,
+      'container-warning': container.info.State.Paused,
+      'container-danger': container.info.State.Dead
+    }"
+  ]
+    i.state-icon.md-avatar-icon {{ container.info.Name|limitTo:1:1 }}
+    aside.leave-behinds.btn-group role="group"
+      a.btn.btn-danger.col-xs-3 ng-show="!container.info.State.Running && !container.info.State.Paused" ng-click="listCtrl.remove(container)" Remove
+      a.btn.btn-success.col-xs-3 ng-show="!container.info.State.Running" ng-click="listCtrl.start(container)": i.fa.fa-play
+      a.btn.btn-danger.col-xs-3 ng-show="container.info.State.Running || container.info.State.Paused" ng-click="listCtrl.stop(container)": i.fa.fa-stop
+      a.btn.btn-warning.col-xs-3 ng-show="container.info.State.Running" ng-click="listCtrl.pause(container)": i.fa.fa-pause
+      a.btn.btn-default.col-xs-3 ng-show="container.info.State.Running || container.info.State.Paused" ng-click="listCtrl.restart(container)": i.fa.fa-undo
+    .md-list-item-text
+      .md-secondary
+        small.container-time {{ container.info.Created|timeAgo }}
+      h3.md-subhead.container-title {{ container.info.Name|limitTo:container.info.Name.length:1 }}
+      small.container-image {{ container.info.Config.Image }}
+    md-divider ng-if="!$last"
 
   md-button.md-fab.md-accent.btn-float ng-click="listCtrl.add()" +

@@ -73,15 +73,15 @@
       md-card-header
         .list-header.p-r
           md-checkbox aria-label="Select All" md-indeterminate="ctrl.isIndeterminate(ctrl.checks.volume, binds)" ng-checked="ctrl.isAllChecked(ctrl.checks.volume, binds)" ng-click="ctrl.toggleAll(ctrl.checks.volume, binds)"
-          .text-overflow flex="50" Volume name
+          .text-overflow flex="50" Container directory
           .text-overflow flex="50" Host directory
       md-card-content
         md-list
           md-list-item ng-repeat="volume in binds = ctrl.selectedContainer.info.HostConfig.Binds"
             md-checkbox aria-label="Select" ng-checked="ctrl.isChecked(volume, ctrl.checks.volume)" ng-click="ctrl.toggle(volume, ctrl.checks.volume)"
             .md-list-item-text.p-r layout="row" flex="grow"
-              .text-overflow.text-bold flex="50" {{ volume.split(':')[0] }}  
-              .text-overflow flex="50" {{ volume.split(':')[1] }}
+              .text-overflow.text-bold flex="50" {{ volume.split(':')[1] }}  
+              .text-overflow flex="50" {{ volume.split(':')[0] }}
             md-menu.md-secondary md-position-mode="target-right target"
               md-button.md-icon-button ng-click="$mdOpenMenu($event)" aria-label="More"
                 i.material-icons md-menu-origin="" more_vert
@@ -91,7 +91,7 @@
       md-card-actions layout="column"
         form name="ctrl.forms.volumes" novalidate="" layout="row"
           md-input-container.md-block flex="50"
-            label Volume name
+            label Container directory
             input type="text" ng-model="ctrl.models.volume.name" required=""
           md-input-container.md-block flex="50"
             label Host directory

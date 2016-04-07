@@ -119,7 +119,48 @@ $page-header-bg: white;
   .results {
 
     .image-card {
-      height: 140px;
+      height: 180px;
     }
+  }
+}
+
+#newContainerForm {
+  .container {
+    max-width: 700px;
+
+    & > section:not(:last-child) {
+      margin-bottom: 30px
+    }
+  }
+  .md-subheader {
+    font-weight: bold;
+
+    .md-subheader-inner {
+      padding-left: 0;
+    }
+  }
+
+  .list-header {
+    md-checkbox {
+      margin-right: 10px;
+
+      & + .md-label {
+        display: none;
+      }
+    }
+  }
+  .table-input-container {
+    margin-bottom: 50px;
+  }
+  .table-input-container > label {
+    color: rgba(0, 0, 0, 0.26);
+    order: 1;
+    pointer-events: none;
+    -webkit-font-smoothing: antialiased;
+    padding-left: 3px;
+    padding-right: 0;
+    z-index: 1;
+    padding-bottom: 10px;
+    position: relative;
   }
 }

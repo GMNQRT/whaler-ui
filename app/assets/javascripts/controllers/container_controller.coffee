@@ -62,7 +62,7 @@ ContainerController::mountVolume = (volume) ->
     hostConfigData          = angular.copy @selectedContainer.info.HostConfig
     hostConfigData.Binds || = []
 
-    hostConfigData.Binds.push "#{volume.name}:#{volume.hostDirectory}"
+    hostConfigData.Binds.push "#{volume.hostDirectory}:#{volume.name}"
     @ContainerFactory.binds { id: @selectedContainer.id }, data: hostConfigData, () =>
       @models.volume = {}
       @forms.volumes.$setUntouched()

@@ -5,9 +5,9 @@
       'one': '1 result for {{ searchCtrl.query }}',\
       'other': '{} results for {{ searchCtrl.query }}'\
     }"
-  .results
-    .col-xs-4 ng-repeat="image in searchCtrl.images"
-      md-card.image-card
+  .results layout="row" layout-wrap="" layout-align="center strech"
+    div flex="33" ng-repeat="image in searchCtrl.images" layout="row" layout-align="center strech"
+      md-card.image-search-card
         md-card-header
           md-card-header-text
               h3.md-title {{ image.info.name }}

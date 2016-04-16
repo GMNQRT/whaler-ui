@@ -13,11 +13,9 @@ $container-card-transition-duration: .4s;
   height: $container-card-height;
   cursor: pointer;
   overflow: hidden;
-  @include transition(all ease-in $container-card-transition-duration);
 
-  &:hover {
-    border-left-color: fade-out($soft-gray, 0.6);
-    background-color: fade-out($soft-gray, 0.6);
+  & button:hover .state-icon:after {
+    border-color: #ECECEC;
   }
   &.container-active {
     border-left-color: $brand-primary;
@@ -36,31 +34,31 @@ $container-card-transition-duration: .4s;
     }
   }
 
-  &:after {
+  .state-icon:after {
     content: '';
     display: block;
     position: absolute;
-    z-index: 2;
-    top: 50%;
-    right: ($grid-gutter-width / 2);
-    width: 10px;
-    height: 10px;
-    border-width: 3px;
+    bottom: -6px;
+    right: 0;
+    width: 15px;
+    height: 15px;
+    border-width: 2px;
     border-style: solid;
-    border-color: $soft-gray;
+    border-color: white;
     border-radius: 100%;
+    background-color: $soft-gray;
   }
 
-  &.container-success:after {
-      border-color: fade-out($green, 0.3);
+  &.container-success .state-icon:after {
+      background-color: $green;
   }
 
-  &.container-warning:after {
-      border-color: fade-out($brand-warning, 0.3);
+  &.container-warning .state-icon:after {
+      background-color: $brand-warning;
   }
 
-  &.container-danger:after {
-      border-color: fade-out($red, 0.3);
+  &.container-danger .state-icon:after {
+      background-color: $red;
   }
 
   md-divider {
@@ -80,6 +78,7 @@ $container-card-transition-duration: .4s;
   }
 
   .state-icon {
+    position: relative;
     background-color: $soft-gray;
     height: 26px;
     width: 26px;

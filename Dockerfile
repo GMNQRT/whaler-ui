@@ -1,5 +1,5 @@
 # Base image with ruby 2.2.0
-FROM ruby:2.2.0
+FROM ruby:2.2.0-alpine
 
 # Install required libraries and dependencies
 RUN apt-get update && apt-get install -y nodejs nodejs-legacy npm --no-install-recommends && rm -rf /var/lib/apt/lists/*
